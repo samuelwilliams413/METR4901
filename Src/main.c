@@ -49,6 +49,9 @@
 #include "main.h"
 #include "stm32f3xx_hal.h"
 #include "cmsis_os.h"
+#include "stdlib.h"
+#include "stdio.h"
+#include "string.h"
 
 /* USER CODE BEGIN Includes */
 
@@ -62,11 +65,13 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 
 osThreadId defaultTaskHandle;
-osThreadId UART1TaskHandle;
-osThreadId UART2TaskHandle;
+osThreadId UART1TXTaskHandle;
+osThreadId UART2TXTaskHandle;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
+#define TXRXBUFFERSIZE	100
+uint8_t* confirmBuffer;
 
 /* USER CODE END PV */
 
@@ -75,11 +80,11 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_ADC2_Init(void);
-static void MX_USART2_UART_Init(void);
 static void MX_USART1_UART_Init(void);
+static void MX_USART2_UART_Init(void);
 void StartDefaultTask(void const * argument);
-void StartUART1Task(void const * argument);
-void StartUART2Task(void const * argument);
+void StartUART1TransmitTask(void const * argument);
+void StartUART2TransmitTask(void const * argument);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
@@ -97,7 +102,9 @@ void StartUART2Task(void const * argument);
  */
 int main(void) {
 	/* USER CODE BEGIN 1 */
-
+	confirmBuffer = (uint8_t*) malloc(sizeof(uint8_t) * 100);
+	memset(confirmBuffer, 0, 100);
+	sprintf(confirmBuffer, "********* BOOT COMPLETED *********\n\r");
 	/* USER CODE END 1 */
 
 	/* MCU Configuration----------------------------------------------------------*/
@@ -120,8 +127,8 @@ int main(void) {
 	MX_GPIO_Init();
 	MX_ADC1_Init();
 	MX_ADC2_Init();
-	MX_USART2_UART_Init();
 	MX_USART1_UART_Init();
+	MX_USART2_UART_Init();
 	/* USER CODE BEGIN 2 */
 
 	/* USER CODE END 2 */
@@ -141,12 +148,11 @@ int main(void) {
 	/* Create the thread(s) */
 	/* definition and creation of defaultTask */
 	osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
-	osThreadDef(UART1Task, StartUART1Task, osPriorityNormal, 0, 128);
-	osThreadDef(UART2Task, StartUART2Task, osPriorityNormal, 0, 128);
-
+	//osThreadDef(UART1TXTask, StartUART1TransmitTask, osPriorityNormal, 0, 128);
+	osThreadDef(UART2TXTask, StartUART2TransmitTask, osPriorityNormal, 0, 128);
 	defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
-	UART1TaskHandle = osThreadCreate(osThread(UART1Task), NULL);
-	UART1TaskHandle = osThreadCreate(osThread(UART2Task), NULL);
+	//UART1TXTaskHandle = osThreadCreate(osThread(UART1TXTask), NULL);
+	UART2TXTaskHandle = osThreadCreate(osThread(UART2TXTask), NULL);
 
 	/* USER CODE BEGIN RTOS_THREADS */
 	/* add threads, ... */
@@ -319,8 +325,8 @@ static void MX_ADC2_Init(void) {
 static void MX_USART1_UART_Init(void) {
 
 	huart1.Instance = USART1;
-	huart1.Init.BaudRate = 38400;
-	huart1.Init.WordLength = UART_WORDLENGTH_7B;
+	huart1.Init.BaudRate = 9600;
+	huart1.Init.WordLength = UART_WORDLENGTH_8B;
 	huart1.Init.StopBits = UART_STOPBITS_1;
 	huart1.Init.Parity = UART_PARITY_NONE;
 	huart1.Init.Mode = UART_MODE_TX_RX;
@@ -338,7 +344,7 @@ static void MX_USART1_UART_Init(void) {
 static void MX_USART2_UART_Init(void) {
 
 	huart2.Instance = USART2;
-	huart2.Init.BaudRate = 38400;
+	huart2.Init.BaudRate = 9600;
 	huart2.Init.StopBits = UART_STOPBITS_1;
 	huart2.Init.Parity = UART_PARITY_NONE;
 	huart2.Init.Mode = UART_MODE_TX_RX;
@@ -392,6 +398,36 @@ void StartDefaultTask(void const * argument) {
 	/* Infinite loop */
 	for (;;) {
 		HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+		osDelay(100);
+	}
+	/* USER CODE END 5 */
+}
+
+/* StartDefaultTask function */
+void StartUART1TransmitTask(void const * argument) {
+
+	/* USER CODE BEGIN 5 */
+	/* Infinite loop */
+	for (;;) {
+		if (HAL_UART_Transmit(&huart1, (uint8_t*) confirmBuffer,
+				TXRXBUFFERSIZE, 1000) != HAL_OK) {
+			Error_Handler();
+		}
+		osDelay(100);
+	}
+	/* USER CODE END 5 */
+}
+
+/* StartDefaultTask function */
+void StartUART2TransmitTask(void const * argument) {
+
+	/* USER CODE BEGIN 5 */
+	/* Infinite loop */
+	for (;;) {
+		if (HAL_UART_Transmit(&huart2, (uint8_t*) confirmBuffer,
+				TXRXBUFFERSIZE, 1000) != HAL_OK) {
+			Error_Handler();
+		}
 		osDelay(100);
 	}
 	/* USER CODE END 5 */
