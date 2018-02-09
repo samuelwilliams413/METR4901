@@ -477,6 +477,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 /* StartUART1TransmitTask function */
 void StartUART1TransmitTask(void const * argument) {
 	uint8_t byte;
+	uint8_t index;
 	memset(TX1Buffer, 0, TXRXBUFFERSIZE);
 	sprintf(TX1Buffer, "********* StartUART1TransmitTask *********\n\r");
 
@@ -484,17 +485,23 @@ void StartUART1TransmitTask(void const * argument) {
 	HAL_UART_Receive_IT(&huart1, &byte, 1);
 
 	for (;;) {
+		memset(RX1Buffer, 0, TXRXBUFFERSIZE);
+		sprintf(RX1Buffer, "GOT: ");
+		index = 0;
 		//Check messages from queue
 		if (uxQueueMessagesWaiting(UART1QueueHandle) > 0) {
 			while (uxQueueMessagesWaiting(UART1QueueHandle) > 0) {
 				//Get messages from queue
 				xQueueReceive(UART1QueueHandle, &(byte), (TickType_t ) 10);
 				//Echo back characters
-				if (HAL_UART_Transmit(&huart1, &byte, 1, 1000) != HAL_OK) {
-					Error_Handler();
-				}
+				sprintf(RX1Buffer, byte);
 			}
 		}
+		sprintf(RX1Buffer, "\n\r");
+		if (HAL_UART_Transmit(&huart1, (uint8_t*) RX1Buffer,
+		  		  		TXRXBUFFERSIZE, 1000) != HAL_OK) {
+		  		  			Error_Handler();
+		  		  		}
 		osDelay(500);
 	}
 }
