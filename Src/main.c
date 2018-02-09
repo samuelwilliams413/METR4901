@@ -64,6 +64,7 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 
 osThreadId defaultTaskHandle;
+osMessageQId UART1QueueHandle;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
@@ -96,6 +97,7 @@ void StartDefaultTask(void const * argument);
 void StartUART1TransmitTask(void const * argument);
 void StartUART1ReceiveTask(void const * argument);
 void StartUART2TransmitTask(void const * argument);
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
@@ -168,6 +170,7 @@ int main(void) {
 	/* definition and creation of defaultTask */
 	osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
 	defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+
 	/* USER CODE BEGIN RTOS_THREADS */
 	osThreadDef(UART1TXTask, StartUART1TransmitTask, osPriorityNormal, 0, 128);
 	osThreadDef(UART2TXTask, StartUART2TransmitTask, osPriorityNormal, 0, 128);
@@ -179,25 +182,12 @@ int main(void) {
 	//UART1RXTaskHandle = osThreadCreate(osThread(UART1RXTask), NULL);
 	/* USER CODE END RTOS_THREADS */
 
+	/* Create the queue(s) */
+	/* definition and creation of UART1Queue */
+	osMessageQDef(UART1Queue, 16, uint16_t);
+	UART1QueueHandle = osMessageCreate(osMessageQ(UART1Queue), NULL);
+
 	/* USER CODE BEGIN RTOS_QUEUES */
-
-	__HAL_UART_ENABLE_IT(&huart1, UART_IT_TXE);
-	__HAL_UART_ENABLE_IT(&huart2, UART_IT_TXE);
-
-	__HAL_UART_ENABLE_IT(&huart1, UART_IT_RXNE);
-	__HAL_UART_ENABLE_IT(&huart2, UART_IT_RXNE);
-
-	memset(TX1Buffer, 0, TXRXBUFFERSIZE);
-	sprintf(TX1Buffer, "********* BOOTING *********\n\r");
-
-	if (HAL_UART_Transmit(&huart1, (uint8_t*) TX1Buffer,
-	TXRXBUFFERSIZE, 1000) != HAL_OK) {
-		Error_Handler();
-	}
-	if (HAL_UART_Transmit(&huart2, (uint8_t*) TX1Buffer,
-	TXRXBUFFERSIZE, 1000) != HAL_OK) {
-		Error_Handler();
-	}
 
 	/* USER CODE END RTOS_QUEUES */
 
@@ -428,49 +418,59 @@ static void MX_GPIO_Init(void) {
 }
 
 /* USER CODE BEGIN 4 */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+	//Check if UART1
+	if (huart->Instance == USART1) {
+		uint8_t byte;
+		//Receive one byte
+		HAL_UART_Receive_IT(&huart1, &byte, 1);
+		//Send byte to queue
+		xQueueSendToBackFromISR(UART1QueueHandle, (void * ) &byte, NULL);
+	}
+}
 
 /* StartUART1TransmitTask function */
 void StartUART1TransmitTask(void const * argument) {
-	/* Infinite loop */
 	memset(TX1Buffer, 0, TXRXBUFFERSIZE);
-	sprintf(TX1Buffer, "********* StartUART1TransmitTask *********\n\r");
+	sprintf(TX1Buffer, "********* BOOTING *********\n\r");
+
+	if (HAL_UART_Transmit(&huart1, (uint8_t*) TX1Buffer,
+	TXRXBUFFERSIZE, 1000) != HAL_OK) {
+		Error_Handler();
+	}
+
+	osDelay(1000);
+	uint8_t byte;
+	//Start receiving
+	//HAL_UART_Receive_IT(&huart1, &byte, 1);
+
+	memset(TX1Buffer, 0, TXRXBUFFERSIZE);
+	sprintf(TX1Buffer, "********* INTERUPT ENABLED *********\n\r");
+
+	if (HAL_UART_Transmit(&huart1, (uint8_t*) TX1Buffer,
+	TXRXBUFFERSIZE, 1000) != HAL_OK) {
+		Error_Handler();
+	}
+
 	for (;;) {
-		__HAL_UART_CLEAR_IT(&huart1, UART_CLEAR_NEF|UART_CLEAR_OREF);
-		while (__HAL_UART_GET_FLAG(&huart1, USART_ISR_BUSY) == SET);
-		while (__HAL_UART_GET_FLAG(&huart1, USART_ISR_REACK) == RESET);
-
-
-
-		RX1Buffer_Flag = 0;
-
+		memset(TX1Buffer, 0, TXRXBUFFERSIZE);
+			sprintf(TX1Buffer, "void StartUART1TransmitTask(void const * argument)\n\r");
 		if (HAL_UART_Transmit(&huart1, (uint8_t*) TX1Buffer,
-		TXRXBUFFERSIZE, 1000) != HAL_OK) {
-			Error_Handler();
-		}
-
-		while (__HAL_UART_GET_FLAG(&huart1, USART_ISR_BUSY) == SET);
-		while (__HAL_UART_GET_FLAG(&huart1, USART_ISR_REACK) == RESET);
-
-		status = HAL_UART_Receive_IT(&huart1, (uint8_t*) RX1Buffer,
-				TXRXBUFFERSIZE);
-		if (status == HAL_ERROR) {
-			Error_Handler();
-		} else if (status == HAL_TIMEOUT){
-			memset(TX1Buffer, 0, TXRXBUFFERSIZE);
-			sprintf(TX1Buffer, "status == HAL_TIMEOUT\n\r");
-		} else if (status == HAL_OK){
-			memset(TX1Buffer, 0, TXRXBUFFERSIZE);
-			sprintf(TX1Buffer, "status == HAL_OK\n\r");
-		} else if (status == HAL_BUSY){
-			memset(TX1Buffer, 0, TXRXBUFFERSIZE);
-			sprintf(TX1Buffer, "status == HAL_BUSY\n\r");
-		}
-
-
-
-
-		osDelay(100);
-		osThreadYield();
+			TXRXBUFFERSIZE, 1000) != HAL_OK) {
+				Error_Handler();
+			}
+	}
+	for (;;) {
+		//Check messages from queue
+		//while (uxQueueMessagesWaiting(UART1QueueHandle) > 0) {
+			//Get messages from queue
+		//	xQueueReceive(UART1QueueHandle, &(byte), (TickType_t ) 10);
+			//Echo back characters
+		//	HAL_UART_Transmit(&huart1, &byte, 1, 1000);
+		//}
+		//Send Hi
+		HAL_UART_Transmit(&huart1, (uint8_t *) "Hi\n\r", 4, 1000);
+		osDelay(1000);
 	}
 }
 
