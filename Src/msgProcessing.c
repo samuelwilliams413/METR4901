@@ -8,9 +8,71 @@
 #include "stdlib.h"
 #include "stdio.h"
 #include "string.h"
+#include "cmsis_os.h"
+
+#define TRUE			1
+#define FALSE			0
+#define MSG_DEBUG_MODE 	TRUE
+#define errorMsgSize	100
+
+struct MSG {
+	uint8_t type;
+	uint8_t ID[2];
+	uint8_t sign;
+	uint8_t value;
+};
+
+enum messageERROR {
+	BAD_TYPE = 0,
+	BAD_ID = 1,
+	BAD_SIGN = 2,
+	BAD_LHS = 3,
+	BAD_DOT = 4,
+	BAD_RHS = 5,
+	BAD_COLON = 6,
+	BAD_LEN = 7
+};
 
 /* External variables --------------------------------------------------------*/
 
+/**
+ * @brief  Send out an error message if an incoming message is incorrect
+ */
+void msgERROR(enum messageERROR e, uint8_t c) {
+	uint8_t* m = (uint8_t*) malloc(sizeof(uint8_t) * errorMsgSize);
+	memset(m, 0, errorMsgSize);
+	switch(e) {
+	case BAD_TYPE:
+		sprintf(m, "BAD_TYPE|%c|\n\r", c);
+		break;
+	case BAD_ID:
+		sprintf(m, "BAD_ID|%c|\n\r", c);
+		break;
+	case BAD_SIGN:
+		sprintf(m, "BAD_SIGN|%c|\n\r", c);
+		break;
+	case BAD_LHS:
+		sprintf(m, "BAD_LHS|%c|\n\r", c);
+		break;
+	case BAD_DOT:
+		sprintf(m, "BAD_DOT|%c|\n\r", c);
+		break;
+	case BAD_RHS:
+		sprintf(m, "BAD_RHS|%c|\n\r", c);
+		break;
+	case BAD_COLON:
+		sprintf(m, "BAD_COLON|%c|\n\r", c);
+		break;
+	case BAD_LEN:
+		sprintf(m, "BAD_LEN\n\r");
+		break;
+	default:
+		sprintf(m, "BAD_MSG (you should not see this)\n\r");
+		break;
+	}
+
+	return;
+}
 /**
  * @brief  Checks if message type is valid
  * @note   This function is dependant on a preagreed set of definitions for paramaters
@@ -69,12 +131,10 @@ uint8_t aNumber(uint8_t c) {
 	return ((c >= '0') ? ((c <= '9') ? 1 : 0) : 0);
 }
 
-
 /**
  * @brief  Turns the left and right side of a message value into a single number
- * @note   An int cannot store a decimal, so all values shall be
- * @param  c : character to be evaluated
- * @retval 1 if a colon, 0 otherwise
+ * @note   An int cannot store a decimal, so all values shall be stored as large ints (to three decimal places)
+ * @retval the value
  */
 uint8_t numToValue(uint8_t left, uint8_t right) {
 	return (left * 1000 + right);
@@ -85,13 +145,144 @@ uint8_t numToValue(uint8_t left, uint8_t right) {
  * @param  c : character to be evaluated
  * @retval 1 if a number, 0 otherwise
  */
-void contructMSG(char* msg, uint8_t type, uint8_t ID[2], uint8_t sign,
-		uint8_t value) {
-	uint8_t left = value % 1000;
-	uint8_t right = value / 1000;
-	sprintf(msg, "GOT: %c%d%d%c%d.%d;\n\r", type, ID[0], ID[1],
+void contructMSG(char* message, struct MSG* msg) {
+
+	uint8_t type = msg->type;
+	uint8_t ID[2] = { 0 };
+	ID[0] = msg->ID[0];
+	ID[1] = msg->ID[1];
+	uint8_t sign = msg->sign;
+	uint8_t left = (msg->value) % 1000;
+	uint8_t right = (msg->value) / 1000;
+
+	sprintf(message, "GOT: %c%d%d%c%d.%d;\n\r", type, ID[0], ID[1],
 			((sign == 1) ? '+' : '-'), left, right);
 	return;
 }
+
+/**
+ * @brief  Gets a message from a Queue
+ * @note   This function calls the msgERROR function which will produce TX output for debuffing purposes if MSG_DEBUG_MODE is true
+ * @param  Queue the RX queue to be read from
+ * @retval 1 if a number, 0 otherwise
+ */
+uint8_t readMSG(struct MSG* msg, osMessageQId Queue) {
+	uint8_t Q, i;
+
+	uint8_t COMPLETE = FALSE;
+
+	uint8_t type = 0;
+	uint8_t ID[2] = 0;
+	uint8_t sign = 0;
+	uint8_t left = 0;
+	uint8_t right = 0;
+
+
+	// GET TYPE
+	if (uxQueueMessagesWaiting(Queue) > 0) {
+		xQueueReceive(Queue, &(Q), (TickType_t ) 10);
+		if (aLetter(Q)) {
+			type = Q;
+		} else {
+			if (MSG_DEBUG_MODE) {
+				msgERROR(BAD_TYPE, Q);
+				return COMPLETE;
+			}
+		}
+	} else {
+		if (MSG_DEBUG_MODE) {
+			msgERROR(BAD_LEN, Q);
+		}
+		return COMPLETE;
+	}
+
+	// GET ID
+	if (uxQueueMessagesWaiting(Queue) > 1) {
+		for (i = 0; i < 2; i++) {
+			xQueueReceive(Queue, &(Q), (TickType_t ) 10);
+			if (aNumber(Q)) {
+				ID[i] = Q;
+			} else {
+				if (MSG_DEBUG_MODE) {
+					msgERROR(BAD_ID, Q);
+					return COMPLETE;
+				}
+			}
+		}
+	} else {
+		if (MSG_DEBUG_MODE) {
+			msgERROR(BAD_LEN, Q);
+		}
+		return COMPLETE;
+	}
+
+	// GET SIGN
+	if (uxQueueMessagesWaiting(Queue) > 0) {
+		xQueueReceive(Queue, &(Q), (TickType_t ) 10);
+		if (aSign(Q)) {
+			sign = Q;
+		} else {
+			if (MSG_DEBUG_MODE) {
+				msgERROR(BAD_SIGN, Q);
+				return COMPLETE;
+			}
+		}
+	} else {
+		if (MSG_DEBUG_MODE) {
+			msgERROR(BAD_LEN, Q);
+		}
+		return COMPLETE;
+	}
+
+	// ADD LHS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+	// GET DOT
+	if (uxQueueMessagesWaiting(Queue) > 0) {
+		xQueueReceive(Queue, &(Q), (TickType_t ) 10);
+		if (!aDot(Q)) {
+			if (MSG_DEBUG_MODE) {
+				msgERROR(BAD_DOT, Q);
+				return COMPLETE;
+			}
+		}
+	} else {
+		if (MSG_DEBUG_MODE) {
+			msgERROR(BAD_LEN, Q);
+		}
+		return COMPLETE;
+	}
+
+	// ADD RHS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+	// GET END CHARACTER
+	if (uxQueueMessagesWaiting(Queue) > 0) {
+		xQueueReceive(Queue, &(Q), (TickType_t ) 10);
+		if (!aColon(Q)) {
+			if (MSG_DEBUG_MODE) {
+				msgERROR(BAD_COLON, Q);
+				return COMPLETE;
+			}
+		}
+	} else {
+		if (MSG_DEBUG_MODE) {
+			msgERROR(BAD_LEN, Q);
+		}
+		return COMPLETE;
+	}
+	msg->type = type;
+	msg->ID[0] = ID[0];
+	msg->ID[1] = ID[1];
+	msg->sign = sign;
+	msg->value; // FIX THIS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	COMPLETE = TRUE;
+	return COMPLETE;
+}
+
+//if (uxQueueMessagesWaiting(UART2QueueHandle) > 0) {
+//	while (uxQueueMessagesWaiting(UART2QueueHandle) > 0) {
+//		//Get messages from queue
+//		xQueueReceive(UART2QueueHandle, &(byte), (TickType_t ) 10);
 
 /*****************************END OF FILE****/
