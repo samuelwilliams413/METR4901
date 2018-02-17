@@ -54,6 +54,8 @@
 #include "stdlib.h"
 #include "stdio.h"
 #include "string.h"
+#include "msgProcessing.h"
+#include "deviceParameters.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/

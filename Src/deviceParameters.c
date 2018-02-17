@@ -1,11 +1,12 @@
 /**
-  ******************************************************************************
-  * @file    msgProcessing.c
-  * @brief   This file contains the hadeviceParameters
-  */
+ ******************************************************************************
+ * @file    deviceParameters.c
+ * @brief   This file contains the deviceParameters
+ */
 /* Includes ------------------------------------------------------------------*/
 #include "deviceParameters.h"
-
+#include "stdlib.h"
+#include "stdio.h"
 
 /* External variables --------------------------------------------------------*/
 
@@ -17,21 +18,35 @@
  * 4 - Right Foot
  * 5 - Right Shin
  * 6 - Right Thigh
-  */
+ */
 enum LOC {
-	LF = 0, 
-	LS = 1, 
-	LT = 2, 
-	RF = 4,
-	RS = 5,
-	RT = 6
+	LF = 0, LS = 1, LT = 2, RF = 3, RS = 4, RT = 5
 };
 
 /* This is the identity of the current device */
 #define		EGO		LF
 
 /**
-* @brief This function shifts characters by one in a buffer.
-*/
+ * @brief  Returns a preassigned ID for each component of the exoskeleton
+ * @note   This function is dependant on a preagreed set of definitions for each component
+ * @param  s : sensor number (must not be negative)
+ * @retval ID if found, 0 otherwise
+ */
+uint8_t getID(uint8_t s) {
+
+	if (s < 4) { // Proximity sensors
+		return (EGO * 4 + s);
+
+	} else { // Force sensors
+		return (EGO * 2 + (s - 4) + 24);
+	}
+}
+
+/**
+ * @brief  Returns the ego of the current device (this is who the device thinks it is)
+ */
+uint8_t getEGO() {
+	return EGO;
+}
 
 /*****************************END OF FILE****/
