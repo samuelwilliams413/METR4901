@@ -41,9 +41,9 @@ enum messageERROR {
 void msgERROR(enum messageERROR e, uint8_t c) {
 	uint8_t* m = (uint8_t*) malloc(sizeof(uint8_t) * errorMsgSize);
 	memset(m, 0, errorMsgSize);
-	switch(e) {
+	switch (e) {
 	case BAD_TYPE:
-		sprintf(m, "BAD_TYPE|%c|\n\r", c);
+		sprintf(m, (uint8_t*) "BAD_TYPE|%c|\n\r", c);
 		break;
 	case BAD_ID:
 		sprintf(m, "BAD_ID|%c|\n\r", c);
@@ -167,16 +167,20 @@ void contructMSG(char* message, struct MSG* msg) {
  * @retval 1 if a number, 0 otherwise
  */
 uint8_t readMSG(struct MSG* msg, osMessageQId Queue) {
-	uint8_t Q, i;
+	uint8_t Q, i, LHSi;
 
 	uint8_t COMPLETE = FALSE;
 
 	uint8_t type = 0;
-	uint8_t ID[2] = 0;
+	uint8_t ID[2] = { 0, 0 };
 	uint8_t sign = 0;
-	uint8_t left = 0;
-	uint8_t right = 0;
+	uint8_t value = 0;
 
+	uint8_t valueBuffer = 10;
+	uint8_t* LHS = (uint8_t*) malloc(sizeof(uint8_t) * valueBuffer);
+	memset(LHS, 0, valueBuffer);
+	uint8_t* RHS = (uint8_t*) malloc(sizeof(uint8_t) * valueBuffer);
+	memset(RHS, 0, valueBuffer);
 
 	// GET TYPE
 	if (uxQueueMessagesWaiting(Queue) > 0) {
@@ -234,12 +238,21 @@ uint8_t readMSG(struct MSG* msg, osMessageQId Queue) {
 		return COMPLETE;
 	}
 
-	// ADD LHS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-	// GET DOT
-	if (uxQueueMessagesWaiting(Queue) > 0) {
+	i = 0;
+	if (uxQueueMessagesWaiting(Queue) > 1) {
 		xQueueReceive(Queue, &(Q), (TickType_t ) 10);
+		while (aNumber(Q)) {
+			LHS[i] = Q;
+			i++;
+			xQueueReceive(Queue, &(Q), (TickType_t ) 10);
+		}
+		if (i == i) {
+			if (MSG_DEBUG_MODE) {
+				msgERROR(BAD_LHS, Q);
+				return COMPLETE;
+			}
+		}
+
 		if (!aDot(Q)) {
 			if (MSG_DEBUG_MODE) {
 				msgERROR(BAD_DOT, Q);
@@ -252,16 +265,25 @@ uint8_t readMSG(struct MSG* msg, osMessageQId Queue) {
 		}
 		return COMPLETE;
 	}
-
-	// ADD RHS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-	// GET END CHARACTER
-	if (uxQueueMessagesWaiting(Queue) > 0) {
+	LHSi = i;
+	i = 0;
+	if (uxQueueMessagesWaiting(Queue) > 1) {
 		xQueueReceive(Queue, &(Q), (TickType_t ) 10);
+		while (aNumber(Q)) {
+			RHS[i] = Q;
+			i++;
+			xQueueReceive(Queue, &(Q), (TickType_t ) 10);
+		}
+		if (i == i) {
+			if (MSG_DEBUG_MODE) {
+				msgERROR(BAD_RHS, Q);
+				return COMPLETE;
+			}
+		}
+
 		if (!aColon(Q)) {
 			if (MSG_DEBUG_MODE) {
-				msgERROR(BAD_COLON, Q);
+				msgERROR(BAD_DOT, Q);
 				return COMPLETE;
 			}
 		}
@@ -271,11 +293,18 @@ uint8_t readMSG(struct MSG* msg, osMessageQId Queue) {
 		}
 		return COMPLETE;
 	}
+
+
+	for (i = 0; i < LHSi; i++) {
+		value = value*10 + LHS[i];
+	}
+	value = value*1000 + RHS[0] *100 +  RHS[1] *10 +  RHS[2];
+
 	msg->type = type;
 	msg->ID[0] = ID[0];
 	msg->ID[1] = ID[1];
 	msg->sign = sign;
-	msg->value; // FIX THIS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	msg->value = value;
 	COMPLETE = TRUE;
 	return COMPLETE;
 }
