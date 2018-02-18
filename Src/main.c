@@ -103,7 +103,6 @@ void StartDefaultTask(void const * argument);
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
 void StartUART1TransmitTask(void const * argument);
-void StartUART1ReceiveTask(void const * argument);
 void StartUART2TransmitTask(void const * argument);
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart);
 /* USER CODE END PFP */

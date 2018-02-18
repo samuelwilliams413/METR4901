@@ -39,11 +39,11 @@ enum messageERROR {
  * @brief  Send out an error message if an incoming message is incorrect
  */
 void msgERROR(enum messageERROR e, uint8_t c) {
-	uint8_t* m = (uint8_t*) malloc(sizeof(uint8_t) * errorMsgSize);
+	char* m = (char*) malloc(sizeof(char) * errorMsgSize);
 	memset(m, 0, errorMsgSize);
 	switch (e) {
 	case BAD_TYPE:
-		sprintf(m, (uint8_t*) "BAD_TYPE|%c|\n\r", c);
+		sprintf(m, "BAD_TYPE|%c|\n\r", c);
 		break;
 	case BAD_ID:
 		sprintf(m, "BAD_ID|%c|\n\r", c);
