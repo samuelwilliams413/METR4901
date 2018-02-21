@@ -89,6 +89,9 @@ osThreadId UART2TXTaskHandle;
 
 HAL_StatusTypeDef status;
 
+
+QueueHandle_t msgQueueHandle;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -202,14 +205,16 @@ int main(void)
 
   /* Create the queue(s) */
   /* definition and creation of UART1Queue */
-  osMessageQDef(UART1Queue, 128, uint8_t);
+  osMessageQDef(UART1Queue, 32, uint8_t);
   UART1QueueHandle = osMessageCreate(osMessageQ(UART1Queue), NULL);
 
   /* definition and creation of UART2Queue */
-  osMessageQDef(UART2Queue, 128, uint8_t);
+  osMessageQDef(UART2Queue, 32, uint8_t);
   UART2QueueHandle = osMessageCreate(osMessageQ(UART2Queue), NULL);
 
   /* USER CODE BEGIN RTOS_QUEUES */
+  msgQueueHandle = xQueueCreate(32, sizeof(struct MSG *));
+
 
   HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, 0);
 
@@ -225,6 +230,20 @@ int main(void)
 	TXRXBUFFERSIZE, 1000) != HAL_OK) {
 		Error_Handler();
 	}
+
+	  if (msgQueueHandle == NULL) {
+		  memset(TX1Buffer, 0, TXRXBUFFERSIZE);
+		  	sprintf(TX1Buffer,
+		  			"********* msgQueue Creation Failed *********\n\r");
+		  	if (HAL_UART_Transmit(&huart1, (uint8_t*) TX1Buffer,
+		  	TXRXBUFFERSIZE, 1000) != HAL_OK) {
+		  		Error_Handler();
+		  	}
+		  	if (HAL_UART_Transmit(&huart2, (uint8_t*) TX1Buffer,
+		  	TXRXBUFFERSIZE, 1000) != HAL_OK) {
+		  		Error_Handler();
+		  	}
+	  }
 
 	osDelay(1000);
 
