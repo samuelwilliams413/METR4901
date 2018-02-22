@@ -147,9 +147,9 @@ uint8_t numToValue(uint8_t left, uint8_t right) {
  * @param  c : character to be evaluated
  * @retval 1 if a number, 0 otherwise
  */
-void contructMSG(char* message, struct MSG msg) {
-	sprintf(message, "\n\r Received: %c%d%c%d.%d;\n\r", msg.type, msg.ID,
-			msg.sign, (msg.value / 1000), (msg.value % 1000));
+void contructMSG(char* message, struct MSG* msg) {
+	sprintf(message, "\n\r Received: %c%d%c%d.%d;\n\r", msg->type, msg->ID,
+			msg->sign, (msg->value / 1000), (msg->value % 1000));
 
 	return;
 }
@@ -160,7 +160,7 @@ void contructMSG(char* message, struct MSG msg) {
  * @param  Queue the RX queue to be read from
  * @retval 1 if a number, 0 otherwise
  */
-uint8_t readMSG(struct MSG msg, osMessageQId Queue, int t) {
+uint8_t readMSG(struct MSG* msg, osMessageQId Queue, int t) {
 
 	uint8_t Q, i, LHSi;
 
@@ -316,18 +316,16 @@ uint8_t readMSG(struct MSG msg, osMessageQId Queue, int t) {
 	value = (uint32_t) ((1000 * atoi(LHS)) + atoi(RHS));
 	if (MSG_DEBUG_MODE) {
 		memset(m, 0, errorMsgSize);
-		sprintf(m, "\n\r\t\t\t\t Value AAA: |%d|", value);
+		sprintf(m, "\n\r\t\t\t\t Value: |%d|", value);
 		transmit(2, m);
 	}
 
-	msg.type = type;
-	msg.ID = atoi(ID);
-	msg.sign = sign;
-	msg.value = value;
-
-	memset(m, 0, errorMsgSize);
-	contructMSG(m, msg);
-	transmit(2, m);
+	msg->type = type;
+	msg->ID = atoi(ID);
+	msg->sign = sign;
+	msg->value = (uint32_t) ((1000 * atoi(LHS)) + atoi(RHS));
+	COMPLETE = TRUE;
+	return COMPLETE;
 
 	COMPLETE = TRUE;
 	return COMPLETE;

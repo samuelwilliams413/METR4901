@@ -550,15 +550,11 @@ void StartUART2ReceiveTask(void const * argument) {
 
 				if (aLetter(byte)) {
 					// Read message
-					if (readMSG(msg, UART2QueueHandle, byte)) {
+					if (readMSG(&msg, UART2QueueHandle, byte)) {
 						memset(TX2Buffer, 0, TXRXBUFFERSIZE);
-						sprintf(TX2Buffer, "\n\r out");
-						transmit(2, TX2Buffer);
-						osDelay(50);
-						sprintf(TX2Buffer, "\n\r Received: %c%d%c%d.%d;\n\r", msg.type, msg.ID,msg.sign,
-									(msg.value/1000), (msg.value%1000));
-						transmit(2, TX2Buffer);
-						//contructMSG(TX2Buffer, msg);
+						sprintf(TX2Buffer, "\n\r Received: %c%d%c%d.%d;\n\r",
+								msg.type, msg.ID, msg.sign, (msg.value / 1000),
+								(msg.value % 1000));
 					}
 					transmit(2, TX2Buffer);
 				}
