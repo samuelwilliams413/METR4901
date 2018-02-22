@@ -22,6 +22,8 @@ struct MSG {
 	uint8_t value;
 };
 
+/* External variables --------------------------------------------------------*/
+
 enum messageERROR {
 	BAD_TYPE = 0,
 	BAD_ID = 1,
@@ -33,44 +35,44 @@ enum messageERROR {
 	BAD_LEN = 7
 };
 
-/* External variables --------------------------------------------------------*/
-
 /**
  * @brief  Send out an error message if an incoming message is incorrect
  */
 void msgERROR(enum messageERROR e, uint8_t c) {
 	char* m = (char*) malloc(sizeof(char) * errorMsgSize);
 	memset(m, 0, errorMsgSize);
+
 	switch (e) {
 	case BAD_TYPE:
-		sprintf(m, "BAD_TYPE|%c|\n\r", c);
+		sprintf(m, "\n\rBAD_TYPE|%c|\n\r", c);
 		break;
 	case BAD_ID:
-		sprintf(m, "BAD_ID|%c|\n\r", c);
+		sprintf(m, "\n\rBAD_ID|%c|\n\r", c);
 		break;
 	case BAD_SIGN:
-		sprintf(m, "BAD_SIGN|%c|\n\r", c);
+		sprintf(m, "\n\rBAD_SIGN|%c|\n\r", c);
 		break;
 	case BAD_LHS:
-		sprintf(m, "BAD_LHS|%c|\n\r", c);
+		sprintf(m, "\n\rBAD_LHS|%c|\n\r", c);
 		break;
 	case BAD_DOT:
-		sprintf(m, "BAD_DOT|%c|\n\r", c);
+		sprintf(m, "\n\rBAD_DOT|%c|\n\r", c);
 		break;
 	case BAD_RHS:
-		sprintf(m, "BAD_RHS|%c|\n\r", c);
+		sprintf(m, "\n\rBAD_RHS|%c|\n\r", c);
 		break;
 	case BAD_COLON:
-		sprintf(m, "BAD_COLON|%c|\n\r", c);
+		sprintf(m, "\n\rBAD_COLON|%c|\n\r", c);
 		break;
 	case BAD_LEN:
-		sprintf(m, "BAD_LEN\n\r");
+		sprintf(m, "\n\rBAD_LEN\n\r");
 		break;
 	default:
-		sprintf(m, "BAD_MSG (you should not see this)\n\r");
+		sprintf(m, "\n\rBAD_MSG (you should not see this)\n\r");
 		break;
 	}
-
+	transmit(1, m);
+	transmit(2, m);
 	return;
 }
 /**
@@ -166,7 +168,7 @@ void contructMSG(char* message, struct MSG* msg) {
  * @param  Queue the RX queue to be read from
  * @retval 1 if a number, 0 otherwise
  */
-uint8_t readMSG(struct MSG* msg, osMessageQId Queue) {
+uint8_t readMSG(struct MSG* msg, osMessageQId Queue, int t) {
 	uint8_t Q, i, LHSi;
 
 	uint8_t COMPLETE = FALSE;
@@ -182,17 +184,11 @@ uint8_t readMSG(struct MSG* msg, osMessageQId Queue) {
 	uint8_t* RHS = (uint8_t*) malloc(sizeof(uint8_t) * valueBuffer);
 	memset(RHS, 0, valueBuffer);
 
+	msgERROR(BAD_LEN, Q);
+	return COMPLETE;
 	// GET TYPE
 	if (uxQueueMessagesWaiting(Queue) > 0) {
-		xQueueReceive(Queue, &(Q), (TickType_t ) 10);
-		if (aLetter(Q)) {
-			type = Q;
-		} else {
-			if (MSG_DEBUG_MODE) {
-				msgERROR(BAD_TYPE, Q);
-				return COMPLETE;
-			}
-		}
+		type = t;
 	} else {
 		if (MSG_DEBUG_MODE) {
 			msgERROR(BAD_LEN, Q);
@@ -294,11 +290,10 @@ uint8_t readMSG(struct MSG* msg, osMessageQId Queue) {
 		return COMPLETE;
 	}
 
-
 	for (i = 0; i < LHSi; i++) {
-		value = value*10 + LHS[i];
+		value = value * 10 + LHS[i];
 	}
-	value = value*1000 + RHS[0] *100 +  RHS[1] *10 +  RHS[2];
+	value = value * 1000 + RHS[0] * 100 + RHS[1] * 10 + RHS[2];
 
 	msg->type = type;
 	msg->ID[0] = ID[0];

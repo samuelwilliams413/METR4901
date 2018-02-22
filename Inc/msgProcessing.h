@@ -14,6 +14,15 @@
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
+#include "msgProcessing.h"
+#include "stdlib.h"
+#include "stdio.h"
+#include "string.h"
+#include "cmsis_os.h"
+
+extern uint8_t aLetter(uint8_t);
+
+
 
 #endif /* __msgProcessing_H */
 
