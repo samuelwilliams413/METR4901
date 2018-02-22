@@ -147,7 +147,8 @@ uint8_t numToValue(uint8_t left, uint8_t right) {
  * @param  c : character to be evaluated
  * @retval 1 if a number, 0 otherwise
  */
-void contructMSG(char* message, struct MSG* msg) {
+void contructMSG(char* message, struct MSG* msg, int size) {
+	memset(message, 0, size);
 	sprintf(message, "\n\r Received: %c%d%c%d.%d;\n\r", msg->type, msg->ID,
 			msg->sign, (msg->value / 1000), (msg->value % 1000));
 

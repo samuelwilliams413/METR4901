@@ -73,6 +73,10 @@ osSemaphoreId UART1BinarySemHandle;
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 #define TXRXBUFFERSIZE	100
+#define TRUE			1
+#define FALSE			0
+#define VERBOSE			FALSE
+
 char* TX1Buffer;
 char* TX2Buffer;
 char* generalBuffer;
@@ -544,19 +548,19 @@ void StartUART2ReceiveTask(void const * argument) {
 				//Get messages from queue
 				xQueueReceive(UART2QueueHandle, &(byte), (TickType_t ) 10);
 
-				memset(TX2Buffer, 0, TXRXBUFFERSIZE);
-				sprintf(TX2Buffer, "\n\rGOT: |%c|%d|)", byte, byte);
-				transmit(2, TX2Buffer);
+				if (VERBOSE) {
+					memset(TX2Buffer, 0, TXRXBUFFERSIZE);
+					sprintf(TX2Buffer, "\n\rGOT: |%c|%d|)", byte, byte);
+					transmit(2, TX2Buffer);
+				}
 
 				if (aLetter(byte)) {
 					// Read message
 					if (readMSG(&msg, UART2QueueHandle, byte)) {
-						memset(TX2Buffer, 0, TXRXBUFFERSIZE);
-						sprintf(TX2Buffer, "\n\r Received: %c%d%c%d.%d;\n\r",
-								msg.type, msg.ID, msg.sign, (msg.value / 1000),
-								(msg.value % 1000));
+						contructMSG(TX2Buffer, &msg, TXRXBUFFERSIZE);
+						transmit(2, TX2Buffer);
 					}
-					transmit(2, TX2Buffer);
+
 				}
 			}
 		}
