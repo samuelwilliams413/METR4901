@@ -112,7 +112,7 @@ void StartUART2ReceiveTask(void const * argument);
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart);
 void transmit(int channel, char* b);
 void toMsg(char* b, char* msg);
-void initMsg(struct MSG* msg);
+void initMsg(struct MSG msg);
 
 /* USER CODE END PFP */
 
@@ -531,7 +531,7 @@ void StartUART2ReceiveTask(void const * argument) {
 	toMsg(TX2Buffer, ">>StartUART2TransmitTask\n\r");
 	transmit(2, TX2Buffer);
 
-	struct MSG* msg;
+	struct MSG msg;
 	initMsg(msg);
 
 	osDelay(1000);
@@ -550,12 +550,15 @@ void StartUART2ReceiveTask(void const * argument) {
 
 				if (aLetter(byte)) {
 					// Read message
-					toMsg(TX2Buffer, "\n\rUART2: Attempting to read");
-					transmit(2, TX2Buffer);
 					if (readMSG(msg, UART2QueueHandle, byte)) {
-						toMsg(TX2Buffer, "\n\rUART2: COMPLETE");
-					} else {
-						toMsg(TX2Buffer, "\n\rUART2: incomplete :(");
+						memset(TX2Buffer, 0, TXRXBUFFERSIZE);
+						sprintf(TX2Buffer, "\n\r out");
+						transmit(2, TX2Buffer);
+						osDelay(50);
+						sprintf(TX2Buffer, "\n\r Received: %c%d%c%d.%d;\n\r", msg.type, msg.ID,msg.sign,
+									(msg.value/1000), (msg.value%1000));
+						transmit(2, TX2Buffer);
+						//contructMSG(TX2Buffer, msg);
 					}
 					transmit(2, TX2Buffer);
 				}
@@ -571,12 +574,11 @@ void StartUART2ReceiveTask(void const * argument) {
 /**
  * @brief  initialise a message structure
  */
-void initMsg(struct MSG* msg) {
-	msg = (struct MSG*) malloc(sizeof(struct MSG*));
-	msg->type = 1;
-	msg->ID = 0;
-	msg->sign = 0;
-	msg->value = 0;
+void initMsg(struct MSG msg) {
+	msg.type = 1;
+	msg.ID = 0;
+	msg.sign = 0;
+	msg.value = 0;
 	return;
 }
 
