@@ -17,9 +17,9 @@
 
 struct MSG {
 	uint8_t type;
-	uint8_t ID[2];
+	uint8_t ID;
 	uint8_t sign;
-	uint8_t value;
+	uint32_t value;
 };
 
 /* External variables --------------------------------------------------------*/
@@ -148,17 +148,10 @@ uint8_t numToValue(uint8_t left, uint8_t right) {
  * @retval 1 if a number, 0 otherwise
  */
 void contructMSG(char* message, struct MSG* msg) {
+	uint8_t left = ((uint32_t) msg->value) % 1000;
+	uint8_t right = ((uint32_t) msg->value) / 1000;
+			sprintf(message, "\n\rGOT: %c%c%d%d.%d;\n\r"), msg->type, msg->sign, msg->ID, left, right;
 
-	uint8_t type = msg->type;
-	uint8_t ID[2] = { 0 };
-	ID[0] = msg->ID[0];
-	ID[1] = msg->ID[1];
-	uint8_t sign = msg->sign;
-	uint8_t left = (msg->value) % 1000;
-	uint8_t right = (msg->value) / 1000;
-
-	sprintf(message, "GOT: %c%d%d%c%d.%d;\n\r", type, ID[0], ID[1],
-			((sign == 1) ? '+' : '-'), left, right);
 	return;
 }
 
@@ -169,6 +162,8 @@ void contructMSG(char* message, struct MSG* msg) {
  * @retval 1 if a number, 0 otherwise
  */
 uint8_t readMSG(struct MSG* msg, osMessageQId Queue, int t) {
+	msg = (struct MSG*) malloc(sizeof(struct MSG*));
+
 	uint8_t Q, i, LHSi;
 
 	uint8_t COMPLETE = FALSE;
@@ -176,19 +171,27 @@ uint8_t readMSG(struct MSG* msg, osMessageQId Queue, int t) {
 	uint8_t type = 0;
 	uint8_t ID[2] = { 0, 0 };
 	uint8_t sign = 0;
-	uint8_t value = 0;
+	uint32_t value = 0;
 
 	uint8_t valueBuffer = 10;
 	uint8_t* LHS = (uint8_t*) malloc(sizeof(uint8_t) * valueBuffer);
 	memset(LHS, 0, valueBuffer);
 	uint8_t* RHS = (uint8_t*) malloc(sizeof(uint8_t) * valueBuffer);
 	memset(RHS, 0, valueBuffer);
+	RHS[0] = 0;
+	RHS[1] = 0;
+	RHS[2] = 0;
 
-	msgERROR(BAD_LEN, Q);
-	return COMPLETE;
+	char* m = (char*) malloc(sizeof(char) * errorMsgSize);
+
 	// GET TYPE
 	if (uxQueueMessagesWaiting(Queue) > 0) {
 		type = t;
+		if (MSG_DEBUG_MODE) {
+			memset(m, 0, errorMsgSize);
+			sprintf(m, "\n\r\t\t\t\t Type: |%c|", type);
+			transmit(2, m);
+		}
 	} else {
 		if (MSG_DEBUG_MODE) {
 			msgERROR(BAD_LEN, Q);
@@ -209,6 +212,11 @@ uint8_t readMSG(struct MSG* msg, osMessageQId Queue, int t) {
 				}
 			}
 		}
+		if (MSG_DEBUG_MODE) {
+			memset(m, 0, errorMsgSize);
+			sprintf(m, "\n\r\t\t\t\t ID: |%c|%c|", ID[0], ID[1]);
+			transmit(2, m);
+		}
 	} else {
 		if (MSG_DEBUG_MODE) {
 			msgERROR(BAD_LEN, Q);
@@ -221,6 +229,11 @@ uint8_t readMSG(struct MSG* msg, osMessageQId Queue, int t) {
 		xQueueReceive(Queue, &(Q), (TickType_t ) 10);
 		if (aSign(Q)) {
 			sign = Q;
+			if (MSG_DEBUG_MODE) {
+				memset(m, 0, errorMsgSize);
+				sprintf(m, "\n\r\t\t\t\t Sign: |%c|", sign);
+				transmit(2, m);
+			}
 		} else {
 			if (MSG_DEBUG_MODE) {
 				msgERROR(BAD_SIGN, Q);
@@ -241,14 +254,19 @@ uint8_t readMSG(struct MSG* msg, osMessageQId Queue, int t) {
 			LHS[i] = Q;
 			i++;
 			xQueueReceive(Queue, &(Q), (TickType_t ) 10);
+
 		}
-		if (i == i) {
+		if (i == 0) {
 			if (MSG_DEBUG_MODE) {
 				msgERROR(BAD_LHS, Q);
 				return COMPLETE;
 			}
 		}
-
+		if (MSG_DEBUG_MODE) {
+			memset(m, 0, errorMsgSize);
+			sprintf(m, "\n\r\t\t\t\t Val: |%d|", atoi(LHS));
+			transmit(2, m);
+		}
 		if (!aDot(Q)) {
 			if (MSG_DEBUG_MODE) {
 				msgERROR(BAD_DOT, Q);
@@ -261,6 +279,7 @@ uint8_t readMSG(struct MSG* msg, osMessageQId Queue, int t) {
 		}
 		return COMPLETE;
 	}
+
 	LHSi = i;
 	i = 0;
 	if (uxQueueMessagesWaiting(Queue) > 1) {
@@ -269,12 +288,18 @@ uint8_t readMSG(struct MSG* msg, osMessageQId Queue, int t) {
 			RHS[i] = Q;
 			i++;
 			xQueueReceive(Queue, &(Q), (TickType_t ) 10);
+
 		}
-		if (i == i) {
+		if (i == 0) {
 			if (MSG_DEBUG_MODE) {
 				msgERROR(BAD_RHS, Q);
 				return COMPLETE;
 			}
+		}
+		if (MSG_DEBUG_MODE) {
+			memset(m, 0, errorMsgSize);
+			sprintf(m, "\n\r\t\t\t\t Val: |%d|", atoi(RHS));
+			transmit(2, m);
 		}
 
 		if (!aColon(Q)) {
@@ -283,23 +308,28 @@ uint8_t readMSG(struct MSG* msg, osMessageQId Queue, int t) {
 				return COMPLETE;
 			}
 		}
+
 	} else {
 		if (MSG_DEBUG_MODE) {
 			msgERROR(BAD_LEN, Q);
 		}
 		return COMPLETE;
 	}
-
-	for (i = 0; i < LHSi; i++) {
-		value = value * 10 + LHS[i];
+	value = (uint32_t) ((1000 * atoi(LHS)) + atoi(RHS));
+	if (MSG_DEBUG_MODE) {
+		memset(m, 0, errorMsgSize);
+		sprintf(m, "\n\r\t\t\t\t Value AAA: |%d|", value);
+		transmit(2, m);
 	}
-	value = value * 1000 + RHS[0] * 100 + RHS[1] * 10 + RHS[2];
 
 	msg->type = type;
-	msg->ID[0] = ID[0];
-	msg->ID[1] = ID[1];
+	msg->ID = atoi(ID);
 	msg->sign = sign;
 	msg->value = value;
+
+	contructMSG(m, msg);
+	transmit(2, m);
+
 	COMPLETE = TRUE;
 	return COMPLETE;
 }

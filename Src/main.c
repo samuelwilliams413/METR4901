@@ -89,9 +89,9 @@ QueueHandle_t msgQueueHandle;
 
 struct MSG {
 	uint8_t type;
-	uint8_t ID[2];
+	uint8_t ID;
 	uint8_t sign;
-	uint8_t value;
+	uint32_t value;
 };
 
 /* USER CODE END PV */
@@ -573,9 +573,8 @@ void StartUART2ReceiveTask(void const * argument) {
  */
 void initMsg(struct MSG* msg) {
 	msg = (struct MSG*) malloc(sizeof(struct MSG*));
-	msg->type = 0;
-	msg->ID[0] = 0;
-	msg->ID[1] = 0;
+	msg->type = 1;
+	msg->ID = 0;
 	msg->sign = 0;
 	msg->value = 0;
 	return;
