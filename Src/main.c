@@ -556,8 +556,10 @@ void StartUART2ReceiveTask(void const * argument) {
 				if (aLetter(byte)) {
 					// Read message
 					if (readMSG(&msg, UART2QueueHandle, byte)) {
+						if (VERBOSE) {
 						contructMSG(TX2Buffer, &msg, TXRXBUFFERSIZE);
 						transmit(2, TX2Buffer);
+						}
 						if (xQueueSendToBack(msgQueueHandle, (void * ) &msg,
 								NULL) != pdTRUE) {
 							Error_Handler();
