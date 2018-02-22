@@ -12,7 +12,7 @@
 
 #define TRUE			1
 #define FALSE			0
-#define MSG_DEBUG_MODE 	TRUE
+#define MSG_DEBUG_MODE 	FALSE
 #define errorMsgSize	100
 
 struct MSG {
@@ -150,7 +150,8 @@ uint8_t numToValue(uint8_t left, uint8_t right) {
 void contructMSG(char* message, struct MSG* msg) {
 	uint8_t left = ((uint32_t) msg->value) % 1000;
 	uint8_t right = ((uint32_t) msg->value) / 1000;
-			sprintf(message, "\n\rGOT: %c%c%d%d.%d;\n\r"), msg->type, msg->sign, msg->ID, left, right;
+	sprintf(message, "\n\rGOT: %c%d%c%d.%d;\n\r", msg->type, msg->ID,msg->sign,
+			(msg->value/1000), (msg->value%1000));
 
 	return;
 }
@@ -327,6 +328,7 @@ uint8_t readMSG(struct MSG* msg, osMessageQId Queue, int t) {
 	msg->sign = sign;
 	msg->value = value;
 
+	memset(m, 0, errorMsgSize);
 	contructMSG(m, msg);
 	transmit(2, m);
 
