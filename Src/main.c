@@ -56,6 +56,7 @@
 #include "string.h"
 #include "msgProcessing.h"
 #include "deviceParameters.h"
+#include "inttypes.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -75,7 +76,7 @@ osSemaphoreId UART1BinarySemHandle;
 #define TXRXBUFFERSIZE	100
 #define TRUE			1
 #define FALSE			0
-#define VERBOSE			FALSE
+#define VERBOSE			FALSE//TRUE
 
 char* TX1Buffer;
 char* TX2Buffer;
@@ -202,7 +203,7 @@ int main(void) {
 	UART2QueueHandle = osMessageCreate(osMessageQ(UART2Queue), NULL);
 
 	/* USER CODE BEGIN RTOS_QUEUES */
-	msgQueueHandle = xQueueCreate(32, sizeof(struct MSG *));
+	msgQueueHandle = xQueueCreate(2, sizeof(struct MSG));
 	HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, 0);
 
 	//Start receiving
@@ -522,9 +523,6 @@ void StartUART1ReceiveTask(void const * argument) {
 				}
 			}
 		}
-		if (HAL_UART_Transmit(&huart1, (uint8_t*) ".", 1, 1000) != HAL_OK) {
-			Error_Handler();
-		}
 		osDelay(500);
 	}
 }
@@ -536,6 +534,7 @@ void StartUART2ReceiveTask(void const * argument) {
 	transmit(2, TX2Buffer);
 
 	struct MSG msg;
+
 	initMsg(msg);
 
 	osDelay(1000);
@@ -559,15 +558,17 @@ void StartUART2ReceiveTask(void const * argument) {
 					if (readMSG(&msg, UART2QueueHandle, byte)) {
 						contructMSG(TX2Buffer, &msg, TXRXBUFFERSIZE);
 						transmit(2, TX2Buffer);
+						if (xQueueSendToBack(msgQueueHandle, (void * ) &msg,
+								NULL) != pdTRUE) {
+							Error_Handler();
+						}
+
 					}
 
 				}
 			}
 		}
-		if (HAL_UART_Transmit(&huart2, (uint8_t*) ".", 1, 1000) != HAL_OK) {
-			Error_Handler();
-		}
-		osDelay(500);
+		osDelay(125);
 	}
 }
 
@@ -588,6 +589,7 @@ void initMsg(struct MSG msg) {
 void StartDefaultTask(void const * argument) {
 
 	/* USER CODE BEGIN 5 */
+	struct MSG message;
 	ticker = 0;
 	osDelay(1000);
 
@@ -595,11 +597,21 @@ void StartDefaultTask(void const * argument) {
 	for (;;) {
 		HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
 		osDelay(25);
-
-		if (!((ticker + 1) % 50)) {
+		ticker = (ticker + 1) % 10;
+		if (!ticker) {
 			toMsg(generalBuffer, ".");
 			transmit(1, generalBuffer);
 			transmit(2, generalBuffer);
+		}
+
+		if (uxQueueMessagesWaiting(msgQueueHandle) > 0) {
+			while (uxQueueMessagesWaiting(msgQueueHandle) > 0) {
+				//Get messages from queue
+				xQueueReceive(msgQueueHandle, &(message), (TickType_t ) 10);
+				contructMSG(TX2Buffer, &message, TXRXBUFFERSIZE);
+				transmit(2, TX2Buffer);
+			}
+			ticker = 1;
 		}
 	}
 	/* USER CODE END 5 */

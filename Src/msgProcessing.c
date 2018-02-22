@@ -12,7 +12,7 @@
 
 #define TRUE			1
 #define FALSE			0
-#define MSG_DEBUG_MODE 	FALSE
+#define MSG_DEBUG_MODE 	TRUE
 #define errorMsgSize	100
 
 struct MSG {
