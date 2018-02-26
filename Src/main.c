@@ -184,7 +184,7 @@ int main(void)
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 64);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
@@ -224,8 +224,8 @@ int main(void)
  
 
   /* Start scheduler */
-
   osKernelStart();
+  
   /* We should never get here as control is now taken by the scheduler */
 
   /* Infinite loop */
@@ -519,9 +519,6 @@ void toMsg(char* b, char* msg) {
 
 /* StartUART1TransmitTask function */
 void StartUART1ReceiveTask(void const * argument) {
-	for(;;) {
-		osDelay(125);
-	}
 	uint8_t byte;
 	memset(TX1Buffer, 0, TXRXBUFFERSIZE);
 	sprintf(TX1Buffer, ">>StartUART1TransmitTask: %d\n\r", getEGO());
@@ -572,9 +569,7 @@ void StartUART1ReceiveTask(void const * argument) {
 
 /* StartUART2TransmitTask function */
 void StartUART2ReceiveTask(void const * argument) {
-	for(;;) {
-		osDelay(125);
-	}
+
 	uint8_t byte;
 	memset(TX2Buffer, 0, TXRXBUFFERSIZE);
 	sprintf(TX2Buffer, ">>StartUART2TransmitTask: %d\n\r", getEGO());
@@ -643,10 +638,6 @@ void StartDefaultTask(void const * argument)
 
   /* USER CODE BEGIN 5 */
 
-	for(;;) {
-		HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-		osDelay(125);
-	}
 
 	struct MSG message;
 	ticker = 0;
@@ -659,15 +650,10 @@ void StartDefaultTask(void const * argument)
 		osDelay(25);
 		ticker = (ticker + 1) % 10;
 		if (!ticker) {
-			//toMsg(generalBuffer, ".");
-			//transmit(1, generalBuffer);
-			//transmit(2, generalBuffer);
-
-			wait = uxQueueMessagesWaiting(UART1QueueHandle);
-			memset(generalBuffer, 0, TXRXBUFFERSIZE);
-			sprintf(generalBuffer, "\n\r|%c|", wait);
+			toMsg(generalBuffer, ".");
 			transmit(1, generalBuffer);
 			transmit(2, generalBuffer);
+
 		}
 
 		if (uxQueueMessagesWaiting(msgQueueHandle) > 0) {
