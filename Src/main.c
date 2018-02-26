@@ -76,7 +76,7 @@ osSemaphoreId UART1BinarySemHandle;
 #define TXRXBUFFERSIZE	100
 #define TRUE			1
 #define FALSE			0
-#define VERBOSE			FALSE//TRUE
+#define VERBOSE			TRUE
 
 char* TX1Buffer;
 char* TX2Buffer;
