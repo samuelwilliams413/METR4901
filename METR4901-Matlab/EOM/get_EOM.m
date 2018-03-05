@@ -2,7 +2,7 @@
 %
 %%
 
-function [] = get_EOM(DOF)
+function [TF] = get_EOM(DOF)
 
 clc
 close all
@@ -31,6 +31,8 @@ syms g temp a(t)
 syms a1 da1 dda1 
 syms a2 da2 dda2 
 syms a3 da3 dda3
+
+syms A1 A2 A3 
 
 
 a_list   = [a1,     a2,     a3];
@@ -225,10 +227,6 @@ G = simplify((Jv1_g1) + (Jv2_g2) + (Jv3_g3));
 %% Finding Matrix B and C
 signpost(verbose,'Finding Matrix B and C')
 
-
-
-
-
 for i = 1:it1
     for j = 1:it2
         for k = 1:it3
@@ -280,146 +278,264 @@ end
 p(torque)
 
 %% Finding Laplace EOM
+% pull apart
 Ts = torque;
+eq1 = Ts(1,2);
+eq2 = Ts(2,2);
+eq3 = Ts(3,2);
+
+
+
+
+%% Equations of Theta/Torque 1
+signpost(verbose,'Equations of Theta/Torque 1')
+
+EQ = eq1;
 
 % Transform 3rd Order Cosine
 wrt = cos(a1 + a2 + a3);
 signpost(verbose,wrt)
 tran = 'A1*( (s*cos(a2 + a3) - sin(a2 + a3)) / (s^2+1) )';
-Ts = subs(Ts,wrt,tran);
-Ts = simplify(Ts);
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
 
 % Transform 2nd Order Cosine
 wrt = cos(a1 + a2);
 signpost(verbose,wrt)
 tran = 'A1*( (s*cos(a2) - sin(a2)) / (s^2+1) )';
-Ts = subs(Ts,wrt,tran);
-Ts = simplify(Ts);
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
 
 wrt = cos(a1 + a3);
 signpost(verbose,wrt)
 tran = 'A1*( (s*cos(a3) - sin(a3)) / (s^2+1) )';
-Ts = subs(Ts,wrt,tran);
-Ts = simplify(Ts);
-
-wrt = cos(a2 + a3);
-signpost(verbose,wrt)
-tran = 'A2*( (s*cos(a3) - sin(a3)) / (s^2+1) )';
-Ts = subs(Ts,wrt,tran);
-Ts = simplify(Ts);
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
 
 % Transform 2nd Order Sine
-
 wrt = sin(a1 + a2);
 signpost(verbose,wrt)
 tran = 'A1*( (s*sin(a2) - cos(a2)) / (s^2+1) )';
-Ts = subs(Ts,wrt,tran);
-Ts = simplify(Ts);
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
 
 wrt = sin(a1 + a3);
 signpost(verbose,wrt)
 tran = 'A1*( (s*sin(a3) - cos(a3)) / (s^2+1) )';
-Ts = subs(Ts,wrt,tran);
-Ts = simplify(Ts);
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
+
+% Transform 1st Order Cosine
+wrt = cos(a1);
+signpost(verbose,wrt)
+tran = 'A1*(s/(s^2 + 1))';
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
+
+% Transform 1st Order Sine
+wrt = sin(a1);
+signpost(verbose,wrt)
+tran = 'A1*(1/(s^2 + 1))';
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
+
+% Transform dda
+wrt = dda1;
+signpost(verbose,wrt)
+tran = 'A1*s^2';
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
+
+% Transform da
+wrt = da1;
+signpost(verbose,wrt)
+tran = 'A1*s';
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
+
+% Transform a
+wrt = a1;
+signpost(verbose,wrt)
+tran = 'A1';
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
+
+p(eq1)
+eq1 = EQ;
+p(eq1)
+
+
+%% Equations of Theta/Torque 2
+signpost(verbose,'Equations of Theta/Torque 2')
+
+EQ = eq2;
+
+% Transform 3rd Order Cosine
+wrt = cos(a2 + a1 + a3);
+signpost(verbose,wrt)
+tran = 'A2*( (s*cos(a1 + a3) - sin(a1 + a3)) / (s^2+1) )';
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
+
+% Transform 2nd Order Cosine
+wrt = cos(a2 + a1);
+signpost(verbose,wrt)
+tran = 'A2*( (s*cos(a1) - sin(a1)) / (s^2+1) )';
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
+
+wrt = cos(a2 + a3);
+signpost(verbose,wrt)
+tran = 'A2*( (s*cos(a3) - sin(a3)) / (s^2+1) )';
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
+
+% Transform 2nd Order Sine
+wrt = sin(a2 + a1);
+signpost(verbose,wrt)
+tran = 'A2*( (s*sin(a1) - cos(a1)) / (s^2+1) )';
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
 
 wrt = sin(a2 + a3);
 signpost(verbose,wrt)
 tran = 'A2*( (s*sin(a3) - cos(a3)) / (s^2+1) )';
-Ts = subs(Ts,wrt,tran);
-Ts = simplify(Ts);
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
 
 % Transform 1st Order Cosine
-
-wrt = cos(a1);
-signpost(verbose,wrt)
-tran = 'A1*(s/(s^2 + 1))';
-Ts = subs(Ts,wrt,tran);
-Ts = simplify(Ts);
-
 wrt = cos(a2);
 signpost(verbose,wrt)
 tran = 'A2*(s/(s^2 + 1))';
-Ts = subs(Ts,wrt,tran);
-Ts = simplify(Ts);
-
-wrt = cos(a3);
-signpost(verbose,wrt)
-tran = 'A3*(s/(s^2 + 1))';
-Ts = subs(Ts,wrt,tran);
-Ts = simplify(Ts);
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
 
 % Transform 1st Order Sine
-
-wrt = sin(a1);
-signpost(verbose,wrt)
-tran = 'A1*(1/(s^2 + 1))';
-Ts = subs(Ts,wrt,tran);
-Ts = simplify(Ts);
-
-
 wrt = sin(a2);
 signpost(verbose,wrt)
 tran = 'A2*(1/(s^2 + 1))';
-Ts = subs(Ts,wrt,tran);
-Ts = simplify(Ts);
-
-wrt = sin(a3);
-signpost(verbose,wrt)
-tran = 'A3*(1/(s^2 + 1))';
-Ts = subs(Ts,wrt,tran);
-Ts = simplify(Ts);
-
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
 
 % Transform dda
-
-wrt = dda1;
-signpost(verbose,wrt)
-tran = 'A1*s^2';
-Ts = subs(Ts,wrt,tran);
-Ts = simplify(Ts);
-
 wrt = dda2;
 signpost(verbose,wrt)
 tran = 'A2*s^2';
-Ts = subs(Ts,wrt,tran);
-Ts = simplify(Ts);
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
 
+% Transform da
+wrt = da2;
+signpost(verbose,wrt)
+tran = 'A2*s';
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
+
+% Transform a
+wrt = a2;
+signpost(verbose,wrt)
+tran = 'A2';
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
+
+p(eq2)
+eq2 = EQ;
+p(eq2)
+
+%% Equations of Theta/Torque 3
+signpost(verbose,'Equations of Theta/Torque 3')
+
+EQ = eq3;
+
+% Transform 3rd Order Cosine
+wrt = cos(a3 + a2 + a1);
+signpost(verbose,wrt)
+tran = 'A3*( (s*cos(a2 + a1) - sin(a2 + a1)) / (s^2+1) )';
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
+
+% Transform 2nd Order Cosine
+wrt = cos(a3 + a2);
+signpost(verbose,wrt)
+tran = 'A3*( (s*cos(a2) - sin(a2)) / (s^2+1) )';
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
+
+wrt = cos(a3 + a1);
+signpost(verbose,wrt)
+tran = 'A3*( (s*cos(a1) - sin(a1)) / (s^2+1) )';
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
+
+% Transform 2nd Order Sine
+wrt = sin(a3 + a2);
+signpost(verbose,wrt)
+tran = 'A3*( (s*sin(a2) - cos(a2)) / (s^2+1) )';
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
+
+wrt = sin(a3 + a1);
+signpost(verbose,wrt)
+tran = 'A3*( (s*sin(a1) - cos(a1)) / (s^2+1) )';
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
+
+% Transform 1st Order Cosine
+wrt = cos(a3);
+signpost(verbose,wrt)
+tran = 'A3*(s/(s^2 + 1))';
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
+
+% Transform 1st Order Sine
+wrt = sin(a3);
+signpost(verbose,wrt)
+tran = 'A3*(1/(s^2 + 1))';
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
+
+% Transform dda
 wrt = dda3;
 signpost(verbose,wrt)
 tran = 'A3*s^2';
-Ts = subs(Ts,wrt,tran);
-Ts = simplify(Ts);
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
 
 % Transform da
-
-wrt = da1;
-signpost(verbose,wrt)
-tran = 'A1*s';
-Ts = subs(Ts,wrt,tran);
-Ts = simplify(Ts);
-
-wrt = da2
-signpost(verbose,wrt)
-tran = 'A2*s';
-Ts = subs(Ts,wrt,tran);
-Ts = simplify(Ts);
-
 wrt = da3;
 signpost(verbose,wrt)
 tran = 'A3*s';
-Ts = subs(Ts,wrt,tran);
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
+
+% Transform a
+wrt = a3;
+signpost(verbose,wrt)
+tran = 'A3';
+EQ = subs(EQ,wrt,tran);
+EQ = simplify(EQ);
+
+p(eq3)
+eq3 = EQ;
+p(eq3)
+
+
+%% Completing Laplace EOM
+% put back together
+Ts(1,2) = eq1;
+Ts(2,2) = eq2;
+Ts(3,2) = eq3;
 Ts = simplify(Ts);
-
-
-Ts = simplify(Ts)
 p(Ts)
-%% Finding Inverse
-
-
 
 %% Finding Transfer Functions
+E(1,1) = (Ts(1,1) == Ts(1,2));
+E(2,1) = (Ts(2,1) == Ts(2,2));
+E(3,1) = (Ts(3,1) == Ts(3,2));
+p(E)
 
-
+solA1 = solve(E, A1)
+solutionA1 = isolate(E, T1/A1)
 
 %% Tidy Up
 signpost(verbose,'Done: get_EOM()')
