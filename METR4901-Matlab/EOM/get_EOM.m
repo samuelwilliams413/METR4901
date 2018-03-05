@@ -209,11 +209,6 @@ signpost(verbose,'Finding Matrix M')
 
 M = simplify(Jw1_I1_Jw1T + Jw2_I2_Jw2T + Jw3_I3_Jw3T + m1_Jv1_Jv1T + m2_Jv2_Jv2T + m3_Jv3_Jv3T);
 
-%M(1,1) = m1*l1^2/4 + m2*(l1^2 + l2^2/4 *l1*l2*cos(a2)) + Izz1 + Izz2;
-%M(1,2) = m2*l2^2/4 + m2*l1*l2/2 * cos(a2) +  Izz2;
-%M(2,1) = M(1,2);
-%M(2,2) = m2*l2^2/4 + Izz2;
-
 p(M)
 
 %% Finding Matrix G
@@ -289,7 +284,21 @@ for i = 1:N
     torque(i) = simplify(torque(i));
 end
 p(torque)
-signpost(verbose,'Done: get_EOM()')
 
+
+%% Finding Laplace EOM
+
+
+
+%% Finding Inverse
+
+
+
+%% Finding Transfer Functions
+
+
+
+%% Tidy Up
+signpost(verbose,'Done: get_EOM()')
 end
 
