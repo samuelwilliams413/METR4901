@@ -541,6 +541,8 @@ f = isolate(f, t);
 f = 1/f;
 f = tf1_a1_T1 == rhs(f);
 
+f = isolate(f, tf1_a1_T1);
+
 Solution(1,1) = f;
 
 % tf 2
@@ -554,6 +556,8 @@ if (Ts(2,1) ~= 0)
     f = isolate(f, t);
     f = 1/f;
     f = tf2_a2_T2 == rhs(f);
+    
+    f = isolate(f, tf2_a2_T2);
 end
 
 Solution(2,1) = f;
@@ -569,6 +573,8 @@ if (Ts(3,1) ~= 0)
     f = isolate(f, t);
     f = 1/f;
     f = tf3_a3_T3 == rhs(f);
+    
+    f = isolate(f, tf3_a3_T3);
 end
 
 Solution(3,1) = f;
@@ -577,9 +583,5 @@ Transfer_Functions = Solution;
 
 %% Tidy Up
 signpost(verbose,'Done: get_EOM()')
-
-p(EOM)
-p(Laplace_EOM)
-p(Transfer_Functions)
 end
 

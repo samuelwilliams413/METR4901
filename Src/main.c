@@ -650,7 +650,7 @@ void StartDefaultTask(void const * argument)
 		osDelay(25);
 		ticker = (ticker + 1) % 10;
 		if (!ticker) {
-			toMsg(generalBuffer, ".");
+			toMsg(generalBuffer, "*");
 			transmit(1, generalBuffer);
 			transmit(2, generalBuffer);
 
