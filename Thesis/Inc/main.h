@@ -58,11 +58,26 @@
 /* USER CODE END Includes */
 
 /* Private define ------------------------------------------------------------*/
+#define test 1
 
 #define MCO_Pin GPIO_PIN_0
 #define MCO_GPIO_Port GPIOF
-#define VCP_TX_Pin GPIO_PIN_2
-#define VCP_TX_GPIO_Port GPIOA
+#define ADC_A_Pin GPIO_PIN_0
+#define ADC_A_GPIO_Port GPIOA
+#define ADC_B_Pin GPIO_PIN_1
+#define ADC_B_GPIO_Port GPIOA
+#define USART2_TX_Pin GPIO_PIN_2
+#define USART2_TX_GPIO_Port GPIOA
+#define USART2_RX_Pin GPIO_PIN_3
+#define USART2_RX_GPIO_Port GPIOA
+#define ADC_C_Pin GPIO_PIN_4
+#define ADC_C_GPIO_Port GPIOA
+#define ADC_D_Pin GPIO_PIN_5
+#define ADC_D_GPIO_Port GPIOA
+#define ADC_E_Pin GPIO_PIN_6
+#define ADC_E_GPIO_Port GPIOA
+#define ADC_F_Pin GPIO_PIN_7
+#define ADC_F_GPIO_Port GPIOA
 #define USART1_TX_Pin GPIO_PIN_9
 #define USART1_TX_GPIO_Port GPIOA
 #define USART1_RX_Pin GPIO_PIN_10
@@ -71,8 +86,6 @@
 #define SWDIO_GPIO_Port GPIOA
 #define SWCLK_Pin GPIO_PIN_14
 #define SWCLK_GPIO_Port GPIOA
-#define VCP_RX_Pin GPIO_PIN_15
-#define VCP_RX_GPIO_Port GPIOA
 #define LD3_Pin GPIO_PIN_3
 #define LD3_GPIO_Port GPIOB
 
