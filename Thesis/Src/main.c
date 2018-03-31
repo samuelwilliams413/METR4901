@@ -81,6 +81,9 @@ struct MSG {
 	uint8_t sign;
 	uint32_t value;
 };
+
+uint8_t aRxBuffer[20];
+char Rx_indx, Rx_data[2], Rx_Buffer[100], Transfer_cplt;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -97,7 +100,6 @@ void StartMessagingTask(void const * argument);
 /* Private function prototypes -----------------------------------------------*/
 void transmit(int, char*);
 void toMsg(char*, char*);
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
@@ -404,24 +406,23 @@ static void MX_GPIO_Init(void) {
 
 /* USER CODE BEGIN 4 */
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
-	//Check if UART1
+	/* Prevent unused argument(s) compilation warning */
+	//UNUSED(huart);
+	/* NOTE : This function should not be modified, when the callback is needed,
+	 the HAL_UART_RxCpltCallback can be implemented in the user file
+	 */
+	uint8_t byte;
 	if (huart->Instance == USART1) {
-		uint8_t byte;
-		//Receive one byte
 		HAL_UART_Receive_IT(&huart1, &byte, 1);
-		if (HAL_UART_Transmit(&huart1, &byte, 1, 1000) != HAL_OK) {
-			Error_Handler();
-		}
 	}
-
-	//Check if UART2
 	if (huart->Instance == USART2) {
-		uint8_t byte;
-		//Receive one byte
 		HAL_UART_Receive_IT(&huart2, &byte, 1);
-		if (HAL_UART_Transmit(&huart2, &byte, 1, 1000) != HAL_OK) {
-			Error_Handler();
-		}
+	}
+	if (HAL_UART_Transmit(&huart1, &byte, 1, 1000) != HAL_OK) {
+		Error_Handler();
+	}
+	if (HAL_UART_Transmit(&huart2, &byte, 1, 1000) != HAL_OK) {
+		Error_Handler();
 	}
 
 }
@@ -446,6 +447,14 @@ void toMsg(char* b, char* msg) {
 	return;
 }
 
+void initMsg(struct MSG msg) {
+	msg.type = 1;
+	msg.ID = 0;
+	msg.sign = 0;
+	msg.value = 0;
+	return;
+}
+
 /* ****************************************************************************************************************
  * ****************************************************************************************************************
  * ****************************************************************************************************************
@@ -457,6 +466,9 @@ void toMsg(char* b, char* msg) {
 void StartMainTask(void const * argument) {
 
 	/* USER CODE BEGIN 5 */
+	uint8_t byte;
+	HAL_UART_Receive_IT(&huart1, &byte, 1);
+	HAL_UART_Receive_IT(&huart2, &byte, 1);
 	/* Infinite loop */
 
 	for (;;) {
