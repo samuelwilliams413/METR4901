@@ -406,25 +406,19 @@ static void MX_GPIO_Init(void) {
 
 /* USER CODE BEGIN 4 */
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
-	/* Prevent unused argument(s) compilation warning */
-	//UNUSED(huart);
-	/* NOTE : This function should not be modified, when the callback is needed,
-	 the HAL_UART_RxCpltCallback can be implemented in the user file
-	 */
 	uint8_t byte;
 	if (huart->Instance == USART1) {
-		HAL_UART_Receive_IT(&huart1, &byte, 1);
+			//Receive one byte
+			HAL_UART_Receive_IT(&huart1, &byte, 1);
 	}
 	if (huart->Instance == USART2) {
-		HAL_UART_Receive_IT(&huart2, &byte, 1);
+			//Receive one byte
+			HAL_UART_Receive_IT(&huart2, &byte, 1);
 	}
-	if (HAL_UART_Transmit(&huart1, &byte, 1, 1000) != HAL_OK) {
-		Error_Handler();
-	}
-	if (HAL_UART_Transmit(&huart2, &byte, 1, 1000) != HAL_OK) {
-		Error_Handler();
-	}
-
+	itoa(byte, generalBuffer, 10);
+			transmit(1, generalBuffer);
+			transmit(2, generalBuffer);
+	return;
 }
 
 void transmit(int channel, char* b) {
