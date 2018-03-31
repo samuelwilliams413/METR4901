@@ -184,7 +184,7 @@ int main(void)
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 64);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 256);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
@@ -196,11 +196,11 @@ int main(void)
 
   /* Create the queue(s) */
   /* definition and creation of UART1Queue */
-  osMessageQDef(UART1Queue, 32, uint8_t);
+  osMessageQDef(UART1Queue, 8, uint8_t);
   UART1QueueHandle = osMessageCreate(osMessageQ(UART1Queue), NULL);
 
   /* definition and creation of UART2Queue */
-  osMessageQDef(UART2Queue, 32, uint8_t);
+  osMessageQDef(UART2Queue, 8, uint8_t);
   UART2QueueHandle = osMessageCreate(osMessageQ(UART2Queue), NULL);
 
   /* USER CODE BEGIN RTOS_QUEUES */

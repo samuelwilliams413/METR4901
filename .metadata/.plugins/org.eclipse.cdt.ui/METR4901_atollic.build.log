@@ -1,0 +1,14 @@
+15:53:22 **** Incremental Build of configuration Debug for project METR4901_atollic ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c ..\METR4901_atollic\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_opamp_ex.c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -ID:\Users\Samuel\workspace\METR4901\METR4901_atollic\METR4901_atollic\Drivers -ID:\Users\Samuel\workspace\METR4901\METR4901_atollic\METR4901_atollic\Drivers\STM32F3xx_HAL_Driver\Inc -ID:\Users\Samuel\workspace\METR4901\METR4901_atollic\METR4901_atollic\Inc -ID:\Users\Samuel\workspace\METR4901\METR4901_atollic\METR4901_atollic -ID:\Users\Samuel\workspace\METR4901\METR4901_atollic\METR4901_atollic\Drivers\CMSIS\Include -ID:\Users\Samuel\workspace\METR4901\METR4901_atollic\METR4901_atollic\EWARM -ID:\Users\Samuel\workspace\METR4901\METR4901_atollic\METR4901_atollic\Middlewares -ID:\Users\Samuel\workspace\METR4901\METR4901_atollic\METR4901_atollic\Src -O0 -g -fstack-usage -Wall -specs=nano.specs -o METR4901_atollic\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_opamp_ex.o 
+In file included from D:\Users\Samuel\workspace\METR4901\METR4901_atollic\METR4901_atollic\Drivers\STM32F3xx_HAL_Driver\Inc/stm32f3xx_hal_rcc.h:45:0,
+                 from D:\Users\Samuel\workspace\METR4901\METR4901_atollic\METR4901_atollic\Inc/stm32f3xx_hal_conf.h:196,
+                 from D:\Users\Samuel\workspace\METR4901\METR4901_atollic\METR4901_atollic\Drivers\STM32F3xx_HAL_Driver\Inc/stm32f3xx_hal.h:46,
+                 from ..\METR4901_atollic\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_opamp_ex.c:44:
+D:\Users\Samuel\workspace\METR4901\METR4901_atollic\METR4901_atollic\Drivers\STM32F3xx_HAL_Driver\Inc/stm32f3xx_hal_def.h:46:23: fatal error: stm32f3xx.h: No such file or directory
+ #include "stm32f3xx.h"
+                       ^
+compilation terminated.
+
+15:53:23 Build Finished (took 827ms)
+
