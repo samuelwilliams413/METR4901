@@ -58,7 +58,6 @@
 /* USER CODE END Includes */
 
 /* Private define ------------------------------------------------------------*/
-#define test 1
 
 #define MCO_Pin GPIO_PIN_0
 #define MCO_GPIO_Port GPIOF
