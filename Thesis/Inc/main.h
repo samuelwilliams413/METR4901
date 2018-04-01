@@ -61,10 +61,6 @@
 
 #define MCO_Pin GPIO_PIN_0
 #define MCO_GPIO_Port GPIOF
-#define ADC_A_Pin GPIO_PIN_0
-#define ADC_A_GPIO_Port GPIOA
-#define ADC_B_Pin GPIO_PIN_1
-#define ADC_B_GPIO_Port GPIOA
 #define USART2_TX_Pin GPIO_PIN_2
 #define USART2_TX_GPIO_Port GPIOA
 #define USART2_RX_Pin GPIO_PIN_3

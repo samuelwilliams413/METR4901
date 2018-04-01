@@ -66,6 +66,7 @@ UART_HandleTypeDef huart2;
 
 osThreadId mainTaskHandle;
 osThreadId messagingTaskHandle;
+osMessageQId msgQueueHandle;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
@@ -92,8 +93,8 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_ADC2_Init(void);
 static void MX_USART1_UART_Init(void);
-static void MX_ADC1_Init(void);
 static void MX_USART2_UART_Init(void);
+static void MX_ADC1_Init(void);
 void StartMainTask(void const * argument);
 void StartMessagingTask(void const * argument);
 
@@ -140,10 +141,16 @@ int main(void)
   MX_GPIO_Init();
   MX_ADC2_Init();
   MX_USART1_UART_Init();
-  MX_ADC1_Init();
   MX_USART2_UART_Init();
+  MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
 
+	/* Enable RXNE interrupt */
+	//USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
+	//USART_ITConfig(USART2, USART_IT_RXNE, ENABLE);
+	/* Enable USART1 global interrupt */
+	//NVIC_EnableIRQ(USART1_IRQn);
+	//NVIC_EnableIRQ(USART2_IRQn);
   /* USER CODE END 2 */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -171,19 +178,23 @@ int main(void)
 	/* add threads, ... */
   /* USER CODE END RTOS_THREADS */
 
+  /* Create the queue(s) */
+  /* definition and creation of msgQueue */
+  osMessageQDef(msgQueue, 16, uint8_t);
+  msgQueueHandle = osMessageCreate(osMessageQ(msgQueue), NULL);
+
   /* USER CODE BEGIN RTOS_QUEUES */
 	/* add queues, ... */
 
 	//Start transmitting
-
-	HAL_UART_Receive_IT(&huart1, &byte, 1);
-	HAL_UART_Receive_IT(&huart2, &byte, 1);
 	osDelay(100);
 
 	toMsg(generalBuffer, "\n\r\n\r\n\r>>YAY BOOTING\n\r");
 	transmit(1, generalBuffer);
 	transmit(2, generalBuffer);
 	memset(generalBuffer, 0, TXRXBUFFERSIZE);
+	HAL_UART_Receive_IT(&huart1, &byte, 1);
+	HAL_UART_Receive_IT(&huart2, &byte, 1);
   /* USER CODE END RTOS_QUEUES */
  
 
@@ -301,9 +312,9 @@ static void MX_ADC1_Init(void)
 
     /**Configure Regular Channel 
     */
-  sConfig.Channel = ADC_CHANNEL_1;
+  sConfig.Channel = ADC_CHANNEL_2;
   sConfig.Rank = ADC_REGULAR_RANK_1;
-  sConfig.SingleDiff = ADC_DIFFERENTIAL_ENDED;
+  sConfig.SingleDiff = ADC_SINGLE_ENDED;
   sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
   sConfig.OffsetNumber = ADC_OFFSET_NONE;
   sConfig.Offset = 0;
@@ -438,7 +449,9 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 		//Receive one byte
 		HAL_UART_Receive_IT(&huart2, &byte, 1);
 	}
-	itoa(byte, generalBuffer, 10);
+
+	memset(generalBuffer, 0, TXRXBUFFERSIZE);
+	sprintf(generalBuffer, "|%d|%c|\n\r", byte, byte);
 	transmit(1, generalBuffer);
 	transmit(2, generalBuffer);
 	return;

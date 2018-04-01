@@ -14222,3 +14222,1135 @@ java.lang.IllegalArgumentException: Index out of bounds
 	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:673)
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:610)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1519)
+
+!ENTRY Atollic TrueSTORE 1 0 2018-04-01 09:23:27.475
+!MESSAGE Importing project STM32L152-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 09:23:32.958
+!MESSAGE STM32L152-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt needs property 'com.atollic.truestudio.general.runtimelib.2055506526' fixed. Fixing to 'com.atollic.truestudio.ld.general.clib.small'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 09:23:32.966
+!MESSAGE STM32L152-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt needs property 'com.atollic.truestudio.toolchain_options.mcu.1692660960' fixed. Fixing to 'STM32L152VB'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 09:23:32.972
+!MESSAGE STM32L152-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt needs property 'com.atollic.truestudio.toolchain_options.vendor.269517018' fixed. Fixing to 'STMicroelectronics'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 09:23:32.980
+!MESSAGE STM32L152-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.None'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 09:23:32.987
+!MESSAGE STM32L152-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.None'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 09:23:32.993
+!MESSAGE STM32L152-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.None'.
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-04-01 09:23:36.874
+!MESSAGE Indexed 'STM32L152-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt' (40 sources, 107 headers) in 3.68 sec: 10,145 declarations; 30,701 references; 3 unresolved inclusions; 52 syntax errors; 4,774 unresolved names (10%)
+
+!ENTRY org.eclipse.cdt.ui 4 0 2018-04-01 09:48:37.312
+!MESSAGE Error in CDT UI during reconcile
+!STACK 1
+C Model Exception: C Model Status [Element main.c does not exist.]
+	at org.eclipse.cdt.internal.core.model.CElement.newNotPresentException(CElement.java:484)
+	at org.eclipse.cdt.internal.core.model.TranslationUnit.makeConsistent(TranslationUnit.java:573)
+	at org.eclipse.cdt.internal.core.model.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:62)
+	at org.eclipse.cdt.internal.core.model.CModelOperation.execute(CModelOperation.java:341)
+	at org.eclipse.cdt.internal.core.model.CModelOperation.run(CModelOperation.java:607)
+	at org.eclipse.cdt.internal.core.model.CModelOperation.runOperation(CModelOperation.java:635)
+	at org.eclipse.cdt.internal.core.model.WorkingCopy.reconcile(WorkingCopy.java:362)
+	at org.eclipse.cdt.internal.ui.text.CReconcilingStrategy.reconcile(CReconcilingStrategy.java:78)
+	at org.eclipse.cdt.internal.ui.text.CReconcilingStrategy.reconcile(CReconcilingStrategy.java:63)
+	at org.eclipse.cdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:87)
+	at org.eclipse.cdt.internal.ui.text.CCompositeReconcilingStrategy.reconcile(CCompositeReconcilingStrategy.java:90)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:73)
+	at org.eclipse.cdt.internal.ui.text.CReconciler.process(CReconciler.java:349)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
+!SUBENTRY 1 org.eclipse.cdt.core 4 969 2018-04-01 09:48:37.313
+!MESSAGE Element main.c does not exist.
+
+!ENTRY Atollic TrueSTORE 1 0 2018-04-01 11:30:57.945
+!MESSAGE Importing project STM32F3_Discovery_Demonstration
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:31:18.599
+!MESSAGE STM32F3_Discovery_Demonstration needs property 'com.atollic.truestudio.general.runtimelib.1822570403' fixed. Fixing to 'com.atollic.truestudio.ld.general.clib.small'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:31:18.610
+!MESSAGE STM32F3_Discovery_Demonstration needs property 'com.atollic.truestudio.toolchain_options.mcu.1660435102' fixed. Fixing to 'STM32F303VC'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:31:18.620
+!MESSAGE STM32F3_Discovery_Demonstration needs property 'com.atollic.truestudio.toolchain_options.vendor.1636583730' fixed. Fixing to 'STMicroelectronics'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:31:18.674
+!MESSAGE STM32F3_Discovery_Demonstration needs property 'com.atollic.truestudio.general.runtimelib.962830236' fixed. Fixing to 'com.atollic.truestudio.ld.general.clib.small'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:31:18.683
+!MESSAGE STM32F3_Discovery_Demonstration needs property 'com.atollic.truestudio.toolchain_options.mcu.252312862' fixed. Fixing to 'STM32F303VC'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:31:18.691
+!MESSAGE STM32F3_Discovery_Demonstration needs property 'com.atollic.truestudio.toolchain_options.vendor.208371897' fixed. Fixing to 'STMicroelectronics'.
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-04-01 11:31:22.835
+!MESSAGE Indexed 'STM32F3_Discovery_Demonstration' (42 sources, 115 headers) in 3.89 sec: 11,282 declarations; 28,472 references; 3 unresolved inclusions; 56 syntax errors; 6,131 unresolved names (13%)
+
+!ENTRY Atollic TrueSTORE 1 0 2018-04-01 11:31:53.411
+!MESSAGE Importing project STM32F3_Discovery_FreeRTOS_Simple_Demo
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:31:58.430
+!MESSAGE STM32F3_Discovery_FreeRTOS_Simple_Demo needs property 'com.atollic.truestudio.general.runtimelib.69145473' fixed. Fixing to 'com.atollic.truestudio.ld.general.clib.small'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:31:58.439
+!MESSAGE STM32F3_Discovery_FreeRTOS_Simple_Demo needs property 'com.atollic.truestudio.toolchain_options.mcu.1574968187' fixed. Fixing to 'STM32F303VC'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:31:58.449
+!MESSAGE STM32F3_Discovery_FreeRTOS_Simple_Demo needs property 'com.atollic.truestudio.toolchain_options.vendor.848599189' fixed. Fixing to 'STMicroelectronics'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:31:58.459
+!MESSAGE STM32F3_Discovery_FreeRTOS_Simple_Demo needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.fpv4-sp-d16'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:31:58.466
+!MESSAGE STM32F3_Discovery_FreeRTOS_Simple_Demo needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.fpv4-sp-d16'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:31:58.472
+!MESSAGE STM32F3_Discovery_FreeRTOS_Simple_Demo needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.fpv4-sp-d16'.
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-04-01 11:32:03.859
+!MESSAGE Indexed 'STM32F3_Discovery_FreeRTOS_Simple_Demo' (34 sources, 85 headers) in 2.8 sec: 11,961 declarations; 34,509 references; 1 unresolved inclusions; 48 syntax errors; 157 unresolved names (0.34%)
+
+!ENTRY Atollic TrueSTORE 1 0 2018-04-01 11:32:58.726
+!MESSAGE Importing project STM32F3_Discovery_ADC_Example
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:33:14.005
+!MESSAGE STM32F3_Discovery_ADC_Example needs property 'com.atollic.truestudio.general.runtimelib.1727620517' fixed. Fixing to 'com.atollic.truestudio.ld.general.clib.small'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:33:14.015
+!MESSAGE STM32F3_Discovery_ADC_Example needs property 'com.atollic.truestudio.toolchain_options.mcu.1024387283' fixed. Fixing to 'STM32F303VC'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:33:14.023
+!MESSAGE STM32F3_Discovery_ADC_Example needs property 'com.atollic.truestudio.toolchain_options.vendor.781898058' fixed. Fixing to 'STMicroelectronics'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:33:14.032
+!MESSAGE STM32F3_Discovery_ADC_Example needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.fpv4-sp-d16'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:33:14.038
+!MESSAGE STM32F3_Discovery_ADC_Example needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.fpv4-sp-d16'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:33:14.045
+!MESSAGE STM32F3_Discovery_ADC_Example needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.fpv4-sp-d16'.
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-04-01 11:33:18.334
+!MESSAGE Indexed 'STM32F3_Discovery_ADC_Example' (29 sources, 84 headers) in 2.39 sec: 9,660 declarations; 29,058 references; 1 unresolved inclusions; 38 syntax errors; 36 unresolved names (0.093%)
+
+!ENTRY com.atollic.truestudio.common.wizards 4 0 2018-04-01 11:35:40.078
+!MESSAGE Failed to find the correct FPU ABI, falling back to Soft. Value: 
+
+!ENTRY com.atollic.truestudio.common.wizards 4 0 2018-04-01 11:35:42.403
+!MESSAGE Failed to find the correct FPU ABI, falling back to Soft. Value: 
+
+!ENTRY com.atollic.truestudio.common.wizards 4 0 2018-04-01 11:35:45.758
+!MESSAGE Failed to find the correct FPU ABI, falling back to Soft. Value: 
+
+!ENTRY com.atollic.truestudio.common.wizards 4 0 2018-04-01 11:35:57.078
+!MESSAGE Failed to find the correct FPU ABI, falling back to Soft. Value: 
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 11:36:09.085
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 11:36:09.092
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 11:36:09.102
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 11:36:09.108
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:36:09.208
+!MESSAGE METR4901_Atollic needs property 'com.atollic.truestudio.general.runtimelib.1624821042' fixed. Fixing to 'com.atollic.truestudio.ld.general.clib.small'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:36:09.214
+!MESSAGE Failed to get device info (Debug) for project METR4901_Atollic
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:36:09.219
+!MESSAGE Failed to get device info (Debug) for project METR4901_Atollic
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:36:09.225
+!MESSAGE Failed to get device info (Debug) for project METR4901_Atollic
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:36:09.231
+!MESSAGE METR4901_Atollic needs property 'com.atollic.truestudio.general.runtimelib.2081037015' fixed. Fixing to 'com.atollic.truestudio.ld.general.clib.small'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:36:09.236
+!MESSAGE Failed to get device info (Release) for project METR4901_Atollic
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:36:09.242
+!MESSAGE Failed to get device info (Release) for project METR4901_Atollic
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:36:09.248
+!MESSAGE Failed to get device info (Release) for project METR4901_Atollic
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 11:36:09.284
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 11:36:09.291
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 11:36:09.300
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 11:36:09.306
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 11:36:09.372
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 11:36:09.378
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 11:36:13.014
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 11:36:14.296
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 11:36:15.247
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 11:36:15.998
+!MESSAGE Failed to find device info
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-04-01 11:36:43.094
+!MESSAGE Indexed 'METR4901_Atollic' (3 sources, 71 headers) in 5.06 sec: 11,224 declarations; 16,262 references; 1 unresolved inclusions; 39 syntax errors; 46 unresolved names (0.17%)
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:45:49.223
+!MESSAGE _Arcadia_Hunger needs property 'com.atollic.truestudio.general.runtimelib.1414626905' fixed. Fixing to 'com.atollic.truestudio.ld.general.clib.small'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:45:49.257
+!MESSAGE _Arcadia_Hunger needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.fpv4-sp-d16' to 'com.atollic.truestudio.common_options.target.fpucore.None'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:45:49.275
+!MESSAGE _Arcadia_Hunger needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.fpv4-sp-d16' to 'com.atollic.truestudio.common_options.target.fpucore.None'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:45:49.289
+!MESSAGE _Arcadia_Hunger needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.fpv4-sp-d16' to 'com.atollic.truestudio.common_options.target.fpucore.None'.
+
+!ENTRY org.eclipse.cdt.managedbuilder.core 4 0 2018-04-01 11:45:49.406
+!MESSAGE Orphaned CDT build configuration [com.atollic.truestudio.exe.release.1518366166]: parent extension cfg [com.atollic.truestudio.exe.release] not found
+!STACK 0
+java.lang.Exception
+	at org.eclipse.cdt.managedbuilder.core.ManagedBuilderCorePlugin.error(ManagedBuilderCorePlugin.java:226)
+	at org.eclipse.cdt.managedbuilder.internal.core.Configuration.loadFromProject(Configuration.java:844)
+	at org.eclipse.cdt.managedbuilder.internal.core.Configuration.<init>(Configuration.java:402)
+	at org.eclipse.cdt.managedbuilder.internal.dataprovider.ConfigurationDataProvider.load(ConfigurationDataProvider.java:391)
+	at org.eclipse.cdt.managedbuilder.internal.dataprovider.ConfigurationDataProvider.loadConfiguration(ConfigurationDataProvider.java:557)
+	at org.eclipse.cdt.internal.core.settings.model.CConfigurationDescriptionCache.loadData(CConfigurationDescriptionCache.java:136)
+	at org.eclipse.cdt.internal.core.settings.model.CProjectDescription.loadDatas(CProjectDescription.java:196)
+	at org.eclipse.cdt.internal.core.settings.model.xml.XmlProjectDescriptionStorage.loadProjectDescription(XmlProjectDescriptionStorage.java:500)
+	at org.eclipse.cdt.internal.core.settings.model.xml.XmlProjectDescriptionStorage.getProjectDescription(XmlProjectDescriptionStorage.java:237)
+	at org.eclipse.cdt.internal.core.settings.model.CProjectDescriptionManager.getProjectDescriptionInternal(CProjectDescriptionManager.java:437)
+	at org.eclipse.cdt.internal.core.settings.model.CProjectDescriptionManager.getProjectDescription(CProjectDescriptionManager.java:419)
+	at org.eclipse.cdt.internal.core.settings.model.CProjectDescriptionManager.getProjectDescription(CProjectDescriptionManager.java:413)
+	at org.eclipse.cdt.internal.core.settings.model.CProjectDescriptionManager.getProjectDescription(CProjectDescriptionManager.java:406)
+	at org.eclipse.cdt.core.resources.RefreshScopeManager.loadSettings(RefreshScopeManager.java:480)
+	at org.eclipse.cdt.core.resources.RefreshScopeManager$1$1.visit(RefreshScopeManager.java:153)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:64)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:75)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:48)
+	at org.eclipse.cdt.core.resources.RefreshScopeManager$1.resourceChanged(RefreshScopeManager.java:141)
+	at org.eclipse.core.internal.events.NotificationManager$1.run(NotificationManager.java:299)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.NotificationManager.notify(NotificationManager.java:289)
+	at org.eclipse.core.internal.events.NotificationManager.broadcastChanges(NotificationManager.java:152)
+	at org.eclipse.core.internal.resources.Workspace.broadcastPostChange(Workspace.java:374)
+	at org.eclipse.core.internal.resources.Workspace.endOperation(Workspace.java:1469)
+	at org.eclipse.core.internal.resources.Project.open(Project.java:1078)
+	at org.eclipse.ui.internal.wizards.datatransfer.SmartImportJob.toExistingOrNewProject(SmartImportJob.java:509)
+	at org.eclipse.ui.internal.wizards.datatransfer.SmartImportJob.run(SmartImportJob.java:192)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:45:49.465
+!MESSAGE _Arcadia_Hunger needs property 'com.atollic.truestudio.general.runtimelib.1715204550' fixed. Fixing to 'com.atollic.truestudio.ld.general.clib.small'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:45:49.477
+!MESSAGE _Arcadia_Hunger needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.fpv4-sp-d16' to 'com.atollic.truestudio.common_options.target.fpucore.None'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:45:49.490
+!MESSAGE _Arcadia_Hunger needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.fpv4-sp-d16' to 'com.atollic.truestudio.common_options.target.fpucore.None'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:45:49.505
+!MESSAGE _Arcadia_Hunger needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.fpv4-sp-d16' to 'com.atollic.truestudio.common_options.target.fpucore.None'.
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 11:45:49.557
+!MESSAGE Failed to generate command
+!STACK 0
+org.eclipse.cdt.managedbuilder.core.BuildException: Can't find MCU STM32F303K8
+	at com.atollic.truestudio.mbs.McuOptionCommandGenerator.getMcpuForMcu(McuOptionCommandGenerator.java:36)
+	at com.atollic.truestudio.mbs.McuOptionCommandGenerator.generateCommand(McuOptionCommandGenerator.java:55)
+	at com.atollic.truestudio.mbs.GCCSpecsDetectorAtollicArm.addGeneratedCommand(GCCSpecsDetectorAtollicArm.java:193)
+	at com.atollic.truestudio.mbs.GCCSpecsDetectorAtollicArm.getCompilerArguments(GCCSpecsDetectorAtollicArm.java:159)
+	at com.atollic.truestudio.mbs.GCCSpecsDetectorAtollicArm.getArgsFromToolchain(GCCSpecsDetectorAtollicArm.java:126)
+	at com.atollic.truestudio.mbs.GCCSpecsDetectorAtollicArm.getCompilerCommand(GCCSpecsDetectorAtollicArm.java:93)
+	at org.eclipse.cdt.managedbuilder.language.settings.providers.AbstractBuiltinSpecsDetector.resolveCommand(AbstractBuiltinSpecsDetector.java:308)
+	at org.eclipse.cdt.managedbuilder.language.settings.providers.AbstractBuiltinSpecsDetector.calculateEnvHash(AbstractBuiltinSpecsDetector.java:422)
+	at org.eclipse.cdt.managedbuilder.language.settings.providers.AbstractBuiltinSpecsDetector.validateEnvironment(AbstractBuiltinSpecsDetector.java:466)
+	at org.eclipse.cdt.managedbuilder.language.settings.providers.AbstractBuiltinSpecsDetector.execute(AbstractBuiltinSpecsDetector.java:481)
+	at org.eclipse.cdt.managedbuilder.language.settings.providers.AbstractBuiltinSpecsDetector.registerListener(AbstractBuiltinSpecsDetector.java:375)
+	at org.eclipse.cdt.internal.core.language.settings.providers.LanguageSettingsProvidersSerializer.reRegisterListeners(LanguageSettingsProvidersSerializer.java:1375)
+	at org.eclipse.cdt.internal.core.settings.model.xml.XmlProjectDescriptionStorage.setCurrentDescription(XmlProjectDescriptionStorage.java:386)
+	at org.eclipse.cdt.internal.core.settings.model.xml.XmlProjectDescriptionStorage.setLoaddedDescriptionOnLoad(XmlProjectDescriptionStorage.java:357)
+	at org.eclipse.cdt.internal.core.settings.model.xml.XmlProjectDescriptionStorage.getProjectDescription(XmlProjectDescriptionStorage.java:256)
+	at org.eclipse.cdt.internal.core.settings.model.CProjectDescriptionManager.getProjectDescriptionInternal(CProjectDescriptionManager.java:437)
+	at org.eclipse.cdt.internal.core.settings.model.CProjectDescriptionManager.getProjectDescription(CProjectDescriptionManager.java:419)
+	at org.eclipse.cdt.internal.core.settings.model.CProjectDescriptionManager.getProjectDescription(CProjectDescriptionManager.java:413)
+	at org.eclipse.cdt.internal.core.settings.model.CProjectDescriptionManager.getProjectDescription(CProjectDescriptionManager.java:406)
+	at org.eclipse.cdt.core.resources.RefreshScopeManager.loadSettings(RefreshScopeManager.java:480)
+	at org.eclipse.cdt.core.resources.RefreshScopeManager$1$1.visit(RefreshScopeManager.java:153)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:64)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:75)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:48)
+	at org.eclipse.cdt.core.resources.RefreshScopeManager$1.resourceChanged(RefreshScopeManager.java:141)
+	at org.eclipse.core.internal.events.NotificationManager$1.run(NotificationManager.java:299)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.NotificationManager.notify(NotificationManager.java:289)
+	at org.eclipse.core.internal.events.NotificationManager.broadcastChanges(NotificationManager.java:152)
+	at org.eclipse.core.internal.resources.Workspace.broadcastPostChange(Workspace.java:374)
+	at org.eclipse.core.internal.resources.Workspace.endOperation(Workspace.java:1469)
+	at org.eclipse.core.internal.resources.Project.open(Project.java:1078)
+	at org.eclipse.ui.internal.wizards.datatransfer.SmartImportJob.toExistingOrNewProject(SmartImportJob.java:509)
+	at org.eclipse.ui.internal.wizards.datatransfer.SmartImportJob.run(SmartImportJob.java:192)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 11:45:49.570
+!MESSAGE Failed to generate command
+!STACK 0
+org.eclipse.cdt.managedbuilder.core.BuildException: Can't find MCU STM32F303K8
+	at com.atollic.truestudio.mbs.McuOptionCommandGenerator.getMcpuForMcu(McuOptionCommandGenerator.java:36)
+	at com.atollic.truestudio.mbs.McuOptionCommandGenerator.generateCommand(McuOptionCommandGenerator.java:55)
+	at com.atollic.truestudio.mbs.GCCSpecsDetectorAtollicArm.addGeneratedCommand(GCCSpecsDetectorAtollicArm.java:193)
+	at com.atollic.truestudio.mbs.GCCSpecsDetectorAtollicArm.getCompilerArguments(GCCSpecsDetectorAtollicArm.java:159)
+	at com.atollic.truestudio.mbs.GCCSpecsDetectorAtollicArm.getArgsFromToolchain(GCCSpecsDetectorAtollicArm.java:126)
+	at com.atollic.truestudio.mbs.GCCSpecsDetectorAtollicArm.getCompilerCommand(GCCSpecsDetectorAtollicArm.java:93)
+	at org.eclipse.cdt.managedbuilder.language.settings.providers.AbstractBuiltinSpecsDetector.resolveCommand(AbstractBuiltinSpecsDetector.java:308)
+	at org.eclipse.cdt.managedbuilder.language.settings.providers.AbstractBuiltinSpecsDetector.calculateEnvHash(AbstractBuiltinSpecsDetector.java:422)
+	at org.eclipse.cdt.managedbuilder.language.settings.providers.AbstractBuiltinSpecsDetector.validateEnvironment(AbstractBuiltinSpecsDetector.java:466)
+	at org.eclipse.cdt.managedbuilder.language.settings.providers.AbstractBuiltinSpecsDetector.execute(AbstractBuiltinSpecsDetector.java:481)
+	at org.eclipse.cdt.managedbuilder.language.settings.providers.AbstractBuiltinSpecsDetector.registerListener(AbstractBuiltinSpecsDetector.java:375)
+	at org.eclipse.cdt.internal.core.language.settings.providers.LanguageSettingsProvidersSerializer.reRegisterListeners(LanguageSettingsProvidersSerializer.java:1375)
+	at org.eclipse.cdt.internal.core.settings.model.xml.XmlProjectDescriptionStorage.setCurrentDescription(XmlProjectDescriptionStorage.java:386)
+	at org.eclipse.cdt.internal.core.settings.model.xml.XmlProjectDescriptionStorage.setLoaddedDescriptionOnLoad(XmlProjectDescriptionStorage.java:357)
+	at org.eclipse.cdt.internal.core.settings.model.xml.XmlProjectDescriptionStorage.getProjectDescription(XmlProjectDescriptionStorage.java:256)
+	at org.eclipse.cdt.internal.core.settings.model.CProjectDescriptionManager.getProjectDescriptionInternal(CProjectDescriptionManager.java:437)
+	at org.eclipse.cdt.internal.core.settings.model.CProjectDescriptionManager.getProjectDescription(CProjectDescriptionManager.java:419)
+	at org.eclipse.cdt.internal.core.settings.model.CProjectDescriptionManager.getProjectDescription(CProjectDescriptionManager.java:413)
+	at org.eclipse.cdt.internal.core.settings.model.CProjectDescriptionManager.getProjectDescription(CProjectDescriptionManager.java:406)
+	at org.eclipse.cdt.core.resources.RefreshScopeManager.loadSettings(RefreshScopeManager.java:480)
+	at org.eclipse.cdt.core.resources.RefreshScopeManager$1$1.visit(RefreshScopeManager.java:153)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:64)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:75)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:48)
+	at org.eclipse.cdt.core.resources.RefreshScopeManager$1.resourceChanged(RefreshScopeManager.java:141)
+	at org.eclipse.core.internal.events.NotificationManager$1.run(NotificationManager.java:299)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.NotificationManager.notify(NotificationManager.java:289)
+	at org.eclipse.core.internal.events.NotificationManager.broadcastChanges(NotificationManager.java:152)
+	at org.eclipse.core.internal.resources.Workspace.broadcastPostChange(Workspace.java:374)
+	at org.eclipse.core.internal.resources.Workspace.endOperation(Workspace.java:1469)
+	at org.eclipse.core.internal.resources.Project.open(Project.java:1078)
+	at org.eclipse.ui.internal.wizards.datatransfer.SmartImportJob.toExistingOrNewProject(SmartImportJob.java:509)
+	at org.eclipse.ui.internal.wizards.datatransfer.SmartImportJob.run(SmartImportJob.java:192)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:45:49.740
+!MESSAGE _Arcadia_Hunger needs property 'com.atollic.truestudio.general.runtimelib.1569883395' fixed. Fixing to 'com.atollic.truestudio.ld.general.clib.small'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:45:49.754
+!MESSAGE _Arcadia_Hunger needs property 'com.atollic.truestudio.toolchain_options.mcu.15155552' fixed. Fixing to 'STM32F303K8'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:45:49.766
+!MESSAGE _Arcadia_Hunger needs property 'com.atollic.truestudio.toolchain_options.vendor.308148037' fixed. Fixing to 'STMicroelectronics'.
+
+!ENTRY org.eclipse.cdt.managedbuilder.core 4 0 2018-04-01 11:45:49.885
+!MESSAGE Orphaned CDT build configuration [com.atollic.truestudio.exe.release.1518366166]: parent extension cfg [com.atollic.truestudio.exe.release] not found
+!STACK 0
+java.lang.Exception
+	at org.eclipse.cdt.managedbuilder.core.ManagedBuilderCorePlugin.error(ManagedBuilderCorePlugin.java:226)
+	at org.eclipse.cdt.managedbuilder.internal.core.Configuration.loadFromProject(Configuration.java:844)
+	at org.eclipse.cdt.managedbuilder.internal.core.Configuration.<init>(Configuration.java:402)
+	at org.eclipse.cdt.managedbuilder.internal.dataprovider.ConfigurationDataProvider.load(ConfigurationDataProvider.java:391)
+	at org.eclipse.cdt.managedbuilder.internal.dataprovider.ConfigurationDataProvider.loadConfiguration(ConfigurationDataProvider.java:557)
+	at org.eclipse.cdt.internal.core.settings.model.CConfigurationDescriptionCache.loadData(CConfigurationDescriptionCache.java:136)
+	at org.eclipse.cdt.internal.core.settings.model.CProjectDescription.loadDatas(CProjectDescription.java:196)
+	at org.eclipse.cdt.internal.core.settings.model.xml.XmlProjectDescriptionStorage.loadProjectDescription(XmlProjectDescriptionStorage.java:500)
+	at org.eclipse.cdt.internal.core.settings.model.xml.XmlProjectDescriptionStorage.getProjectDescription(XmlProjectDescriptionStorage.java:237)
+	at org.eclipse.cdt.internal.core.settings.model.CProjectDescriptionManager.getProjectDescriptionInternal(CProjectDescriptionManager.java:437)
+	at org.eclipse.cdt.internal.core.settings.model.CProjectDescriptionManager.getProjectDescription(CProjectDescriptionManager.java:419)
+	at org.eclipse.cdt.internal.core.settings.model.CProjectDescriptionManager.getProjectDescription(CProjectDescriptionManager.java:413)
+	at org.eclipse.cdt.internal.core.settings.model.CProjectDescriptionManager.getProjectDescription(CProjectDescriptionManager.java:406)
+	at org.eclipse.cdt.internal.core.settings.model.CProjectDescriptionManager.getProjectDescription(CProjectDescriptionManager.java:662)
+	at org.eclipse.cdt.core.model.CoreModel.getProjectDescription(CoreModel.java:1373)
+	at org.eclipse.cdt.managedbuilder.internal.core.BuildSettingsUtil.checkSynchBuildInfo(BuildSettingsUtil.java:165)
+	at org.eclipse.cdt.managedbuilder.internal.core.ManagedBuildInfo.setDefaultConfiguration(ManagedBuildInfo.java:800)
+	at com.atollic.truestudio.converters.TsToTsProjectConfigurator.configure(TsToTsProjectConfigurator.java:36)
+	at org.eclipse.ui.internal.wizards.datatransfer.SmartImportJob.importProjectAndChildrenRecursively(SmartImportJob.java:429)
+	at org.eclipse.ui.internal.wizards.datatransfer.SmartImportJob.access$0(SmartImportJob.java:367)
+	at org.eclipse.ui.internal.wizards.datatransfer.SmartImportJob$2.run(SmartImportJob.java:216)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:45:49.911
+!MESSAGE _Arcadia_Hunger needs property 'com.atollic.truestudio.general.runtimelib.1474731989' fixed. Fixing to 'com.atollic.truestudio.ld.general.clib.small'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:45:49.924
+!MESSAGE _Arcadia_Hunger needs property 'com.atollic.truestudio.toolchain_options.mcu.1896193633' fixed. Fixing to 'STM32F303K8'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 11:45:49.933
+!MESSAGE _Arcadia_Hunger needs property 'com.atollic.truestudio.toolchain_options.vendor.845585864' fixed. Fixing to 'STMicroelectronics'.
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-04-01 11:46:03.534
+!MESSAGE Indexed '_Arcadia_Hunger' (31 sources, 109 headers) in 4.5 sec: 11,149 declarations; 47,555 references; 0 unresolved inclusions; 154 syntax errors; 54 unresolved names (0.092%)
+
+!ENTRY Atollic TrueSTORE 1 0 2018-04-01 12:26:04.419
+!MESSAGE Importing project STM32100E-EVAL_USART_Interrupt
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 12:26:14.482
+!MESSAGE STM32100E-EVAL_USART_Interrupt needs property 'com.atollic.truestudio.general.runtimelib.874572459' fixed. Fixing to 'com.atollic.truestudio.ld.general.clib.small'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 12:26:14.491
+!MESSAGE STM32100E-EVAL_USART_Interrupt needs property 'com.atollic.truestudio.toolchain_options.mcu.119967600' fixed. Fixing to 'STM32F100ZE'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 12:26:14.500
+!MESSAGE STM32100E-EVAL_USART_Interrupt needs property 'com.atollic.truestudio.toolchain_options.vendor.1035745157' fixed. Fixing to 'STMicroelectronics'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 12:26:14.507
+!MESSAGE STM32100E-EVAL_USART_Interrupt needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.None'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 12:26:14.515
+!MESSAGE STM32100E-EVAL_USART_Interrupt needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.None'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 12:26:14.522
+!MESSAGE STM32100E-EVAL_USART_Interrupt needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.None'.
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-04-01 12:26:18.584
+!MESSAGE Indexed 'STM32100E-EVAL_USART_Interrupt' (40 sources, 90 headers) in 3.96 sec: 8,895 declarations; 28,852 references; 3 unresolved inclusions; 51 syntax errors; 4,058 unresolved names (9.7%)
+
+!ENTRY Atollic TrueSTORE 1 0 2018-04-01 12:31:11.313
+!MESSAGE Importing project STM322xG-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 12:31:16.056
+!MESSAGE STM322xG-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt needs property 'com.atollic.truestudio.general.runtimelib.704305887' fixed. Fixing to 'com.atollic.truestudio.ld.general.clib.small'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 12:31:16.065
+!MESSAGE STM322xG-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt needs property 'com.atollic.truestudio.toolchain_options.mcu.2078805866' fixed. Fixing to 'STM32F207IG'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 12:31:16.074
+!MESSAGE STM322xG-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt needs property 'com.atollic.truestudio.toolchain_options.vendor.2034622457' fixed. Fixing to 'STMicroelectronics'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 12:31:16.084
+!MESSAGE STM322xG-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.None'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 12:31:16.136
+!MESSAGE STM322xG-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.None'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 12:31:16.154
+!MESSAGE STM322xG-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.None'.
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-04-01 12:31:19.696
+!MESSAGE Indexed 'STM322xG-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt' (48 sources, 111 headers) in 3.46 sec: 11,303 declarations; 38,073 references; 3 unresolved inclusions; 52 syntax errors; 5,465 unresolved names (10%)
+
+!ENTRY TrueSTUDIO 4 0 2018-04-01 15:53:35.043
+!MESSAGE ST-Link GDB server failed to start (exit code = 17).
+
+!ENTRY org.eclipse.cdt.dsf.gdb 4 5012 2018-04-01 15:53:35.228
+!MESSAGE Error in initializing ST-Link device.
+Reason: (17) Could not find an ST-Link with serial number 0670FF504955857567041421.
+Please verify the serial number in the debug configuration.
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2018-04-01 15:53:49.583
+!MESSAGE Unloading product manager
+!SESSION 2018-04-01 15:53:54.782 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_152
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_AU
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2018-04-01 15:54:01.120
+!MESSAGE Loading product manager
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2018-04-01 15:54:01.144
+!MESSAGE OS info: Windows 10, 10.0, x86
+
+!ENTRY TrueSTUDIO 1 0 2018-04-01 15:54:06.206
+!MESSAGE Target: STM32, Version: 9.0.0, Build date: 20180117-1023, Installation dir: /D:/Program Files (x86)/Atollic/TrueSTUDIO for STM32 9.0.0/ide/
+
+!ENTRY TrueSTUDIO 1 0 2018-04-01 15:54:06.216
+!MESSAGE Workspace: D:\Users\Samuel\workspace\METR4901
+
+!ENTRY org.eclipse.jface 2 0 2018-04-01 15:54:12.495
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2018-04-01 15:54:12.495
+!MESSAGE A conflict occurred for ALT+CTRL+T:
+Binding(ALT+CTRL+T,
+	ParameterizedCommand(Command(org.eclipse.team.svn.ui.command.EditPropertiesCommand,Show Properties,
+		,
+		Category(org.eclipse.team.svn.ui.command.category,SVN,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@7d391,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+CTRL+T,
+	ParameterizedCommand(Command(org.eclipse.tm.terminal.connector.local.command.launch,Open Local Terminal on Selection,
+		,
+		Category(org.eclipse.tm.terminal.view.ui.commands.category,Terminal Commands,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@826984,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY com.atollic.truestudio.integration.processorexpert 0 0 2018-04-01 15:54:30.419
+!MESSAGE Atollic TrueSTUDIO Processor Expert integration is up.
+
+!ENTRY org.eclipse.egit.ui 2 0 2018-04-01 15:54:31.133
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Samuel'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY edu.hawaii.ics.csdl.jupiter 1 0 2018-04-01 15:54:31.621
+!MESSAGE Code Review is up.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 15:56:32.376
+!MESSAGE STM322xG-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt needs property 'com.atollic.truestudio.general.runtimelib.2027135845' fixed. Fixing to 'com.atollic.truestudio.ld.general.clib.small'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 15:56:32.409
+!MESSAGE STM322xG-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt needs property 'com.atollic.truestudio.toolchain_options.mcu.1739766321' fixed. Fixing to 'STM32F207IG'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 15:56:32.425
+!MESSAGE STM322xG-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt needs property 'com.atollic.truestudio.toolchain_options.vendor.524123434' fixed. Fixing to 'STMicroelectronics'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 15:56:32.450
+!MESSAGE STM322xG-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.None'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 15:56:32.469
+!MESSAGE STM322xG-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.None'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 15:56:32.486
+!MESSAGE STM322xG-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.None'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 15:56:32.673
+!MESSAGE STM32F3_Discovery_ADC_Example needs property 'com.atollic.truestudio.general.runtimelib.334863245' fixed. Fixing to 'com.atollic.truestudio.ld.general.clib.small'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 15:56:32.704
+!MESSAGE STM32F3_Discovery_ADC_Example needs property 'com.atollic.truestudio.toolchain_options.mcu.577149414' fixed. Fixing to 'STM32F303VC'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 15:56:32.723
+!MESSAGE STM32F3_Discovery_ADC_Example needs property 'com.atollic.truestudio.toolchain_options.vendor.112212732' fixed. Fixing to 'STMicroelectronics'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 15:56:32.739
+!MESSAGE STM32F3_Discovery_ADC_Example needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.fpv4-sp-d16'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 15:56:32.755
+!MESSAGE STM32F3_Discovery_ADC_Example needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.fpv4-sp-d16'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 15:56:32.773
+!MESSAGE STM32F3_Discovery_ADC_Example needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.fpv4-sp-d16'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 15:56:33.148
+!MESSAGE STM32F3_Discovery_FreeRTOS_Simple_Demo needs property 'com.atollic.truestudio.general.runtimelib.1769309072' fixed. Fixing to 'com.atollic.truestudio.ld.general.clib.small'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 15:56:33.164
+!MESSAGE STM32F3_Discovery_FreeRTOS_Simple_Demo needs property 'com.atollic.truestudio.toolchain_options.mcu.1165447394' fixed. Fixing to 'STM32F303VC'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 15:56:33.181
+!MESSAGE STM32F3_Discovery_FreeRTOS_Simple_Demo needs property 'com.atollic.truestudio.toolchain_options.vendor.554002341' fixed. Fixing to 'STMicroelectronics'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 15:56:33.199
+!MESSAGE STM32F3_Discovery_FreeRTOS_Simple_Demo needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.fpv4-sp-d16'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 15:56:33.214
+!MESSAGE STM32F3_Discovery_FreeRTOS_Simple_Demo needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.fpv4-sp-d16'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 15:56:33.231
+!MESSAGE STM32F3_Discovery_FreeRTOS_Simple_Demo needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.fpv4-sp-d16'.
+
+!ENTRY TrueSTUDIO 4 0 2018-04-01 15:56:42.830
+!MESSAGE ST-Link GDB server failed to start (exit code = 17).
+
+!ENTRY org.eclipse.cdt.dsf.gdb 4 5012 2018-04-01 15:56:42.992
+!MESSAGE Error in initializing ST-Link device.
+Reason: (17) Could not find an ST-Link with serial number 0670FF504955857567041421.
+Please verify the serial number in the debug configuration.
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2018-04-01 16:16:21.779
+!MESSAGE Request for monitor: 'RequestMonitor (org.eclipse.cdt.dsf.mi.service.MIRunControl$9@7b9521): Status ERROR: org.eclipse.cdt.dsf code=10001 Sequence "" failed while rolling back. null children=[Status ERROR: org.eclipse.cdt.dsf.gdb code=10001 Connection is shut down null Status ERROR: org.eclipse.cdt.dsf.gdb code=10001 Connection is shut down null]' resulted in an error.
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10001 2018-04-01 16:16:21.779
+!MESSAGE Connection is shut down
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10001 2018-04-01 16:16:21.779
+!MESSAGE Connection is shut down
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2018-04-01 16:34:54.331
+!MESSAGE Unloading product manager
+!SESSION 2018-04-01 19:38:34.517 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_152
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_AU
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2018-04-01 19:38:37.504
+!MESSAGE Loading product manager
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2018-04-01 19:38:37.519
+!MESSAGE OS info: Windows 10, 10.0, x86
+
+!ENTRY TrueSTUDIO 1 0 2018-04-01 19:38:40.098
+!MESSAGE Target: STM32, Version: 9.0.0, Build date: 20180117-1023, Installation dir: /D:/Program Files (x86)/Atollic/TrueSTUDIO for STM32 9.0.0/ide/
+
+!ENTRY TrueSTUDIO 1 0 2018-04-01 19:38:40.098
+!MESSAGE Workspace: D:\Users\Samuel\workspace\METR4901
+
+!ENTRY org.eclipse.jface 2 0 2018-04-01 19:38:43.555
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2018-04-01 19:38:43.555
+!MESSAGE A conflict occurred for ALT+CTRL+T:
+Binding(ALT+CTRL+T,
+	ParameterizedCommand(Command(org.eclipse.team.svn.ui.command.EditPropertiesCommand,Show Properties,
+		,
+		Category(org.eclipse.team.svn.ui.command.category,SVN,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@848217,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+CTRL+T,
+	ParameterizedCommand(Command(org.eclipse.tm.terminal.connector.local.command.launch,Open Local Terminal on Selection,
+		,
+		Category(org.eclipse.tm.terminal.view.ui.commands.category,Terminal Commands,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@7d391,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY com.atollic.truestudio.integration.processorexpert 0 0 2018-04-01 19:38:50.743
+!MESSAGE Atollic TrueSTUDIO Processor Expert integration is up.
+
+!ENTRY org.eclipse.egit.ui 2 0 2018-04-01 19:38:50.993
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Samuel'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY edu.hawaii.ics.csdl.jupiter 1 0 2018-04-01 19:38:51.165
+!MESSAGE Code Review is up.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 19:39:25.667
+!MESSAGE STM322xG-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt needs property 'com.atollic.truestudio.general.runtimelib.1293124145' fixed. Fixing to 'com.atollic.truestudio.ld.general.clib.small'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 19:39:25.667
+!MESSAGE STM322xG-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt needs property 'com.atollic.truestudio.toolchain_options.mcu.1783398641' fixed. Fixing to 'STM32F207IG'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 19:39:25.683
+!MESSAGE STM322xG-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt needs property 'com.atollic.truestudio.toolchain_options.vendor.902767228' fixed. Fixing to 'STMicroelectronics'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 19:39:25.683
+!MESSAGE STM322xG-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.None'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 19:39:25.699
+!MESSAGE STM322xG-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.None'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 19:39:25.699
+!MESSAGE STM322xG-EVAL_USART_USART_TwoBoards_DataExchangeInterrupt needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.None'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 19:39:25.761
+!MESSAGE STM32F3_Discovery_ADC_Example needs property 'com.atollic.truestudio.general.runtimelib.1874265964' fixed. Fixing to 'com.atollic.truestudio.ld.general.clib.small'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 19:39:25.761
+!MESSAGE STM32F3_Discovery_ADC_Example needs property 'com.atollic.truestudio.toolchain_options.mcu.650842346' fixed. Fixing to 'STM32F303VC'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 19:39:25.777
+!MESSAGE STM32F3_Discovery_ADC_Example needs property 'com.atollic.truestudio.toolchain_options.vendor.1266404000' fixed. Fixing to 'STMicroelectronics'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 19:39:25.777
+!MESSAGE STM32F3_Discovery_ADC_Example needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.fpv4-sp-d16'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 19:39:25.777
+!MESSAGE STM32F3_Discovery_ADC_Example needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.fpv4-sp-d16'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 19:39:25.792
+!MESSAGE STM32F3_Discovery_ADC_Example needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.fpv4-sp-d16'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 19:39:25.949
+!MESSAGE STM32F3_Discovery_FreeRTOS_Simple_Demo needs property 'com.atollic.truestudio.general.runtimelib.1212328241' fixed. Fixing to 'com.atollic.truestudio.ld.general.clib.small'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 19:39:25.964
+!MESSAGE STM32F3_Discovery_FreeRTOS_Simple_Demo needs property 'com.atollic.truestudio.toolchain_options.mcu.339560678' fixed. Fixing to 'STM32F303VC'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 19:39:25.964
+!MESSAGE STM32F3_Discovery_FreeRTOS_Simple_Demo needs property 'com.atollic.truestudio.toolchain_options.vendor.1273415875' fixed. Fixing to 'STMicroelectronics'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 19:39:25.980
+!MESSAGE STM32F3_Discovery_FreeRTOS_Simple_Demo needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.fpv4-sp-d16'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 19:39:25.980
+!MESSAGE STM32F3_Discovery_FreeRTOS_Simple_Demo needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.fpv4-sp-d16'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 19:39:25.980
+!MESSAGE STM32F3_Discovery_FreeRTOS_Simple_Demo needs property 'FPU' fixed. Fixing from 'com.atollic.truestudio.common_options.target.fpucore.DUMMY' to 'com.atollic.truestudio.common_options.target.fpucore.fpv4-sp-d16'.
+
+!ENTRY org.eclipse.egit.core 4 0 2018-04-01 19:42:43.472
+!MESSAGE Failed to load index for repository Repository[D:\Users\Samuel\workspace\METR4901\.git]
+!STACK 0
+org.eclipse.jgit.errors.CorruptObjectException: Not a DIRC file.
+	at org.eclipse.jgit.dircache.DirCache.readFrom(DirCache.java:487)
+	at org.eclipse.jgit.dircache.DirCache.read(DirCache.java:433)
+	at org.eclipse.jgit.dircache.DirCache.read(DirCache.java:220)
+	at org.eclipse.jgit.dircache.DirCache.read(DirCache.java:192)
+	at org.eclipse.jgit.lib.Repository.readDirCache(Repository.java:1149)
+	at org.eclipse.jgit.submodule.SubmoduleWalk.forIndex(SubmoduleWalk.java:122)
+	at org.eclipse.egit.core.internal.indexdiff.IndexDiffCacheEntry.<init>(IndexDiffCacheEntry.java:145)
+	at org.eclipse.egit.core.internal.indexdiff.IndexDiffCache.getIndexDiffCacheEntry(IndexDiffCache.java:236)
+	at org.eclipse.egit.ui.internal.resources.ResourceStateFactory.getIndexDiffDataOrNull(ResourceStateFactory.java:129)
+	at org.eclipse.egit.ui.internal.resources.ResourceStateFactory.getIndexDiffDataOrNull(ResourceStateFactory.java:90)
+	at org.eclipse.egit.ui.internal.decorators.GitLightweightDecorator.decorateResource(GitLightweightDecorator.java:224)
+	at org.eclipse.egit.ui.internal.decorators.GitLightweightDecorator.decorate(GitLightweightDecorator.java:201)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorDefinition.decorate(LightweightDecoratorDefinition.java:254)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager$LightweightRunnable.run(LightweightDecoratorManager.java:100)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager.decorate(LightweightDecoratorManager.java:383)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager.getDecorations(LightweightDecoratorManager.java:365)
+	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.ensureResultCached(DecorationScheduler.java:367)
+	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.run(DecorationScheduler.java:327)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.egit.core 4 0 2018-04-01 19:42:43.472
+!MESSAGE Failed to load index for repository Repository[D:\Users\Samuel\workspace\METR4901\.git]
+!STACK 0
+org.eclipse.jgit.errors.CorruptObjectException: Not a DIRC file.
+	at org.eclipse.jgit.dircache.DirCache.readFrom(DirCache.java:487)
+	at org.eclipse.jgit.dircache.DirCache.read(DirCache.java:433)
+	at org.eclipse.jgit.dircache.DirCache.read(DirCache.java:220)
+	at org.eclipse.egit.core.internal.indexdiff.IndexDiffCacheEntry.<init>(IndexDiffCacheEntry.java:169)
+	at org.eclipse.egit.core.internal.indexdiff.IndexDiffCache.getIndexDiffCacheEntry(IndexDiffCache.java:236)
+	at org.eclipse.egit.ui.internal.resources.ResourceStateFactory.getIndexDiffDataOrNull(ResourceStateFactory.java:129)
+	at org.eclipse.egit.ui.internal.resources.ResourceStateFactory.getIndexDiffDataOrNull(ResourceStateFactory.java:90)
+	at org.eclipse.egit.ui.internal.decorators.GitLightweightDecorator.decorateResource(GitLightweightDecorator.java:224)
+	at org.eclipse.egit.ui.internal.decorators.GitLightweightDecorator.decorate(GitLightweightDecorator.java:201)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorDefinition.decorate(LightweightDecoratorDefinition.java:254)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager$LightweightRunnable.run(LightweightDecoratorManager.java:100)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager.decorate(LightweightDecoratorManager.java:383)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager.getDecorations(LightweightDecoratorManager.java:365)
+	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.ensureResultCached(DecorationScheduler.java:367)
+	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.run(DecorationScheduler.java:327)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 20:22:05.159
+!MESSAGE _Banshee_Echo needs property 'com.atollic.truestudio.general.runtimelib.578166472' fixed. Fixing to 'com.atollic.truestudio.ld.general.cclib.CCSmallCSmall'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 20:22:05.175
+!MESSAGE Failed to get device info (Debug) for project _Banshee_Echo
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 20:22:05.175
+!MESSAGE Failed to get device info (Debug) for project _Banshee_Echo
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 20:22:05.190
+!MESSAGE Failed to get device info (Debug) for project _Banshee_Echo
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 20:22:05.206
+!MESSAGE Failed to get device info (Debug) for project _Banshee_Echo
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 20:22:05.237
+!MESSAGE _Banshee_Echo needs property 'com.atollic.truestudio.general.runtimelib.185288554' fixed. Fixing to 'com.atollic.truestudio.ld.general.cclib.CCSmallCSmall'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 20:22:05.237
+!MESSAGE Failed to get device info (Release) for project _Banshee_Echo
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 20:22:05.259
+!MESSAGE Failed to get device info (Release) for project _Banshee_Echo
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 20:22:05.275
+!MESSAGE Failed to get device info (Release) for project _Banshee_Echo
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 20:22:05.290
+!MESSAGE Failed to get device info (Release) for project _Banshee_Echo
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 20:22:05.422
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 20:22:05.438
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 20:22:05.457
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 20:22:05.460
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 20:22:05.576
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 20:22:06.578
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 20:22:08.281
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 20:22:09.063
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 20:22:10.041
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 20:22:10.051
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 20:22:10.061
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 20:22:10.069
+!MESSAGE Failed to find device info
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-04-01 20:22:15.418
+!MESSAGE Indexed '_Banshee_Echo' (20 sources, 122 headers) in 3.64 sec: 9,798 declarations; 24,937 references; 0 unresolved inclusions; 128 syntax errors; 2,585 unresolved names (6.9%)
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 20:22:38.175
+!MESSAGE Failed to get device info (Debug) for project _Banshee_Echo
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 20:22:38.175
+!MESSAGE Failed to get device info (Debug) for project _Banshee_Echo
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 20:22:38.175
+!MESSAGE Failed to get device info (Debug) for project _Banshee_Echo
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 20:22:38.190
+!MESSAGE Failed to get device info (Debug) for project _Banshee_Echo
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 20:22:42.746
+!MESSAGE Failed to get device info (Release) for project _Banshee_Echo
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 20:22:42.746
+!MESSAGE Failed to get device info (Release) for project _Banshee_Echo
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 20:22:42.762
+!MESSAGE Failed to get device info (Release) for project _Banshee_Echo
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 20:22:42.762
+!MESSAGE Failed to get device info (Release) for project _Banshee_Echo
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 20:23:19.319
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 20:23:19.319
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 20:23:19.334
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 20:23:19.334
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 20:23:19.419
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 20:23:19.435
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 20:23:19.435
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2018-04-01 20:23:19.453
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.hardwaredebug.launch 2 0 2018-04-01 20:23:34.138
+!MESSAGE Won't launch debug session since we failed to locate the binary.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 20:25:11.564
+!MESSAGE _Banshee_Echo needs property 'com.atollic.truestudio.general.runtimelib.927796822' fixed. Fixing to 'com.atollic.truestudio.ld.general.clib.small'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 20:25:11.564
+!MESSAGE _Banshee_Echo needs property 'com.atollic.truestudio.toolchain_options.mcu.2104628607' fixed. Fixing to 'STM32F303K8'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 20:25:11.580
+!MESSAGE _Banshee_Echo needs property 'com.atollic.truestudio.toolchain_options.vendor.1394278892' fixed. Fixing to 'STMicroelectronics'.
+
+!ENTRY org.eclipse.cdt.managedbuilder.core 4 0 2018-04-01 20:25:11.611
+!MESSAGE Orphaned CDT build configuration [com.atollic.truestudio.exe.release.1518366166]: parent extension cfg [com.atollic.truestudio.exe.release] not found
+!STACK 0
+java.lang.Exception
+	at org.eclipse.cdt.managedbuilder.core.ManagedBuilderCorePlugin.error(ManagedBuilderCorePlugin.java:226)
+	at org.eclipse.cdt.managedbuilder.internal.core.Configuration.loadFromProject(Configuration.java:844)
+	at org.eclipse.cdt.managedbuilder.internal.core.Configuration.<init>(Configuration.java:402)
+	at org.eclipse.cdt.managedbuilder.internal.dataprovider.ConfigurationDataProvider.load(ConfigurationDataProvider.java:391)
+	at org.eclipse.cdt.managedbuilder.internal.dataprovider.ConfigurationDataProvider.loadConfiguration(ConfigurationDataProvider.java:557)
+	at org.eclipse.cdt.internal.core.settings.model.CConfigurationDescriptionCache.loadData(CConfigurationDescriptionCache.java:136)
+	at org.eclipse.cdt.internal.core.settings.model.CProjectDescription.loadDatas(CProjectDescription.java:196)
+	at org.eclipse.cdt.internal.core.settings.model.xml.XmlProjectDescriptionStorage.loadProjectDescription(XmlProjectDescriptionStorage.java:500)
+	at org.eclipse.cdt.internal.core.settings.model.xml.XmlProjectDescriptionStorage.getProjectDescription(XmlProjectDescriptionStorage.java:237)
+	at org.eclipse.cdt.internal.core.settings.model.CProjectDescriptionManager.getProjectDescriptionInternal(CProjectDescriptionManager.java:437)
+	at org.eclipse.cdt.internal.core.settings.model.CProjectDescriptionManager.getProjectDescription(CProjectDescriptionManager.java:419)
+	at org.eclipse.cdt.internal.core.settings.model.CProjectDescriptionManager.getProjectDescription(CProjectDescriptionManager.java:413)
+	at org.eclipse.cdt.internal.core.settings.model.CProjectDescriptionManager.getProjectDescription(CProjectDescriptionManager.java:406)
+	at org.eclipse.cdt.core.resources.RefreshScopeManager.loadSettings(RefreshScopeManager.java:480)
+	at org.eclipse.cdt.core.resources.RefreshScopeManager$1$1.visit(RefreshScopeManager.java:153)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:64)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:75)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:48)
+	at org.eclipse.cdt.core.resources.RefreshScopeManager$1.resourceChanged(RefreshScopeManager.java:141)
+	at org.eclipse.core.internal.events.NotificationManager$1.run(NotificationManager.java:299)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.NotificationManager.notify(NotificationManager.java:289)
+	at org.eclipse.core.internal.events.NotificationManager.broadcastChanges(NotificationManager.java:152)
+	at org.eclipse.core.internal.resources.Workspace.broadcastPostChange(Workspace.java:374)
+	at org.eclipse.core.internal.resources.Workspace.endOperation(Workspace.java:1469)
+	at org.eclipse.core.internal.resources.Project.open(Project.java:1078)
+	at org.eclipse.ui.internal.wizards.datatransfer.SmartImportJob.toExistingOrNewProject(SmartImportJob.java:509)
+	at org.eclipse.ui.internal.wizards.datatransfer.SmartImportJob.run(SmartImportJob.java:239)
+	at org.eclipse.ui.ide.IDE.importExistingProject(IDE.java:1936)
+	at org.eclipse.ui.ide.IDE.openInternalEditorOnFileStore(IDE.java:1450)
+	at org.eclipse.ui.internal.ide.application.DelayedEventsProcessor$1.run(DelayedEventsProcessor.java:128)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:182)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4203)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3819)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$4.run(PartRenderingEngine.java:1121)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1022)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:150)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:687)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:604)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:148)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:142)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:388)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:243)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:673)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:610)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1519)
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 20:25:11.627
+!MESSAGE _Banshee_Echo needs property 'com.atollic.truestudio.general.runtimelib.2017995845' fixed. Fixing to 'com.atollic.truestudio.ld.general.clib.small'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 20:25:11.627
+!MESSAGE _Banshee_Echo needs property 'com.atollic.truestudio.toolchain_options.mcu.35523778' fixed. Fixing to 'STM32F303K8'.
+
+!ENTRY com.atollic.truestudio.mbs 2 0 2018-04-01 20:25:11.644
+!MESSAGE _Banshee_Echo needs property 'com.atollic.truestudio.toolchain_options.vendor.1026552512' fixed. Fixing to 'STMicroelectronics'.
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-04-01 20:25:14.217
+!MESSAGE Indexed '_Banshee_Echo' (20 sources, 27 headers) in 2.49 sec: 2,623 declarations; 18,565 references; 3 unresolved inclusions; 18 syntax errors; 2,355 unresolved names (10%)
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2018-04-01 20:25:18.779
+!MESSAGE Unloading product manager
+
+!ENTRY org.eclipse.core.resources 2 10035 2018-04-01 20:25:18.979
+!MESSAGE The workspace will exit with unsaved changes in this session.
+
+!ENTRY org.eclipse.core.jobs 2 2 2018-04-01 20:25:19.342
+!MESSAGE Job found still running after platform shutdown.  Jobs should be canceled by the plugin that scheduled them during shutdown: org.eclipse.debug.core.DebugPlugin$EventDispatchJob
+!SESSION 2018-04-01 20:25:28.589 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_152
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_AU
+Framework arguments:  D:\Users\Samuel\workspace\METR4901\_Banshee_Echo\TrueSTUDIO\_Banshee_Echo\.cproject
+Command-line arguments:  -os win32 -ws win32 -arch x86 D:\Users\Samuel\workspace\METR4901\_Banshee_Echo\TrueSTUDIO\_Banshee_Echo\.cproject
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2018-04-01 20:25:30.434
+!MESSAGE Loading product manager
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2018-04-01 20:25:30.457
+!MESSAGE OS info: Windows 10, 10.0, x86
+
+!ENTRY org.eclipse.core.resources 2 10035 2018-04-01 20:25:30.604
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY TrueSTUDIO 1 0 2018-04-01 20:25:31.622
+!MESSAGE Target: STM32, Version: 9.0.0, Build date: 20180117-1023, Installation dir: /D:/Program Files (x86)/Atollic/TrueSTUDIO for STM32 9.0.0/ide/
+
+!ENTRY TrueSTUDIO 1 0 2018-04-01 20:25:31.622
+!MESSAGE Workspace: D:\Users\Samuel\workspace\METR4901
+
+!ENTRY org.eclipse.jface 2 0 2018-04-01 20:25:32.862
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2018-04-01 20:25:32.862
+!MESSAGE A conflict occurred for ALT+CTRL+T:
+Binding(ALT+CTRL+T,
+	ParameterizedCommand(Command(org.eclipse.team.svn.ui.command.EditPropertiesCommand,Show Properties,
+		,
+		Category(org.eclipse.team.svn.ui.command.category,SVN,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@91b7c5,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+CTRL+T,
+	ParameterizedCommand(Command(org.eclipse.tm.terminal.connector.local.command.launch,Open Local Terminal on Selection,
+		,
+		Category(org.eclipse.tm.terminal.view.ui.commands.category,Terminal Commands,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@fc3529,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY com.atollic.truestudio.integration.processorexpert 0 0 2018-04-01 20:25:45.937
+!MESSAGE Atollic TrueSTUDIO Processor Expert integration is up.
+
+!ENTRY edu.hawaii.ics.csdl.jupiter 1 0 2018-04-01 20:25:46.053
+!MESSAGE Code Review is up.
+
+!ENTRY org.eclipse.egit.ui 2 0 2018-04-01 20:25:46.100
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Samuel'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2018-04-01 20:25:52.710
+!MESSAGE Unloading product manager
+!SESSION 2018-04-01 20:26:16.906 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_152
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_AU
+Framework arguments:  D:\Users\Samuel\workspace\METR4901\_Banshee_Echo\TrueSTUDIO\_Banshee_Echo\.project
+Command-line arguments:  -os win32 -ws win32 -arch x86 D:\Users\Samuel\workspace\METR4901\_Banshee_Echo\TrueSTUDIO\_Banshee_Echo\.project
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2018-04-01 20:26:18.586
+!MESSAGE Loading product manager
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2018-04-01 20:26:18.602
+!MESSAGE OS info: Windows 10, 10.0, x86
+
+!ENTRY TrueSTUDIO 1 0 2018-04-01 20:26:19.805
+!MESSAGE Target: STM32, Version: 9.0.0, Build date: 20180117-1023, Installation dir: /D:/Program Files (x86)/Atollic/TrueSTUDIO for STM32 9.0.0/ide/
+
+!ENTRY TrueSTUDIO 1 0 2018-04-01 20:26:19.821
+!MESSAGE Workspace: D:\Users\Samuel\workspace\METR4901
+
+!ENTRY org.eclipse.jface 2 0 2018-04-01 20:26:21.294
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2018-04-01 20:26:21.294
+!MESSAGE A conflict occurred for ALT+CTRL+T:
+Binding(ALT+CTRL+T,
+	ParameterizedCommand(Command(org.eclipse.team.svn.ui.command.EditPropertiesCommand,Show Properties,
+		,
+		Category(org.eclipse.team.svn.ui.command.category,SVN,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@124dda2,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+CTRL+T,
+	ParameterizedCommand(Command(org.eclipse.tm.terminal.connector.local.command.launch,Open Local Terminal on Selection,
+		,
+		Category(org.eclipse.tm.terminal.view.ui.commands.category,Terminal Commands,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@e33c2,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+!SESSION 2018-04-01 20:26:38.924 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_152
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_AU
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2018-04-01 20:26:42.257
+!MESSAGE Loading product manager
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2018-04-01 20:26:42.279
+!MESSAGE OS info: Windows 10, 10.0, x86
+
+!ENTRY TrueSTUDIO 1 0 2018-04-01 20:26:44.800
+!MESSAGE Target: STM32, Version: 9.0.0, Build date: 20180117-1023, Installation dir: /D:/Program Files (x86)/Atollic/TrueSTUDIO for STM32 9.0.0/ide/
+
+!ENTRY TrueSTUDIO 1 0 2018-04-01 20:26:44.816
+!MESSAGE Workspace: D:\Users\Samuel\workspace\METR4901
+
+!ENTRY org.eclipse.jface 2 0 2018-04-01 20:26:48.085
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2018-04-01 20:26:48.085
+!MESSAGE A conflict occurred for ALT+CTRL+T:
+Binding(ALT+CTRL+T,
+	ParameterizedCommand(Command(org.eclipse.team.svn.ui.command.EditPropertiesCommand,Show Properties,
+		,
+		Category(org.eclipse.team.svn.ui.command.category,SVN,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@19eca90,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+CTRL+T,
+	ParameterizedCommand(Command(org.eclipse.tm.terminal.connector.local.command.launch,Open Local Terminal on Selection,
+		,
+		Category(org.eclipse.tm.terminal.view.ui.commands.category,Terminal Commands,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@9633f2,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY com.atollic.truestudio.integration.processorexpert 0 0 2018-04-01 20:27:01.437
+!MESSAGE Atollic TrueSTUDIO Processor Expert integration is up.
+
+!ENTRY edu.hawaii.ics.csdl.jupiter 1 0 2018-04-01 20:27:01.722
+!MESSAGE Code Review is up.
+
+!ENTRY org.eclipse.egit.ui 2 0 2018-04-01 20:27:02.472
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Samuel'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.core 4 0 2018-04-01 20:27:55.046
+!MESSAGE Failed to load index for repository Repository[D:\Users\Samuel\workspace\METR4901\.git]
+!STACK 0
+org.eclipse.jgit.errors.CorruptObjectException: Not a DIRC file.
+	at org.eclipse.jgit.dircache.DirCache.readFrom(DirCache.java:487)
+	at org.eclipse.jgit.dircache.DirCache.read(DirCache.java:433)
+	at org.eclipse.jgit.dircache.DirCache.read(DirCache.java:220)
+	at org.eclipse.jgit.dircache.DirCache.read(DirCache.java:192)
+	at org.eclipse.jgit.lib.Repository.readDirCache(Repository.java:1149)
+	at org.eclipse.jgit.submodule.SubmoduleWalk.forIndex(SubmoduleWalk.java:122)
+	at org.eclipse.egit.core.internal.indexdiff.IndexDiffCacheEntry.<init>(IndexDiffCacheEntry.java:145)
+	at org.eclipse.egit.core.internal.indexdiff.IndexDiffCache.getIndexDiffCacheEntry(IndexDiffCache.java:236)
+	at org.eclipse.egit.ui.internal.resources.ResourceStateFactory.getIndexDiffDataOrNull(ResourceStateFactory.java:129)
+	at org.eclipse.egit.ui.internal.resources.ResourceStateFactory.getIndexDiffDataOrNull(ResourceStateFactory.java:90)
+	at org.eclipse.egit.ui.internal.decorators.GitLightweightDecorator.decorateResource(GitLightweightDecorator.java:224)
+	at org.eclipse.egit.ui.internal.decorators.GitLightweightDecorator.decorate(GitLightweightDecorator.java:201)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorDefinition.decorate(LightweightDecoratorDefinition.java:254)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager$LightweightRunnable.run(LightweightDecoratorManager.java:100)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager.decorate(LightweightDecoratorManager.java:383)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager.getDecorations(LightweightDecoratorManager.java:365)
+	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.ensureResultCached(DecorationScheduler.java:367)
+	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.run(DecorationScheduler.java:327)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.egit.core 4 0 2018-04-01 20:27:55.077
+!MESSAGE Failed to load index for repository Repository[D:\Users\Samuel\workspace\METR4901\.git]
+!STACK 0
+org.eclipse.jgit.errors.CorruptObjectException: Not a DIRC file.
+	at org.eclipse.jgit.dircache.DirCache.readFrom(DirCache.java:487)
+	at org.eclipse.jgit.dircache.DirCache.read(DirCache.java:433)
+	at org.eclipse.jgit.dircache.DirCache.read(DirCache.java:220)
+	at org.eclipse.egit.core.internal.indexdiff.IndexDiffCacheEntry.<init>(IndexDiffCacheEntry.java:169)
+	at org.eclipse.egit.core.internal.indexdiff.IndexDiffCache.getIndexDiffCacheEntry(IndexDiffCache.java:236)
+	at org.eclipse.egit.ui.internal.resources.ResourceStateFactory.getIndexDiffDataOrNull(ResourceStateFactory.java:129)
+	at org.eclipse.egit.ui.internal.resources.ResourceStateFactory.getIndexDiffDataOrNull(ResourceStateFactory.java:90)
+	at org.eclipse.egit.ui.internal.decorators.GitLightweightDecorator.decorateResource(GitLightweightDecorator.java:224)
+	at org.eclipse.egit.ui.internal.decorators.GitLightweightDecorator.decorate(GitLightweightDecorator.java:201)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorDefinition.decorate(LightweightDecoratorDefinition.java:254)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager$LightweightRunnable.run(LightweightDecoratorManager.java:100)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager.decorate(LightweightDecoratorManager.java:383)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager.getDecorations(LightweightDecoratorManager.java:365)
+	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.ensureResultCached(DecorationScheduler.java:367)
+	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.run(DecorationScheduler.java:327)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-04-01 20:29:25.630
+!MESSAGE Indexed '_Banshee_Echo' (20 sources, 63 headers) in 5.88 sec: 4,079 declarations; 23,673 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
