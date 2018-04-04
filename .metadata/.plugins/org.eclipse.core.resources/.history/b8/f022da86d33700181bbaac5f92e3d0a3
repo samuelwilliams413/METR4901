@@ -15,7 +15,3 @@ environment/buildEnvironmentLibrary/com.atollic.truestudio.exe.debug.1518366166/
 environment/buildEnvironmentLibrary/com.atollic.truestudio.exe.debug.1518366166/LIBRARY_PATH/operation=remove
 environment/buildEnvironmentLibrary/com.atollic.truestudio.exe.debug.1518366166/append=true
 environment/buildEnvironmentLibrary/com.atollic.truestudio.exe.debug.1518366166/appendContributed=true
-environment/buildEnvironmentLibrary/com.atollic.truestudio.exe.release.1518366166/LIBRARY_PATH/delimiter=;
-environment/buildEnvironmentLibrary/com.atollic.truestudio.exe.release.1518366166/LIBRARY_PATH/operation=remove
-environment/buildEnvironmentLibrary/com.atollic.truestudio.exe.release.1518366166/append=true
-environment/buildEnvironmentLibrary/com.atollic.truestudio.exe.release.1518366166/appendContributed=true

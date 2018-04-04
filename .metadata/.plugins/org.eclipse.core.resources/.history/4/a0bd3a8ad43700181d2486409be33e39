@@ -57,7 +57,7 @@ DMA_HandleTypeDef hdma_usart2_tx;
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 static uint8_t L = 10;
-uint8_t buffer[10];
+uint8_t buffer[L];
 char* generalBuffer = "Hello World!\n\r";
 uint16_t len, len2, i;
 
@@ -117,7 +117,7 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
   for (i = 0; i < L; ++i) {
-  		buffer[i] = ',';
+  		buffer[i] = '.';
   	}
   	len = sizeof(buffer);
 

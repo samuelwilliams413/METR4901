@@ -117,7 +117,7 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
   for (i = 0; i < L; ++i) {
-  		buffer[i] = ',';
+  		buffer[i] = '.';
   	}
   	len = sizeof(buffer);
 
