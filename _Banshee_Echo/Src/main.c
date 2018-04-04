@@ -41,7 +41,9 @@
 #include "stm32f3xx_hal.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "stdlib.h"
+#include "stdio.h"
+#include "string.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -58,8 +60,13 @@ DMA_HandleTypeDef hdma_usart2_tx;
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 uint8_t buffer[256];
-uint8_t generalBuffer[256];
-uint16_t len, i;
+char* generalBuffer = "Hello World!\n\r";
+uint16_t len, len2, i;
+
+#define TXRXBUFFERSIZE	100
+#define TRUE			1
+#define FALSE			0
+#define VERBOSE			TRUE
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -73,7 +80,8 @@ static void MX_ADC2_Init(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
-
+void transmit(int, char*);
+void toMsg(char*, char*);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
@@ -119,12 +127,16 @@ int main(void)
 		buffer[i] = i;
 	}
 	len = sizeof(buffer);
-	HAL_ADC_Start_DMA(&hadc1, buffer, len);
-	HAL_UART_Transmit_DMA(&huart1, buffer, len);
-	HAL_UART_Transmit_DMA(&huart2, buffer, len);
 
 
-	HAL_UART_Transmit_IT(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size);
+	//HAL_ADC_Start_DMA(&hadc1, buffer, len);
+	//__HAL_UART_ENABLE_IT(&huart1, UART_IT_TC);
+	//__HAL_UART_ENABLE_IT(&huart2, UART_IT_TC);
+
+	//HAL_UART_Transmit_DMA(&huart1, buffer, len);
+	//HAL_UART_Transmit_DMA(&huart2, buffer, len);
+
+	len2 = sizeof(generalBuffer);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -132,7 +144,9 @@ int main(void)
 	while (1) {
 
   /* USER CODE END WHILE */
-
+		toMsg(generalBuffer, ".");
+				transmit(1, generalBuffer);
+				transmit(2, generalBuffer);
   /* USER CODE BEGIN 3 */
 
 	}
@@ -389,7 +403,25 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+void transmit(int channel, char* b) {
+	UART_HandleTypeDef c;
+	if (channel == 1) {
+		c = huart1;
+	} else {
+		c = huart2;
+	}
 
+	if (HAL_UART_Transmit(&c, (uint8_t*) b,
+	TXRXBUFFERSIZE, 1000) != HAL_OK) {
+		Error_Handler();
+	}
+}
+
+void toMsg(char* b, char* msg) {
+	memset(b, 0, TXRXBUFFERSIZE);
+	sprintf(b, msg);
+	return;
+}
 /* USER CODE END 4 */
 
 /**

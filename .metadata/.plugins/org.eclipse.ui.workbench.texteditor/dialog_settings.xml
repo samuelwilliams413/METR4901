@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="HAL_UART_MspInit" key="selection"/>
+		<item value="enable" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="enable"/>
 			<item value="HAL_UART_MspInit"/>
 			<item value="MX_GPIO_Init"/>
 			<item value="HAL_TIM_PeriodElapsedCallback"/>
