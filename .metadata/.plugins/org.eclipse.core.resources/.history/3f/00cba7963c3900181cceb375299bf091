@@ -455,10 +455,19 @@ void StartDefaultTask(void const * argument)
 {
 
   /* USER CODE BEGIN 5 */
+	for (i = 0; i < L; ++i) {
+		buffer[i] = '.';
+	}
+	len = sizeof(buffer);
 
+	HAL_UART_Transmit_DMA(&huart1, buffer, len);
+	HAL_UART_Transmit_DMA(&huart2, buffer, len);
+	HAL_UART_Receive_DMA(&huart1, buffer, len);
+	HAL_UART_Receive_DMA(&huart2, buffer, len);
 	/* Infinite loop */
 	for (;;) {
-		osDelay(1);
+		HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+		osDelay(25);
 	}
   /* USER CODE END 5 */ 
 }
@@ -467,21 +476,11 @@ void StartDefaultTask(void const * argument)
 void StartBlinkTask(void const * argument)
 {
   /* USER CODE BEGIN StartBlinkTask */
-	for (i = 0; i < L; ++i) {
-		buffer[i] = '.';
-	}
-	len = sizeof(buffer);
-
-
-	/* Infinite loop */
-	for (;;) {
-		HAL_UART_Transmit_DMA(&huart1, buffer, len);
-		HAL_UART_Transmit_DMA(&huart2, buffer, len);
-		HAL_UART_Receive_DMA(&huart1, buffer, len);
-		HAL_UART_Receive_DMA(&huart2, buffer, len);
-		HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-		osDelay(250);
-	}
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
   /* USER CODE END StartBlinkTask */
 }
 

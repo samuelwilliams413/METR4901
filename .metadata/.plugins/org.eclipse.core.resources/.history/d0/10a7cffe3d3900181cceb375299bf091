@@ -480,7 +480,7 @@ void StartBlinkTask(void const * argument)
 		HAL_UART_Receive_DMA(&huart1, buffer, len);
 		HAL_UART_Receive_DMA(&huart2, buffer, len);
 		HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-		osDelay(250);
+		osDelay(25);
 	}
   /* USER CODE END StartBlinkTask */
 }
