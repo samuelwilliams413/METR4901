@@ -94,4 +94,13 @@ build/
 
 Drivers/
 MiddleWares/
+.metadata/
+".metadata"/
+".metadata/"
+.plugins/
 *.snap
+.metadata/.log
+.metadata/.plugins/org.eclipse.cdt.core/.log
+.metadata/.plugins/org.eclipse.cdt.core/.log
+.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi
+.metadata/.log
