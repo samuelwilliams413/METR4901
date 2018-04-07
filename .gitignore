@@ -95,3 +95,15 @@ build/
 Drivers/
 MiddleWares/
 *.snap
+.metadata/.plugins/org.eclipse.core.resources/.root/16.tree
+.metadata/.log
+.metadata/.plugins/org.eclipse.cdt.ui/_Cold_Hellion.build.log
+.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.debug.ui.prefs
+*.xmi
+.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.cdt.managedbuilder.core.prefs
+*.prefs
+*.index
+.metadata/.plugins/org.eclipse.core.resources/.projects/_Cold_Hellion/.indexes/properties.index
+*.pdom
+*.log
+.metadata/version.ini

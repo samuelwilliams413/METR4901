@@ -56,15 +56,15 @@ DMA_HandleTypeDef hdma_usart2_tx;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
+#define TXRXBUFFERSIZE	100
+#define TRUE			1
+#define FALSE			0
+#define VERBOSE			TRUE
 static uint8_t L = 20;
 uint8_t buffer[250];
 char* generalBuffer = "Hello World!\n\r";
 uint16_t len, len2, i;
 
-#define TXRXBUFFERSIZE	100
-#define TRUE			1
-#define FALSE			0
-#define VERBOSE			TRUE
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -116,27 +116,26 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-  for (i = 0; i < L; ++i) {
-  		buffer[i] = '.';
-  	}
-  	len = sizeof(buffer);
+	for (i = 0; i < L; ++i) {
+		buffer[i] = '.';
+	}
+	len = sizeof(buffer);
 
-  	HAL_UART_Transmit_DMA(&huart1, buffer, len);
-  	HAL_UART_Transmit_DMA(&huart2, buffer, len);
-  	HAL_UART_Receive_DMA(&huart1, buffer, len);
-  	HAL_UART_Receive_DMA(&huart2, buffer, len);
+	HAL_UART_Transmit_DMA(&huart1, buffer, len);
+	HAL_UART_Transmit_DMA(&huart2, buffer, len);
+	HAL_UART_Receive_DMA(&huart1, buffer, len);
+	HAL_UART_Receive_DMA(&huart2, buffer, len);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
+	while (1) {
 
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
 
-  }
+	}
   /* USER CODE END 3 */
 
 }
@@ -304,10 +303,9 @@ static void MX_GPIO_Init(void)
 void _Error_Handler(char *file, int line)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
-  while(1)
-  {
-  }
+	/* User can add his own implementation to report the HAL error return state */
+	while (1) {
+	}
   /* USER CODE END Error_Handler_Debug */
 }
 
@@ -322,8 +320,8 @@ void _Error_Handler(char *file, int line)
 void assert_failed(uint8_t* file, uint32_t line)
 { 
   /* USER CODE BEGIN 6 */
-  /* User can add his own implementation to report the file name and line number,
-     tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+	/* User can add his own implementation to report the file name and line number,
+	 tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
