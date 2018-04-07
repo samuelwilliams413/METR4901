@@ -124,9 +124,7 @@ int main(void)
 		buffer[i] = '.';
 	}
 	len = sizeof(buffer);
-	HAL_ADC_Start_DMA(&hadc1, (uint32_t*) buffer, len);
-	HAL_UART_Transmit_DMA(&huart1, buffer, len);
-	HAL_UART_Transmit_DMA(&huart2, buffer, len);
+	//HAL_ADC_Start_DMA(&hadc1, (uint32_t*) buffer, len);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -134,7 +132,8 @@ int main(void)
 	while (1) {
 
   /* USER CODE END WHILE */
-
+		HAL_UART_Transmit_DMA(&huart1, buffer, len);
+		HAL_UART_Transmit_DMA(&huart2, buffer, len);
   /* USER CODE BEGIN 3 */
 
 	}
