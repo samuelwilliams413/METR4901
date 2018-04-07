@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 12:30:46 **** Incremental Build of configuration Release for project _Cold_Hellion ****
+=======
+17:02:18 **** Incremental Build of configuration Release for project _Cold_Hellion ****
+>>>>>>> parent of 2044bb7... TX RX sometimes working. I dunnoh
 Info: Internal Builder is used for build
 arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -Os -ffunction-sections -fdata-sections -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
 ..\Src\main.c: In function 'StartBlinkTask':
@@ -19,13 +23,18 @@ D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar 
 Generate build reports...
 Print size information
    text	   data	    bss	    dec	    hex	filename
+<<<<<<< HEAD
   16320	    116	   7352	  23788	   5cec	_Cold_Hellion.elf
+=======
+   7132	     12	   2088	   9232	   2410	_Cold_Hellion.elf
+>>>>>>> parent of 2044bb7... TX RX sometimes working. I dunnoh
 Print size information done
 Generate listing file
 Output sent to: _Cold_Hellion.list
 Generate listing file done
 Generate build reports done
 Info: Nothing to build for _Cold_Hellion
+<<<<<<< HEAD
 12:32:45 **** Rebuild of configuration Debug for project _Cold_Hellion ****
 Info: Internal Builder is used for build
 arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.c 
@@ -163,3 +172,5 @@ Generate listing file
 Output sent to: _Cold_Hellion.list
 Generate listing file done
 Generate build reports done
+=======
+>>>>>>> parent of 2044bb7... TX RX sometimes working. I dunnoh

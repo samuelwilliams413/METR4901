@@ -16076,6 +16076,7 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 
 !ENTRY org.eclipse.cdt.core 1 0 2018-04-04 16:56:51.285
 !MESSAGE Indexed '_Cold_Hellion' (20 sources, 42 headers) in 2.89 sec: 6,065 declarations; 21,889 references; 14 unresolved inclusions; 215 syntax errors; 4,262 unresolved names (13%)
+<<<<<<< HEAD
 
 !ENTRY com.atollic.truestudio.productmanager 1 0 2018-04-04 17:25:01.210
 !MESSAGE Unloading product manager
@@ -16534,3 +16535,5 @@ java.lang.NullPointerException
 
 !ENTRY org.eclipse.core.jobs 2 2 2018-04-07 12:56:05.561
 !MESSAGE Job found still running after platform shutdown.  Jobs should be canceled by the plugin that scheduled them during shutdown: org.eclipse.debug.core.DebugPlugin$EventDispatchJob
+=======
+>>>>>>> parent of 2044bb7... TX RX sometimes working. I dunnoh

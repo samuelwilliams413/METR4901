@@ -74,12 +74,17 @@ osThreadId blinkTaskHandle;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
+<<<<<<< HEAD
 #define TXRXBUFFERSIZE	100
 
 static uint8_t L = 20;
 uint8_t buffer[250];
 uint8_t uartTXBuffer[TXRXBUFFERSIZE];
 uint8_t uartRXBuffer[TXRXBUFFERSIZE];
+=======
+static uint8_t L = 10;
+uint8_t buffer[10];
+>>>>>>> parent of 2044bb7... TX RX sometimes working. I dunnoh
 char* generalBuffer = "Hello World!\n\r";
 uint16_t len, len2, i;
 
@@ -154,9 +159,22 @@ int main(void) {
 	/* add semaphores, ... */
 	/* USER CODE END RTOS_SEMAPHORES */
 
+<<<<<<< HEAD
 	/* USER CODE BEGIN RTOS_TIMERS */
 	/* start timers, add new ones, ... */
 	/* USER CODE END RTOS_TIMERS */
+=======
+  /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  MX_DMA_Init();
+  MX_USART1_UART_Init();
+  MX_USART2_UART_Init();
+  /* USER CODE BEGIN 2 */
+  for (i = 0; i < L; ++i) {
+  		buffer[i] = ',';
+  	}
+  	len = sizeof(buffer);
+>>>>>>> parent of 2044bb7... TX RX sometimes working. I dunnoh
 
 	/* Create the thread(s) */
 	/* definition and creation of defaultTask */
