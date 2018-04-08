@@ -41,9 +41,14 @@
 
 /* USER CODE BEGIN Includes */
 
+#include "stdlib.h"
+#include "stdio.h"
+#include "string.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
+ADC_HandleTypeDef hadc2;
+
 UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 DMA_HandleTypeDef hdma_usart1_rx;
@@ -62,7 +67,9 @@ uint8_t buffer[TXRXBUFFERSIZE];
 uint8_t RX_buffer[TXRXBUFFERSIZE];
 uint8_t ADC_buffer[TXRXBUFFERSIZE];
 uint16_t len, i, j, hmmmm;
-int trans_delay = 50;
+int trans_delay = 25;
+
+volatile uint32_t a;
 
 /* USER CODE END PV */
 
@@ -72,6 +79,7 @@ static void MX_GPIO_Init(void);
 static void MX_DMA_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART2_UART_Init(void);
+static void MX_ADC2_Init(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
@@ -89,7 +97,6 @@ static void MX_USART2_UART_Init(void);
  */
 int main(void) {
 	/* USER CODE BEGIN 1 */
-	uint32_t a = 0;
 	hmmmm = 0;
 	/* USER CODE END 1 */
 
@@ -114,12 +121,18 @@ int main(void) {
 	MX_DMA_Init();
 	MX_USART1_UART_Init();
 	MX_USART2_UART_Init();
+	MX_ADC2_Init();
 	/* USER CODE BEGIN 2 */
 	for (i = 0; i < TXRXBUFFERSIZE; ++i) {
 		buffer[i] = '.';
 		RX_buffer[i] = '.';
+		ADC_buffer[i] = '.';
 	}
 	len = sizeof(buffer);
+
+	if (HAL_ADC_Start(&hadc2) != HAL_OK) {
+		Error_Handler();
+	}
 
 	/* USER CODE END 2 */
 
@@ -128,29 +141,40 @@ int main(void) {
 	while (1) {
 
 		/* USER CODE END WHILE */
+
 		hmmmm = ((hmmmm + 1) % 10);
 		for (i = 0; i < (TXRXBUFFERSIZE - 2); ++i) {
 			buffer[i] = 'a' + hmmmm;
 		}
 		buffer[i++] = '\n';
 		buffer[i++] = '\r';
+		HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+		HAL_Delay(trans_delay);
 
-		i = 0;
-		for (i = 0; i < (TXRXBUFFERSIZE / 2); ++i) {
+		for (i = 0; i < (TXRXBUFFERSIZE / 4); i++) {
 			buffer[i] = RX_buffer[i];
 		}
+		for (i = 0; i < (TXRXBUFFERSIZE / 4); i++) {
+			buffer[i + (TXRXBUFFERSIZE / 4)] = ADC_buffer[i];
+		}
 
-		HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+		if (HAL_ADC_PollForConversion(&hadc2, 100) == HAL_OK) {
+			a = HAL_ADC_GetValue(&hadc2);
+			sprintf(ADC_buffer, "Got: |%u|\n\r", a);
+		}
+
 		HAL_Delay(trans_delay);
 
 		HAL_UART_Receive_DMA(&huart1, RX_buffer, len);
 		HAL_UART_Receive_DMA(&huart2, RX_buffer, len);
 		HAL_Delay(trans_delay);
 
-		HAL_UART_Transmit_DMA(&huart1, buffer, len);
-		HAL_UART_Transmit_DMA(&huart2, buffer, len);
-		HAL_Delay(trans_delay);
+		//HAL_UART_Transmit_DMA(&huart1, buffer, len);
+		//HAL_UART_Transmit_DMA(&huart2, buffer, len);
 
+		HAL_UART_Transmit_DMA(&huart1, ADC_buffer, len);
+		HAL_UART_Transmit_DMA(&huart2, ADC_buffer, len);
+		HAL_Delay(trans_delay);
 		/* USER CODE BEGIN 3 */
 
 	}
@@ -173,7 +197,9 @@ void SystemClock_Config(void) {
 	RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
 	RCC_OscInitStruct.HSIState = RCC_HSI_ON;
 	RCC_OscInitStruct.HSICalibrationValue = 16;
-	RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+	RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+	RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+	RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL4;
 	if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
 		_Error_Handler(__FILE__, __LINE__);
 	}
@@ -191,8 +217,10 @@ void SystemClock_Config(void) {
 		_Error_Handler(__FILE__, __LINE__);
 	}
 
-	PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1;
+	PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1
+			| RCC_PERIPHCLK_ADC12;
 	PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_PCLK1;
+	PeriphClkInit.Adc12ClockSelection = RCC_ADC12PLLCLK_DIV1;
 	if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK) {
 		_Error_Handler(__FILE__, __LINE__);
 	}
@@ -207,6 +235,45 @@ void SystemClock_Config(void) {
 
 	/* SysTick_IRQn interrupt configuration */
 	HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
+}
+
+/* ADC2 init function */
+static void MX_ADC2_Init(void) {
+
+	ADC_ChannelConfTypeDef sConfig;
+
+	/**Common config
+	 */
+	hadc2.Instance = ADC2;
+	hadc2.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
+	hadc2.Init.Resolution = ADC_RESOLUTION_8B;
+	hadc2.Init.ScanConvMode = ADC_SCAN_DISABLE;
+	hadc2.Init.ContinuousConvMode = DISABLE;
+	hadc2.Init.DiscontinuousConvMode = DISABLE;
+	hadc2.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
+	hadc2.Init.ExternalTrigConv = ADC_SOFTWARE_START;
+	hadc2.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+	hadc2.Init.NbrOfConversion = 1;
+	hadc2.Init.DMAContinuousRequests = DISABLE;
+	hadc2.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
+	hadc2.Init.LowPowerAutoWait = DISABLE;
+	hadc2.Init.Overrun = ADC_OVR_DATA_OVERWRITTEN;
+	if (HAL_ADC_Init(&hadc2) != HAL_OK) {
+		_Error_Handler(__FILE__, __LINE__);
+	}
+
+	/**Configure Regular Channel
+	 */
+	sConfig.Channel = ADC_CHANNEL_1;
+	sConfig.Rank = ADC_REGULAR_RANK_1;
+	sConfig.SingleDiff = ADC_SINGLE_ENDED;
+	sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+	sConfig.OffsetNumber = ADC_OFFSET_NONE;
+	sConfig.Offset = 0;
+	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig) != HAL_OK) {
+		_Error_Handler(__FILE__, __LINE__);
+	}
+
 }
 
 /* USART1 init function */
@@ -283,8 +350,6 @@ static void MX_GPIO_Init(void) {
 	GPIO_InitTypeDef GPIO_InitStruct;
 
 	/* GPIO Ports Clock Enable */
-	__HAL_RCC_GPIOF_CLK_ENABLE()
-	;
 	__HAL_RCC_GPIOA_CLK_ENABLE()
 	;
 	__HAL_RCC_GPIOB_CLK_ENABLE()
@@ -318,7 +383,7 @@ void _Error_Handler(char *file, int line) {
 	while (1) {
 
 		HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-		HAL_Delay(trans_delay * 10);
+		HAL_Delay(trans_delay * 50);
 	}
 	/* USER CODE END Error_Handler_Debug */
 }
