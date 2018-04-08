@@ -59,6 +59,10 @@
 
 /* Private define ------------------------------------------------------------*/
 
+#define ADC_A_Pin GPIO_PIN_0
+#define ADC_A_GPIO_Port GPIOA
+#define ADC_B_Pin GPIO_PIN_1
+#define ADC_B_GPIO_Port GPIOA
 #define LD3_Pin GPIO_PIN_3
 #define LD3_GPIO_Port GPIOB
 

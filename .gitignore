@@ -1,0 +1,9 @@
+*.tmp
+*.index
+.metadata/.log
+*.log
+*.snap
+*.resources
+*.resources
+*.log
+*.ini
