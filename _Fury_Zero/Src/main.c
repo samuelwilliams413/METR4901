@@ -145,7 +145,13 @@ int main(void) {
 	while (1) {
 
 		/* USER CODE END WHILE */
-		hmmmm = ((hmmmm + 1) % 100);
+		hmmmm = ((hmmmm + 1) % 10);
+		for (i = 0; i < (B_SIZE - 2); ++i) {
+			buffer[i] = 'a' + hmmmm;
+		}
+		buffer[B_SIZE - 2] = '\n';
+			buffer[B_SIZE - 1] = '\r';
+		HAL_Delay(trans_delay);
 		if (HAL_ADC_PollForConversion(&hadc2, 50) == HAL_OK) {
 			a = HAL_ADC_GetValue(&hadc2);
 			memset(ADC_buffer, 0, B_SIZE);
@@ -154,8 +160,20 @@ int main(void) {
 		HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
 		HAL_Delay(trans_delay);
 
+		HAL_UART_Receive_DMA(&huart1, RX_buffer, len);
+		HAL_UART_Receive_DMA(&huart2, RX_buffer, len);
+		HAL_Delay(trans_delay);
+
+		HAL_UART_Transmit_DMA(&huart1, buffer, len);
+		HAL_UART_Transmit_DMA(&huart2, buffer, len);
+		HAL_Delay(trans_delay);
+
 		HAL_UART_Transmit_DMA(&huart1, ADC_buffer, len);
 		HAL_UART_Transmit_DMA(&huart2, ADC_buffer, len);
+		HAL_Delay(trans_delay);
+
+		HAL_UART_Transmit_DMA(&huart1, RX_buffer, len);
+		HAL_UART_Transmit_DMA(&huart2, RX_buffer, len);
 		HAL_Delay(trans_delay);
 		/* USER CODE BEGIN 3 */
 
