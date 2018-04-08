@@ -1,12 +1,11 @@
 #MicroXplorer Configuration settings - do not modify
-ADC2.Channel-0\#ChannelRegularConversion=ADC_CHANNEL_1
-ADC2.IPParameters=Rank-0\#ChannelRegularConversion,Channel-0\#ChannelRegularConversion,SamplingTime-0\#ChannelRegularConversion,OffsetNumber-0\#ChannelRegularConversion,Offset-0\#ChannelRegularConversion,NbrOfConversionFlag,Resolution
+ADC2.Channel-4\#ChannelRegularConversion=ADC_CHANNEL_1
+ADC2.IPParameters=Rank-4\#ChannelRegularConversion,Channel-4\#ChannelRegularConversion,SamplingTime-4\#ChannelRegularConversion,OffsetNumber-4\#ChannelRegularConversion,Offset-4\#ChannelRegularConversion,NbrOfConversionFlag
 ADC2.NbrOfConversionFlag=1
-ADC2.Offset-0\#ChannelRegularConversion=0
-ADC2.OffsetNumber-0\#ChannelRegularConversion=ADC_OFFSET_NONE
-ADC2.Rank-0\#ChannelRegularConversion=1
-ADC2.Resolution=ADC_RESOLUTION_8B
-ADC2.SamplingTime-0\#ChannelRegularConversion=ADC_SAMPLETIME_1CYCLE_5
+ADC2.Offset-4\#ChannelRegularConversion=0
+ADC2.OffsetNumber-4\#ChannelRegularConversion=ADC_OFFSET_NONE
+ADC2.Rank-4\#ChannelRegularConversion=1
+ADC2.SamplingTime-4\#ChannelRegularConversion=ADC_SAMPLETIME_1CYCLE_5
 Dma.Request0=USART1_RX
 Dma.Request1=USART1_TX
 Dma.Request2=USART2_RX
