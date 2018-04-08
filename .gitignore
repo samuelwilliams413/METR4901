@@ -7,3 +7,5 @@
 *.resources
 *.log
 *.ini
+*.xmi
+.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.debug.ui.prefs
