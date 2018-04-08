@@ -17033,3 +17033,6 @@ java.lang.Exception
 
 !ENTRY org.eclipse.cdt.core 1 0 2018-04-08 13:20:47.807
 !MESSAGE Indexed '_Ebon_Muse' (31 sources, 96 headers) in 32.7 sec: 9,943 declarations; 43,017 references; 3 unresolved inclusions; 172 syntax errors; 3,174 unresolved names (5.7%)
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2018-04-08 13:41:15.906
+!MESSAGE Unloading product manager
