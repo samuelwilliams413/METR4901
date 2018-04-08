@@ -158,9 +158,12 @@ int main(void) {
 			buffer[i + (TXRXBUFFERSIZE / 4)] = ADC_buffer[i];
 		}
 
-		if (HAL_ADC_PollForConversion(&hadc2, 100) == HAL_OK) {
+		if (HAL_ADC_PollForConversion(&hadc2, 50) == HAL_OK) {
 			a = HAL_ADC_GetValue(&hadc2);
-			sprintf(ADC_buffer, "Got: |%u|\n\r", a);
+			memset(ADC_buffer, 0, TXRXBUFFERSIZE);
+			sprintf(ADC_buffer, "Got: |%u|%d\n\r", a, hmmmm++);
+			hmmmm++;
+			HAL_Delay(trans_delay);
 		}
 
 		HAL_Delay(trans_delay);
