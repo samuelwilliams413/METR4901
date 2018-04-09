@@ -47,6 +47,7 @@
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
+ADC_HandleTypeDef hadc1;
 ADC_HandleTypeDef hadc2;
 
 UART_HandleTypeDef huart1;
@@ -92,6 +93,7 @@ static void MX_DMA_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_ADC2_Init(void);
+static void MX_ADC1_Init(void);
 static void MX_NVIC_Init(void);
 
 /* USER CODE BEGIN PFP */
@@ -135,6 +137,7 @@ int main(void) {
 	MX_USART1_UART_Init();
 	MX_USART2_UART_Init();
 	MX_ADC2_Init();
+	MX_ADC1_Init();
 
 	/* Initialize interrupts */
 	MX_NVIC_Init();
@@ -296,6 +299,61 @@ static void MX_NVIC_Init(void) {
 	HAL_NVIC_EnableIRQ(ADC1_2_IRQn);
 }
 
+/* ADC1 init function */
+static void MX_ADC1_Init(void) {
+
+	ADC_MultiModeTypeDef multimode;
+
+	/**Common config
+	 */
+	hadc1.Instance = ADC1;
+	hadc1.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
+	hadc1.Init.Resolution = ADC_RESOLUTION_8B;
+	hadc1.Init.ScanConvMode = ADC_SCAN_DISABLE;
+	hadc1.Init.ContinuousConvMode = ENABLE;
+	hadc1.Init.DiscontinuousConvMode = DISABLE;
+	hadc1.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
+	hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
+	hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+	hadc1.Init.NbrOfConversion = 1;
+	hadc1.Init.DMAContinuousRequests = DISABLE;
+	hadc1.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
+	hadc1.Init.LowPowerAutoWait = DISABLE;
+	hadc1.Init.Overrun = ADC_OVR_DATA_OVERWRITTEN;
+	if (HAL_ADC_Init(&hadc1) != HAL_OK) {
+		_Error_Handler(__FILE__, __LINE__);
+	}
+
+	/**Configure the ADC multi-mode
+	 */
+	multimode.Mode = ADC_MODE_INDEPENDENT;
+	if (HAL_ADCEx_MultiModeConfigChannel(&hadc1, &multimode) != HAL_OK) {
+		_Error_Handler(__FILE__, __LINE__);
+	}
+
+	/**Configure Regular Channel
+	 */
+	sConfig_A.Channel = ADC_CHANNEL_1;
+	sConfig_A.Rank = ADC_REGULAR_RANK_1;
+	sConfig_A.SingleDiff = ADC_SINGLE_ENDED;
+	sConfig_A.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+	sConfig_A.OffsetNumber = ADC_OFFSET_NONE;
+	sConfig_A.Offset = 0;
+	if (HAL_ADC_ConfigChannel(&hadc1, &sConfig_A) != HAL_OK) {
+		_Error_Handler(__FILE__, __LINE__);
+	}
+
+	sConfig_B.Channel = ADC_CHANNEL_2;
+	sConfig_B.Rank = ADC_REGULAR_RANK_1;
+	sConfig_B.SingleDiff = ADC_SINGLE_ENDED;
+	sConfig_B.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+	sConfig_B.OffsetNumber = ADC_OFFSET_NONE;
+	sConfig_B.Offset = 0;
+	if (HAL_ADC_ConfigChannel(&hadc1, &sConfig_B) != HAL_OK) {
+		_Error_Handler(__FILE__, __LINE__);
+	}
+}
+
 /* ADC2 init function */
 static void MX_ADC2_Init(void) {
 
@@ -321,26 +379,6 @@ static void MX_ADC2_Init(void) {
 
 	/**Configure Regular Channel
 	 */
-	sConfig_A.Channel = ADC_CHANNEL_1;
-	sConfig_A.Rank = ADC_REGULAR_RANK_1;
-	sConfig_A.SingleDiff = ADC_SINGLE_ENDED;
-	sConfig_A.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
-	sConfig_A.OffsetNumber = ADC_OFFSET_NONE;
-	sConfig_A.Offset = 0;
-	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig_A) != HAL_OK) {
-		_Error_Handler(__FILE__, __LINE__);
-	}
-
-	sConfig_B.Channel = ADC_CHANNEL_2;
-	sConfig_B.Rank = ADC_REGULAR_RANK_1;
-	sConfig_B.SingleDiff = ADC_SINGLE_ENDED;
-	sConfig_B.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
-	sConfig_B.OffsetNumber = ADC_OFFSET_NONE;
-	sConfig_B.Offset = 0;
-	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig_B) != HAL_OK) {
-		_Error_Handler(__FILE__, __LINE__);
-	}
-
 	sConfig_C.Channel = ADC_CHANNEL_1;
 	sConfig_C.Rank = ADC_REGULAR_RANK_1;
 	sConfig_C.SingleDiff = ADC_SINGLE_ENDED;
@@ -461,11 +499,38 @@ static void MX_GPIO_Init(void) {
 
 /* USER CODE BEGIN 4 */
 void Update_ADC_Values(void) {
-	ADC_A_Value = 69;
-	ADC_B_Value = 70;
+	/* Read ADC_A
+	 * ADC A = PA0 = A0 = ADC1 Channel 1 */
+	if (HAL_ADC_ConfigChannel(&hadc1, &sConfig_A) != HAL_OK) {
+		Error_Handler();
+	}
+	if (HAL_ADC_Start(&hadc1) != HAL_OK) {
+		Error_Handler();
+	}
+	if (HAL_ADC_PollForConversion(&hadc1, 50) == HAL_OK) {
+		ADC_A_Value = HAL_ADC_GetValue(&hadc1);
+	}
+	if (HAL_ADC_Stop(&hadc1) != HAL_OK) {
+		Error_Handler();
+	}
+
+	/* Read ADC_B
+	 * ADC B = PA1 = A1 = ADC1 Channel 2 */
+	if (HAL_ADC_ConfigChannel(&hadc1, &sConfig_B) != HAL_OK) {
+		Error_Handler();
+	}
+	if (HAL_ADC_Start(&hadc1) != HAL_OK) {
+		Error_Handler();
+	}
+	if (HAL_ADC_PollForConversion(&hadc1, 50) == HAL_OK) {
+		ADC_B_Value = HAL_ADC_GetValue(&hadc1);
+	}
+	if (HAL_ADC_Stop(&hadc1) != HAL_OK) {
+		Error_Handler();
+	}
 
 	/* Read ADC_C
-	 * ADC C = PA3 = ADC2 Channel 1 */
+	 * ADC C = PA4 = A3 = ADC2 Channel 1 */
 	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig_C) != HAL_OK) {
 		Error_Handler();
 	}
@@ -480,7 +545,7 @@ void Update_ADC_Values(void) {
 	}
 
 	/* Read ADC_D
-	 * ADC D = PA4 = ADC2 Channel 2 */
+	 * ADC D = PA5 = A4 = ADC2 Channel 2 */
 	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig_D) != HAL_OK) {
 		Error_Handler();
 	}
@@ -495,7 +560,7 @@ void Update_ADC_Values(void) {
 	}
 
 	/* Read ADC_E
-	 * ADC E = PA5 = ADC2 Channel 3 */
+	 * ADC E = PA6 = A5 = ADC2 Channel 3 */
 	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig_E) != HAL_OK) {
 		Error_Handler();
 	}
@@ -510,7 +575,7 @@ void Update_ADC_Values(void) {
 	}
 
 	/* Read ADC_F
-	 * ADC F = PA6 = ADC2 Channel 4 */
+	 * ADC F = PA7 = A6 = ADC2 Channel 4 */
 	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig_F) != HAL_OK) {
 		Error_Handler();
 	}
@@ -523,7 +588,6 @@ void Update_ADC_Values(void) {
 	if (HAL_ADC_Stop(&hadc2) != HAL_OK) {
 		Error_Handler();
 	}
-
 
 	return;
 }
