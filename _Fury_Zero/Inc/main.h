@@ -49,6 +49,14 @@
 
 /* Private define ------------------------------------------------------------*/
 
+#define ADC_C_Pin GPIO_PIN_4
+#define ADC_C_GPIO_Port GPIOA
+#define ADC_D_Pin GPIO_PIN_5
+#define ADC_D_GPIO_Port GPIOA
+#define ADC_E_Pin GPIO_PIN_6
+#define ADC_E_GPIO_Port GPIOA
+#define ADC_F_Pin GPIO_PIN_7
+#define ADC_F_GPIO_Port GPIOA
 #define LD3_Pin GPIO_PIN_3
 #define LD3_GPIO_Port GPIOB
 
