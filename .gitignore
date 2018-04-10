@@ -128,3 +128,5 @@ local.properties
 
 
 # End of https://www.gitignore.io/api/c,eclipse
+.metadata/.log
+.metadata/.log
