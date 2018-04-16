@@ -44,6 +44,7 @@
 #include "stdlib.h"
 #include "stdio.h"
 #include "string.h"
+#include "hx711.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -124,6 +125,7 @@ void read_HX711(void);
 int main(void) {
 	/* USER CODE BEGIN 1 */
 	hmmmm = 0;
+	uint8_t val;
 	/* USER CODE END 1 */
 
 	/* MCU Configuration----------------------------------------------------------*/
@@ -169,11 +171,19 @@ int main(void) {
 		_Error_Handler(__FILE__, __LINE__);
 	}
 
-	CLK_A_SET;
-	HAL_Delay(50);
-	HAL_GPIO_WritePin(GPIOB, DAT_A_Pin, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(GPIOB, DAT_B_Pin, GPIO_PIN_RESET);
-	HAL_Delay(1);
+	/* HX711 A init */
+	HX711* data_a = (HX711*) malloc(sizeof(HX711));
+
+	data_a->gpioSck = GPIOB;
+	data_a->pinSck = CLK_A_Pin;
+
+	data_a->gpioData = GPIOB;
+	data_a->pinData = DAT_A_Pin;
+
+	data_a->offset = 0;
+	data_a->gain = 1;
+
+	HX711_Init(*data_a);
 
 	/* USER CODE END 2 */
 
@@ -184,13 +194,15 @@ int main(void) {
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */
-
 		ticker = ((ticker + 1) % 100);
-		///////////////////////////// Load Cell
-		read_HX711();
 
+
+		///////////////////////////// Load Cell
+		//read_HX711();
+
+		ADC_A_Value = HX711_Average_Value(data_a, 10);
 		memset(ADC_buffer, 0, B_SIZE);
-		sprintf(ADC_buffer, "%d\tLoad|%u|\n\r",ticker, ADC_A_Value);
+		sprintf(ADC_buffer, "%d\tLoad|%u|\n\r", ticker, ADC_A_Value);
 		HAL_Delay(trans_delay);
 
 		HAL_UART_Transmit_DMA(&huart1, ADC_buffer, len);

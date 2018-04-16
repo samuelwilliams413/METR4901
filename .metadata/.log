@@ -843,3 +843,6 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 !MESSAGE Request for monitor: 'RequestMonitor (org.eclipse.cdt.dsf.concurrent.RequestMonitor@dc622e): Status ERROR: org.eclipse.cdt.dsf.gdb code=10005 Breakpoint already removed null' resulted in an error.
 !SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10005 2018-04-16 11:47:20.074
 !MESSAGE Breakpoint already removed
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-04-16 14:59:14.509
+!MESSAGE Indexed '_Fury_Zero' (22 sources, 89 headers) in 14.2 sec: 9,117 declarations; 39,266 references; 0 unresolved inclusions; 154 syntax errors; 54 unresolved names (0.11%)
