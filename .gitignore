@@ -130,3 +130,45 @@ local.properties
 # End of https://www.gitignore.io/api/c,eclipse
 .metadata/.log
 .metadata/.log
+
+
+
+.DS_Store
+tools/dist/
+tools/xtensa-lx106-elf/
+tools/esptool/
+tools/mkspiffs/
+package/versions/
+exclude.txt
+tools/sdk/lib/liblwip_src.a
+tools/sdk/lwip/src/build
+tools/sdk/lwip/src/liblwip_src.a
+tools/sdk/ld/backup
+
+*.pyc
+*.gch
+
+boards.local.txt
+
+*.gcov
+*.gcno
+*.gcda
+*.o
+*.a
+*.yml
+*.cpp
+*.md
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
