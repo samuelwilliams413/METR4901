@@ -57,16 +57,8 @@
 #define ADC_E_GPIO_Port GPIOA
 #define ADC_F_Pin GPIO_PIN_7
 #define ADC_F_GPIO_Port GPIOA
-#define CLK_A_Pin GPIO_PIN_0
-#define CLK_A_GPIO_Port GPIOB
-#define DAT_B_Pin GPIO_PIN_1
-#define DAT_B_GPIO_Port GPIOB
 #define LD3_Pin GPIO_PIN_3
 #define LD3_GPIO_Port GPIOB
-#define CLK_B_Pin GPIO_PIN_6
-#define CLK_B_GPIO_Port GPIOB
-#define DAT_A_Pin GPIO_PIN_7
-#define DAT_A_GPIO_Port GPIOB
 
 /* ########################## Assert Selection ############################## */
 /**
@@ -77,6 +69,17 @@
 
 /* USER CODE BEGIN Private defines */
 
+#define CLK_A_Pin GPIO_PIN_0
+#define CLK_A_GPIO_Port GPIOB
+
+#define DAT_A_Pin GPIO_PIN_7
+#define DAT_A_GPIO_Port GPIOB
+
+#define CLK_B_Pin GPIO_PIN_6
+#define CLK_B_GPIO_Port GPIOB
+
+#define DAT_B_Pin GPIO_PIN_1
+#define DAT_B_GPIO_Port GPIOB
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

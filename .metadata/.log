@@ -846,3 +846,12 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 
 !ENTRY org.eclipse.cdt.core 1 0 2018-04-16 14:59:14.509
 !MESSAGE Indexed '_Fury_Zero' (22 sources, 89 headers) in 14.2 sec: 9,117 declarations; 39,266 references; 0 unresolved inclusions; 154 syntax errors; 54 unresolved names (0.11%)
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2018-04-16 18:49:21.409
+!MESSAGE Unloading product manager
+
+!ENTRY org.eclipse.core.resources 2 10035 2018-04-16 18:49:21.679
+!MESSAGE The workspace will exit with unsaved changes in this session.
+
+!ENTRY org.eclipse.core.jobs 2 2 2018-04-16 18:49:22.070
+!MESSAGE Job found still running after platform shutdown.  Jobs should be canceled by the plugin that scheduled them during shutdown: org.eclipse.debug.core.DebugPlugin$EventDispatchJob
