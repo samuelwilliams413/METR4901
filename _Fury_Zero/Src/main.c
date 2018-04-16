@@ -47,7 +47,6 @@
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
-ADC_HandleTypeDef hadc1;
 ADC_HandleTypeDef hadc2;
 
 UART_HandleTypeDef huart1;
@@ -66,8 +65,13 @@ DMA_HandleTypeDef hdma_usart2_tx;
 #define PIN_LO			0
 #define LSB		0
 #define MSB		1
-#define LOAD_CELL_THRESHOLD		2048
 #define VERBOSE	TRUE
+
+
+#define HX711_A_READ	HAL_GPIO_ReadPin(GPIOB, ADC_A_Pin)
+#define HX711_B_READ	HAL_GPIO_ReadPin(GPIOB, ADC_B_Pin)
+#define HX711_CLK_SET	HAL_GPIO_WritePin(GPIOB, HX711_CLK_Pin, GPIO_PIN_SET)
+#define HX711_CLK_RESET	HAL_GPIO_WritePin(GPIOB, HX711_CLK_Pin, GPIO_PIN_RESET)
 
 uint8_t buffer[B_SIZE];
 uint8_t RX_buffer[B_SIZE];
@@ -98,13 +102,12 @@ static void MX_DMA_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_ADC2_Init(void);
-static void MX_ADC1_Init(void);
 static void MX_NVIC_Init(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
 void Update_ADC_Values(void);
-void read_HX711(uint8_t, uint8_t);
+void read_HX711(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
@@ -143,7 +146,6 @@ int main(void) {
 	MX_USART1_UART_Init();
 	MX_USART2_UART_Init();
 	MX_ADC2_Init();
-	MX_ADC1_Init();
 
 	/* Initialize interrupts */
 	MX_NVIC_Init();
@@ -165,7 +167,12 @@ int main(void) {
 		_Error_Handler(__FILE__, __LINE__);
 	}
 
-	HAL_GPIO_WritePin(GPIOB, HX711_CLK_Pin, PIN_LO);
+
+	HX711_CLK_SET;
+	HAL_Delay(1);
+	HX711_CLK_RESET;
+	HAL_Delay(1);
+
 	/* USER CODE END 2 */
 
 	/* Infinite loop */
@@ -189,22 +196,23 @@ int main(void) {
 		//HAL_UART_Transmit_DMA(&huart2, buffer, len);
 		HAL_Delay(trans_delay);
 		///////////////////////////// Load Cell
-		read_HX711(MSB, 24);
+		read_HX711();
 		HAL_Delay(trans_delay);
 		memset(ADC_buffer, 0, B_SIZE);
 		sprintf(ADC_buffer, "A|%u|B|%u|\n\r", ADC_A_Value, ADC_B_Value);
 		HAL_Delay(trans_delay);
 		HAL_UART_Transmit_DMA(&huart1, ADC_buffer, len);
 		HAL_UART_Transmit_DMA(&huart2, ADC_buffer, len);
-		HAL_Delay(trans_delay);
+		HAL_Delay(trans_delay);		HAL_Delay(trans_delay);		HAL_Delay(trans_delay);
+
 		///////////////////////////// ADC
 
 		Update_ADC_Values();
-		//memset(ADC_buffer, 0, B_SIZE);
-		//sprintf(ADC_buffer, "A|%u|B|%u|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_A_Value, 				ADC_B_Value, ADC_C_Value, ADC_D_Value, ADC_E_Value,				ADC_F_Value);
+		memset(ADC_buffer, 0, B_SIZE);
+		sprintf(ADC_buffer, "A|%u|B|%u|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_A_Value, 				ADC_B_Value, ADC_C_Value, ADC_D_Value, ADC_E_Value,				ADC_F_Value);
 
-		//HAL_UART_Transmit_DMA(&huart1, ADC_buffer, len);
-		//HAL_UART_Transmit_DMA(&huart2, ADC_buffer, len);
+		HAL_UART_Transmit_DMA(&huart1, ADC_buffer, len);
+		HAL_UART_Transmit_DMA(&huart2, ADC_buffer, len);
 
 		///////////////////////////// RX
 
@@ -314,53 +322,6 @@ static void MX_NVIC_Init(void) {
 	HAL_NVIC_EnableIRQ(ADC1_2_IRQn);
 }
 
-/* ADC1 init function */
-static void MX_ADC1_Init(void) {
-
-	ADC_MultiModeTypeDef multimode;
-	ADC_ChannelConfTypeDef sConfig;
-
-	/**Common config
-	 */
-	hadc1.Instance = ADC1;
-	hadc1.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
-	hadc1.Init.Resolution = ADC_RESOLUTION_12B;
-	hadc1.Init.ScanConvMode = ADC_SCAN_DISABLE;
-	hadc1.Init.ContinuousConvMode = ENABLE;
-	hadc1.Init.DiscontinuousConvMode = DISABLE;
-	hadc1.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
-	hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
-	hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
-	hadc1.Init.NbrOfConversion = 1;
-	hadc1.Init.DMAContinuousRequests = DISABLE;
-	hadc1.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
-	hadc1.Init.LowPowerAutoWait = DISABLE;
-	hadc1.Init.Overrun = ADC_OVR_DATA_OVERWRITTEN;
-	if (HAL_ADC_Init(&hadc1) != HAL_OK) {
-		_Error_Handler(__FILE__, __LINE__);
-	}
-
-	/**Configure the ADC multi-mode
-	 */
-	multimode.Mode = ADC_MODE_INDEPENDENT;
-	if (HAL_ADCEx_MultiModeConfigChannel(&hadc1, &multimode) != HAL_OK) {
-		_Error_Handler(__FILE__, __LINE__);
-	}
-
-	/**Configure Regular Channel
-	 */
-	sConfig.Channel = ADC_CHANNEL_1;
-	sConfig.Rank = ADC_REGULAR_RANK_1;
-	sConfig.SingleDiff = ADC_SINGLE_ENDED;
-	sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
-	sConfig.OffsetNumber = ADC_OFFSET_NONE;
-	sConfig.Offset = 0;
-	if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK) {
-		_Error_Handler(__FILE__, __LINE__);
-	}
-
-}
-
 /* ADC2 init function */
 static void MX_ADC2_Init(void) {
 
@@ -468,6 +429,12 @@ static void MX_GPIO_Init(void) {
 	/*Configure GPIO pin Output Level */
 	HAL_GPIO_WritePin(GPIOB, LD3_Pin | HX711_CLK_Pin, GPIO_PIN_RESET);
 
+	/*Configure GPIO pins : ADC_A_Pin ADC_B_Pin */
+	GPIO_InitStruct.Pin = ADC_A_Pin | ADC_B_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+	GPIO_InitStruct.Pull = GPIO_PULLUP;
+	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
 	/*Configure GPIO pins : LD3_Pin HX711_CLK_Pin */
 	GPIO_InitStruct.Pin = LD3_Pin | HX711_CLK_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -542,79 +509,31 @@ void Update_ADC_Values(void) {
 	return;
 }
 
-void read_HX711(uint8_t order, uint8_t count) {
+void read_HX711(void) {
 	/* Adapted from Arduino Script "ShiftIn()" */
-	uint8_t i = 0, DAT_A, DAT_B;
-	volatile uint32_t output_A = 0, output_B = 0;
+	// Count should always be 24
+	// order is MSB for HX711
+	uint8_t i = 0;
+	ADC_A_Value = 0;
 
-	for (i = 0; i < count; i++) {
+	HX711_CLK_RESET;
+	HAL_Delay(1);
+	while(HX711_A_READ == PIN_HI) {;}
+	for (i = 0; i < 24; i++) {
+		HX711_CLK_SET;
 		HAL_Delay(1);
-		HAL_GPIO_WritePin(GPIOB, HX711_CLK_Pin, PIN_LO);
+		HX711_CLK_RESET;
 		HAL_Delay(1);
-		HAL_GPIO_WritePin(GPIOB, HX711_CLK_Pin, PIN_HI);
-		HAL_Delay(1);
-
-		/* Read ADC_A
-		 * ADC A = PA0 = A0 = ADC1 Channel 1 */
-		if (HAL_ADC_ConfigChannel(&hadc1, &sConfig_A) != HAL_OK) {
-			Error_Handler();
+		ADC_A_Value = ADC_A_Value << 1;
+		if (HX711_A_READ == PIN_HI) {
+			ADC_A_Value++;
 		}
-		if (HAL_ADC_Start(&hadc1) != HAL_OK) {
-			Error_Handler();
-		}
-		if (HAL_ADC_PollForConversion(&hadc1, 50) == HAL_OK) {
-			ADC_A_Value = HAL_ADC_GetValue(&hadc1);
-		}
-		if (HAL_ADC_Stop(&hadc1) != HAL_OK) {
-			Error_Handler();
-		}
-
-		DAT_A = 0;
-		if (ADC_A_Value > LOAD_CELL_THRESHOLD) {
-			DAT_A = 1;
-		}
-
-		/* Read ADC_B
-		 * ADC B = PA1 = A1 = ADC1 Channel 2 */
-		if (HAL_ADC_ConfigChannel(&hadc1, &sConfig_B) != HAL_OK) {
-			Error_Handler();
-		}
-		if (HAL_ADC_Start(&hadc1) != HAL_OK) {
-			Error_Handler();
-		}
-		if (HAL_ADC_PollForConversion(&hadc1, 50) == HAL_OK) {
-			ADC_B_Value = HAL_ADC_GetValue(&hadc1);
-		}
-		if (HAL_ADC_Stop(&hadc1) != HAL_OK) {
-			Error_Handler();
-		}
-
-		DAT_B = 0;
-		if (ADC_B_Value > LOAD_CELL_THRESHOLD) {
-			DAT_B = 1;
-		}
-
-		if (order == LSB) {
-			output_A |= DAT_A << i;
-			output_B |= DAT_B << i;
-		} else {
-			output_A |= DAT_A << ((count - 1) - i);
-			output_B |= DAT_B << ((count - 1) - i);
-		}
-
-		memset(ADC_buffer, 0, B_SIZE);
-		sprintf(ADC_buffer, "\ti|%d|A|%u|B|%u|\n\r", i, ADC_A_Value,
-				ADC_B_Value);
-		HAL_Delay(trans_delay);
-		HAL_UART_Transmit_DMA(&huart1, ADC_buffer, len);
-		HAL_UART_Transmit_DMA(&huart2, ADC_buffer, len);
-		HAL_Delay(trans_delay);
-
-
 	}
-	ADC_A_Value = output_A;
-	ADC_B_Value = output_B;
-	return;
+	HX711_CLK_SET;
+	HAL_Delay(1);
+	HX711_CLK_RESET;
+	HAL_Delay(1);
+
 }
 
 /* USER CODE END 4 */
