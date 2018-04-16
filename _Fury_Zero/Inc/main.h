@@ -63,6 +63,8 @@
 #define ADC_F_GPIO_Port GPIOA
 #define LD3_Pin GPIO_PIN_3
 #define LD3_GPIO_Port GPIOB
+#define HX711_CLK_Pin GPIO_PIN_4
+#define HX711_CLK_GPIO_Port GPIOB
 
 /* ########################## Assert Selection ############################## */
 /**
