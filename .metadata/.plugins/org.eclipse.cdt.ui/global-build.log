@@ -1,15 +1,9 @@
-13:27:45 **** Incremental Build of configuration Debug for project _Fury_Zero ****
+14:23:00 **** Incremental Build of configuration Debug for project _Fury_Zero ****
 Info: Internal Builder is used for build
 arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
 ..\Src\main.c: In function 'main':
-..\Src\main.c:197:3: error: too many arguments to function 'read_HX711'
-   read_HX711(MSB, 24);
-   ^~~~~~~~~~
-..\Src\main.c:110:6: note: declared here
- void read_HX711(void);
-      ^~~~~~~~~~
-..\Src\main.c:200:11: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
-   sprintf(ADC_buffer, "A|%u|B|%u|\n\r", ADC_A_Value, ADC_B_Value);
+..\Src\main.c:189:11: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+   sprintf(ADC_buffer, "Load|%u|\n\r", ADC_A_Value);
            ^~~~~~~~~~
 In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
                  from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
@@ -20,25 +14,11 @@ In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\
 d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
  int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
      ^
-..\Src\main.c:200:27: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
-   sprintf(ADC_buffer, "A|%u|B|%u|\n\r", ADC_A_Value, ADC_B_Value);
-                           ^
-..\Src\main.c:200:32: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
-   sprintf(ADC_buffer, "A|%u|B|%u|\n\r", ADC_A_Value, ADC_B_Value);
-                                ^
-Info: Parallel threads used: 1
-13:27:47 **** Incremental Build of configuration Debug for project _Fury_Zero ****
-Info: Internal Builder is used for build
-arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
-..\Src\main.c: In function 'main':
-..\Src\main.c:197:3: error: too many arguments to function 'read_HX711'
-   read_HX711(MSB, 24);
-   ^~~~~~~~~~
-..\Src\main.c:110:6: note: declared here
- void read_HX711(void);
-      ^~~~~~~~~~
-..\Src\main.c:200:11: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
-   sprintf(ADC_buffer, "A|%u|B|%u|\n\r", ADC_A_Value, ADC_B_Value);
+..\Src\main.c:189:30: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "Load|%u|\n\r", ADC_A_Value);
+                              ^
+..\Src\main.c:201:11: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+   sprintf(ADC_buffer, "A|%u|B|%u|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_A_Value,
            ^~~~~~~~~~
 In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
                  from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
@@ -49,20 +29,28 @@ In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\
 d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
  int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
      ^
-..\Src\main.c:200:27: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
-   sprintf(ADC_buffer, "A|%u|B|%u|\n\r", ADC_A_Value, ADC_B_Value);
+..\Src\main.c:201:27: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "A|%u|B|%u|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_A_Value,
                            ^
-..\Src\main.c:200:32: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
-   sprintf(ADC_buffer, "A|%u|B|%u|\n\r", ADC_A_Value, ADC_B_Value);
+..\Src\main.c:201:32: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "A|%u|B|%u|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_A_Value,
                                 ^
-Info: Parallel threads used: 1
-13:28:08 **** Incremental Build of configuration Debug for project _Fury_Zero ****
-Info: Internal Builder is used for build
-arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
-..\Src\main.c: In function 'main':
-..\Src\main.c:200:11: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
-   sprintf(ADC_buffer, "A|%u|B|%u|\n\r", ADC_A_Value, ADC_B_Value);
-           ^~~~~~~~~~
+..\Src\main.c:201:37: warning: format '%u' expects argument of type 'unsigned int', but argument 5 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "A|%u|B|%u|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_A_Value,
+                                     ^
+..\Src\main.c:201:42: warning: format '%u' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "A|%u|B|%u|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_A_Value,
+                                          ^
+..\Src\main.c:201:47: warning: format '%u' expects argument of type 'unsigned int', but argument 7 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "A|%u|B|%u|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_A_Value,
+                                               ^
+..\Src\main.c:201:52: warning: format '%u' expects argument of type 'unsigned int', but argument 8 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "A|%u|B|%u|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_A_Value,
+                                                    ^
+..\Src\main.c: In function 'read_HX711':
+..\Src\main.c:508:12: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+    sprintf(ADC_buffer, ">>>A|%u|B|%u|\n\r", ADC_A_Value);
+            ^~~~~~~~~~
 In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
                  from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
                  from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:45,
@@ -72,30 +60,45 @@ In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\
 d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
  int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
      ^
-..\Src\main.c:200:27: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
-   sprintf(ADC_buffer, "A|%u|B|%u|\n\r", ADC_A_Value, ADC_B_Value);
-                           ^
-..\Src\main.c:200:32: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
-   sprintf(ADC_buffer, "A|%u|B|%u|\n\r", ADC_A_Value, ADC_B_Value);
-                                ^
+..\Src\main.c:508:31: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, ">>>A|%u|B|%u|\n\r", ADC_A_Value);
+                               ^
+..\Src\main.c:508:36: warning: format '%u' expects a matching 'unsigned int' argument [-Wformat=]
+    sprintf(ADC_buffer, ">>>A|%u|B|%u|\n\r", ADC_A_Value);
+                                    ^
 arm-atollic-eabi-gcc -o _Fury_Zero.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\main.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Fury_Zero.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
 D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Fury_Zero.elf 
 Generate build reports...
 Print size information
    text	   data	    bss	    dec	    hex	filename
-  13420	    116	   2560	  16096	   3ee0	_Fury_Zero.elf
+  13284	    116	   2560	  15960	   3e58	_Fury_Zero.elf
 Print size information done
 Generate listing file
 Output sent to: _Fury_Zero.list
 Generate listing file done
 Generate build reports done
 Info: Parallel threads used: 1
-13:29:18 **** Incremental Build of configuration Debug for project _Fury_Zero ****
+14:23:11 **** Incremental Build of configuration Debug for project _Fury_Zero ****
+Info: Internal Builder is used for build
+Info: Parallel threads used: 0
+14:25:49 **** Incremental Build of configuration Debug for project _Fury_Zero ****
 Info: Internal Builder is used for build
 arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
 ..\Src\main.c: In function 'main':
-..\Src\main.c:202:11: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
-   sprintf(ADC_buffer, "A|%u|B|%u|\n\r", ADC_A_Value, ADC_B_Value);
+..\Src\main.c:187:12: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+    sprintf(ADC_buffer, "|%u|\n\r", ADC_A_READ);
+            ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:45,
+                 from ../Inc/stm32f3xx_hal_conf.h:196,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:46,
+                 from ..\Src\main.c:40:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:198:11: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+   sprintf(ADC_buffer, "Load|%u|\n\r", ADC_A_Value);
            ^~~~~~~~~~
 In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
                  from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
@@ -106,14 +109,11 @@ In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\
 d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
  int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
      ^
-..\Src\main.c:202:27: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
-   sprintf(ADC_buffer, "A|%u|B|%u|\n\r", ADC_A_Value, ADC_B_Value);
-                           ^
-..\Src\main.c:202:32: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
-   sprintf(ADC_buffer, "A|%u|B|%u|\n\r", ADC_A_Value, ADC_B_Value);
-                                ^
-..\Src\main.c:212:11: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
-   sprintf(ADC_buffer, "A|%u|B|%u|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_A_Value,     ADC_B_Value, ADC_C_Value, ADC_D_Value, ADC_E_Value,    ADC_F_Value);
+..\Src\main.c:198:30: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "Load|%u|\n\r", ADC_A_Value);
+                              ^
+..\Src\main.c:210:11: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+   sprintf(ADC_buffer, "C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
            ^~~~~~~~~~
 In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
                  from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
@@ -124,42 +124,67 @@ In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\
 d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
  int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
      ^
-..\Src\main.c:212:27: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
-   sprintf(ADC_buffer, "A|%u|B|%u|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_A_Value,     ADC_B_Value, ADC_C_Value, ADC_D_Value, ADC_E_Value,    ADC_F_Value);
+..\Src\main.c:210:27: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
                            ^
-..\Src\main.c:212:32: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
-   sprintf(ADC_buffer, "A|%u|B|%u|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_A_Value,     ADC_B_Value, ADC_C_Value, ADC_D_Value, ADC_E_Value,    ADC_F_Value);
+..\Src\main.c:210:32: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
                                 ^
-..\Src\main.c:212:37: warning: format '%u' expects argument of type 'unsigned int', but argument 5 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
-   sprintf(ADC_buffer, "A|%u|B|%u|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_A_Value,     ADC_B_Value, ADC_C_Value, ADC_D_Value, ADC_E_Value,    ADC_F_Value);
+..\Src\main.c:210:37: warning: format '%u' expects argument of type 'unsigned int', but argument 5 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
                                      ^
-..\Src\main.c:212:42: warning: format '%u' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
-   sprintf(ADC_buffer, "A|%u|B|%u|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_A_Value,     ADC_B_Value, ADC_C_Value, ADC_D_Value, ADC_E_Value,    ADC_F_Value);
+..\Src\main.c:210:42: warning: format '%u' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
                                           ^
-..\Src\main.c:212:47: warning: format '%u' expects argument of type 'unsigned int', but argument 7 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
-   sprintf(ADC_buffer, "A|%u|B|%u|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_A_Value,     ADC_B_Value, ADC_C_Value, ADC_D_Value, ADC_E_Value,    ADC_F_Value);
-                                               ^
-..\Src\main.c:212:52: warning: format '%u' expects argument of type 'unsigned int', but argument 8 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
-   sprintf(ADC_buffer, "A|%u|B|%u|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_A_Value,     ADC_B_Value, ADC_C_Value, ADC_D_Value, ADC_E_Value,    ADC_F_Value);
-                                                    ^
+..\Src\main.c: In function 'read_HX711':
+..\Src\main.c:516:12: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+    sprintf(ADC_buffer, ">>>A|%u|B|%u|\n\r", ADC_A_Value);
+            ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:45,
+                 from ../Inc/stm32f3xx_hal_conf.h:196,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:46,
+                 from ..\Src\main.c:40:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:516:31: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, ">>>A|%u|B|%u|\n\r", ADC_A_Value);
+                               ^
+..\Src\main.c:516:36: warning: format '%u' expects a matching 'unsigned int' argument [-Wformat=]
+    sprintf(ADC_buffer, ">>>A|%u|B|%u|\n\r", ADC_A_Value);
+                                    ^
 arm-atollic-eabi-gcc -o _Fury_Zero.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\main.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Fury_Zero.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
 D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Fury_Zero.elf 
 Generate build reports...
 Print size information
    text	   data	    bss	    dec	    hex	filename
-  13568	    116	   2560	  16244	   3f74	_Fury_Zero.elf
+  11804	    116	   2560	  14480	   3890	_Fury_Zero.elf
 Print size information done
 Generate listing file
 Output sent to: _Fury_Zero.list
 Generate listing file done
 Generate build reports done
 Info: Parallel threads used: 1
-13:29:54 **** Incremental Build of configuration Debug for project _Fury_Zero ****
+14:29:14 **** Incremental Build of configuration Debug for project _Fury_Zero ****
 Info: Internal Builder is used for build
 arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
 ..\Src\main.c: In function 'main':
-..\Src\main.c:202:11: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
-   sprintf(ADC_buffer, "A|%u|B|%u|\n\r", ADC_A_Value, ADC_B_Value);
+..\Src\main.c:187:12: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+    sprintf(ADC_buffer, "|%u|\n\r", ADC_A_READ);
+            ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:45,
+                 from ../Inc/stm32f3xx_hal_conf.h:196,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:46,
+                 from ..\Src\main.c:40:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:198:11: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+   sprintf(ADC_buffer, "Load|%u|\n\r", ADC_A_Value);
            ^~~~~~~~~~
 In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
                  from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
@@ -170,14 +195,11 @@ In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\
 d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
  int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
      ^
-..\Src\main.c:202:27: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
-   sprintf(ADC_buffer, "A|%u|B|%u|\n\r", ADC_A_Value, ADC_B_Value);
-                           ^
-..\Src\main.c:202:32: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
-   sprintf(ADC_buffer, "A|%u|B|%u|\n\r", ADC_A_Value, ADC_B_Value);
-                                ^
-..\Src\main.c:212:11: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
-   sprintf(ADC_buffer, "A|%u|B|%u|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_A_Value,     ADC_B_Value, ADC_C_Value, ADC_D_Value, ADC_E_Value,    ADC_F_Value);
+..\Src\main.c:198:30: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "Load|%u|\n\r", ADC_A_Value);
+                              ^
+..\Src\main.c:210:11: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+   sprintf(ADC_buffer, "C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
            ^~~~~~~~~~
 In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
                  from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
@@ -188,30 +210,313 @@ In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\
 d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
  int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
      ^
-..\Src\main.c:212:27: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
-   sprintf(ADC_buffer, "A|%u|B|%u|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_A_Value,     ADC_B_Value, ADC_C_Value, ADC_D_Value, ADC_E_Value,    ADC_F_Value);
+..\Src\main.c:210:27: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
                            ^
-..\Src\main.c:212:32: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
-   sprintf(ADC_buffer, "A|%u|B|%u|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_A_Value,     ADC_B_Value, ADC_C_Value, ADC_D_Value, ADC_E_Value,    ADC_F_Value);
+..\Src\main.c:210:32: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
                                 ^
-..\Src\main.c:212:37: warning: format '%u' expects argument of type 'unsigned int', but argument 5 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
-   sprintf(ADC_buffer, "A|%u|B|%u|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_A_Value,     ADC_B_Value, ADC_C_Value, ADC_D_Value, ADC_E_Value,    ADC_F_Value);
+..\Src\main.c:210:37: warning: format '%u' expects argument of type 'unsigned int', but argument 5 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
                                      ^
-..\Src\main.c:212:42: warning: format '%u' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
-   sprintf(ADC_buffer, "A|%u|B|%u|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_A_Value,     ADC_B_Value, ADC_C_Value, ADC_D_Value, ADC_E_Value,    ADC_F_Value);
+..\Src\main.c:210:42: warning: format '%u' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
                                           ^
-..\Src\main.c:212:47: warning: format '%u' expects argument of type 'unsigned int', but argument 7 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
-   sprintf(ADC_buffer, "A|%u|B|%u|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_A_Value,     ADC_B_Value, ADC_C_Value, ADC_D_Value, ADC_E_Value,    ADC_F_Value);
-                                               ^
-..\Src\main.c:212:52: warning: format '%u' expects argument of type 'unsigned int', but argument 8 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
-   sprintf(ADC_buffer, "A|%u|B|%u|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_A_Value,     ADC_B_Value, ADC_C_Value, ADC_D_Value, ADC_E_Value,    ADC_F_Value);
-                                                    ^
 arm-atollic-eabi-gcc -o _Fury_Zero.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\main.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Fury_Zero.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
 D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Fury_Zero.elf 
 Generate build reports...
 Print size information
    text	   data	    bss	    dec	    hex	filename
-  13580	    116	   2560	  16256	   3f80	_Fury_Zero.elf
+  11804	    116	   2560	  14480	   3890	_Fury_Zero.elf
+Print size information done
+Generate listing file
+Output sent to: _Fury_Zero.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 1
+14:30:47 **** Incremental Build of configuration Debug for project _Fury_Zero ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:191:11: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+   sprintf(ADC_buffer, "Load|%u|\n\r", ADC_A_Value);
+           ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:45,
+                 from ../Inc/stm32f3xx_hal_conf.h:196,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:46,
+                 from ..\Src\main.c:40:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:191:30: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "Load|%u|\n\r", ADC_A_Value);
+                              ^
+..\Src\main.c:203:11: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+   sprintf(ADC_buffer, "C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+           ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:45,
+                 from ../Inc/stm32f3xx_hal_conf.h:196,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:46,
+                 from ..\Src\main.c:40:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:203:27: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                           ^
+..\Src\main.c:203:32: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                                ^
+..\Src\main.c:203:37: warning: format '%u' expects argument of type 'unsigned int', but argument 5 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                                     ^
+..\Src\main.c:203:42: warning: format '%u' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                                          ^
+arm-atollic-eabi-gcc -o _Fury_Zero.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\main.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Fury_Zero.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Fury_Zero.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  13104	    116	   2560	  15780	   3da4	_Fury_Zero.elf
+Print size information done
+Generate listing file
+Output sent to: _Fury_Zero.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 1
+14:35:34 **** Incremental Build of configuration Debug for project _Fury_Zero ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:192:11: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+   sprintf(ADC_buffer, "Load|%u|\n\r", ADC_A_Value);
+           ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:45,
+                 from ../Inc/stm32f3xx_hal_conf.h:196,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:46,
+                 from ..\Src\main.c:40:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:192:30: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "Load|%u|\n\r", ADC_A_Value);
+                              ^
+..\Src\main.c:204:11: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+   sprintf(ADC_buffer, "C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+           ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:45,
+                 from ../Inc/stm32f3xx_hal_conf.h:196,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:46,
+                 from ..\Src\main.c:40:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:204:27: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                           ^
+..\Src\main.c:204:32: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                                ^
+..\Src\main.c:204:37: warning: format '%u' expects argument of type 'unsigned int', but argument 5 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                                     ^
+..\Src\main.c:204:42: warning: format '%u' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                                          ^
+arm-atollic-eabi-gcc -o _Fury_Zero.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\main.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Fury_Zero.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Fury_Zero.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  13108	    116	   2560	  15784	   3da8	_Fury_Zero.elf
+Print size information done
+Generate listing file
+Output sent to: _Fury_Zero.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 1
+14:37:31 **** Incremental Build of configuration Debug for project _Fury_Zero ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:192:11: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+   sprintf(ADC_buffer, "Load|%u|\n\r", ADC_A_Value);
+           ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:45,
+                 from ../Inc/stm32f3xx_hal_conf.h:196,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:46,
+                 from ..\Src\main.c:40:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:192:30: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "Load|%u|\n\r", ADC_A_Value);
+                              ^
+..\Src\main.c:204:11: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+   sprintf(ADC_buffer, "C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+           ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:45,
+                 from ../Inc/stm32f3xx_hal_conf.h:196,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:46,
+                 from ..\Src\main.c:40:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:204:27: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                           ^
+..\Src\main.c:204:32: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                                ^
+..\Src\main.c:204:37: warning: format '%u' expects argument of type 'unsigned int', but argument 5 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                                     ^
+..\Src\main.c:204:42: warning: format '%u' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                                          ^
+arm-atollic-eabi-gcc -o _Fury_Zero.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\main.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Fury_Zero.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Fury_Zero.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  13112	    116	   2560	  15788	   3dac	_Fury_Zero.elf
+Print size information done
+Generate listing file
+Output sent to: _Fury_Zero.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 1
+14:38:13 **** Incremental Build of configuration Debug for project _Fury_Zero ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:192:11: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+   sprintf(ADC_buffer, "Load|%u|\n\r", ADC_A_Value);
+           ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:45,
+                 from ../Inc/stm32f3xx_hal_conf.h:196,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:46,
+                 from ..\Src\main.c:40:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:192:30: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "Load|%u|\n\r", ADC_A_Value);
+                              ^
+arm-atollic-eabi-gcc -o _Fury_Zero.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\main.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Fury_Zero.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Fury_Zero.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  11972	    116	   2560	  14648	   3938	_Fury_Zero.elf
+Print size information done
+Generate listing file
+Output sent to: _Fury_Zero.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 1
+14:38:51 **** Incremental Build of configuration Debug for project _Fury_Zero ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:192:11: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+   sprintf(ADC_buffer, "Load|%u|\n\r", ADC_A_Value);
+           ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:45,
+                 from ../Inc/stm32f3xx_hal_conf.h:196,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:46,
+                 from ..\Src\main.c:40:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:192:30: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "Load|%u|\n\r", ADC_A_Value);
+                              ^
+arm-atollic-eabi-gcc -o _Fury_Zero.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\main.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Fury_Zero.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Fury_Zero.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  11972	    116	   2560	  14648	   3938	_Fury_Zero.elf
+Print size information done
+Generate listing file
+Output sent to: _Fury_Zero.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 1
+14:40:03 **** Incremental Build of configuration Debug for project _Fury_Zero ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:193:11: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+   sprintf(ADC_buffer, "Load|%u|\n\r", ADC_A_Value);
+           ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:45,
+                 from ../Inc/stm32f3xx_hal_conf.h:196,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:46,
+                 from ..\Src\main.c:40:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:193:30: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "Load|%u|\n\r", ADC_A_Value);
+                              ^
+arm-atollic-eabi-gcc -o _Fury_Zero.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\main.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Fury_Zero.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Fury_Zero.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  11996	    116	   2564	  14676	   3954	_Fury_Zero.elf
+Print size information done
+Generate listing file
+Output sent to: _Fury_Zero.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 1
+14:40:52 **** Incremental Build of configuration Debug for project _Fury_Zero ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:193:11: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+   sprintf(ADC_buffer, "%d\tLoad|%u|\n\r",ticker, ADC_A_Value);
+           ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:45,
+                 from ../Inc/stm32f3xx_hal_conf.h:196,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:46,
+                 from ..\Src\main.c:40:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:193:34: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "%d\tLoad|%u|\n\r",ticker, ADC_A_Value);
+                                  ^
+arm-atollic-eabi-gcc -o _Fury_Zero.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\main.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Fury_Zero.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Fury_Zero.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  11996	    116	   2564	  14676	   3954	_Fury_Zero.elf
 Print size information done
 Generate listing file
 Output sent to: _Fury_Zero.list

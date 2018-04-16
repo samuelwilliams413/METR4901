@@ -67,17 +67,19 @@ DMA_HandleTypeDef hdma_usart2_tx;
 #define MSB		1
 #define VERBOSE	TRUE
 
-
-#define HX711_A_READ	HAL_GPIO_ReadPin(GPIOB, ADC_A_Pin)
-#define HX711_B_READ	HAL_GPIO_ReadPin(GPIOB, ADC_B_Pin)
-#define HX711_CLK_SET	HAL_GPIO_WritePin(GPIOB, HX711_CLK_Pin, GPIO_PIN_SET)
-#define HX711_CLK_RESET	HAL_GPIO_WritePin(GPIOB, HX711_CLK_Pin, GPIO_PIN_RESET)
+#define ADC_A_READ	HAL_GPIO_ReadPin(GPIOB, DAT_A_Pin)
+#define ADC_B_READ	HAL_GPIO_ReadPin(GPIOB, DAT_B_Pin)
+#define CLK_A_SET	HAL_GPIO_WritePin(GPIOB, CLK_A_Pin, GPIO_PIN_SET)
+#define CLK_A_RESET	HAL_GPIO_WritePin(GPIOB, CLK_A_Pin, GPIO_PIN_RESET)
+#define CLK_B_SET	HAL_GPIO_WritePin(GPIOB, CLK_B_Pin, GPIO_PIN_SET)
+#define CLK_B_RESET	HAL_GPIO_WritePin(GPIOB, CLK_B_Pin, GPIO_PIN_RESET)
 
 uint8_t buffer[B_SIZE];
 uint8_t RX_buffer[B_SIZE];
 uint8_t ADC_buffer[B_SIZE];
 uint16_t len, i, j, hmmmm;
-int trans_delay = 25;
+int trans_delay = 75;
+int ticker = 0;
 
 volatile uint32_t a;
 volatile uint32_t ADC_A_Value;
@@ -167,10 +169,10 @@ int main(void) {
 		_Error_Handler(__FILE__, __LINE__);
 	}
 
-
-	HX711_CLK_SET;
-	HAL_Delay(1);
-	HX711_CLK_RESET;
+	CLK_A_SET;
+	HAL_Delay(50);
+	HAL_GPIO_WritePin(GPIOB, DAT_A_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOB, DAT_B_Pin, GPIO_PIN_RESET);
 	HAL_Delay(1);
 
 	/* USER CODE END 2 */
@@ -183,53 +185,16 @@ int main(void) {
 
 		/* USER CODE BEGIN 3 */
 
-		///////////////////////////// buffer
-		hmmmm = ((hmmmm + 1) % 10);
-		for (i = 0; i < (B_SIZE - 2); ++i) {
-			buffer[i] = 'a' + hmmmm;
-		}
-		buffer[B_SIZE - 2] = '\n';
-		buffer[B_SIZE - 1] = '\r';
-		HAL_Delay(trans_delay);
-
-		//HAL_UART_Transmit_DMA(&huart1, buffer, len);
-		//HAL_UART_Transmit_DMA(&huart2, buffer, len);
-		HAL_Delay(trans_delay);
+		ticker = ((ticker + 1) % 100);
 		///////////////////////////// Load Cell
 		read_HX711();
-		HAL_Delay(trans_delay);
-		memset(ADC_buffer, 0, B_SIZE);
-		sprintf(ADC_buffer, "A|%u|B|%u|\n\r", ADC_A_Value, ADC_B_Value);
-		HAL_Delay(trans_delay);
-		HAL_UART_Transmit_DMA(&huart1, ADC_buffer, len);
-		HAL_UART_Transmit_DMA(&huart2, ADC_buffer, len);
-		HAL_Delay(trans_delay);		HAL_Delay(trans_delay);		HAL_Delay(trans_delay);
 
-		///////////////////////////// ADC
-
-		Update_ADC_Values();
 		memset(ADC_buffer, 0, B_SIZE);
-		sprintf(ADC_buffer, "A|%u|B|%u|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_A_Value, 				ADC_B_Value, ADC_C_Value, ADC_D_Value, ADC_E_Value,				ADC_F_Value);
+		sprintf(ADC_buffer, "%d\tLoad|%u|\n\r",ticker, ADC_A_Value);
+		HAL_Delay(trans_delay);
 
 		HAL_UART_Transmit_DMA(&huart1, ADC_buffer, len);
 		HAL_UART_Transmit_DMA(&huart2, ADC_buffer, len);
-
-		///////////////////////////// RX
-
-		HAL_Delay(trans_delay);
-
-		__HAL_UART_CLEAR_IT(&huart1, UART_CLEAR_NEF|UART_CLEAR_OREF);
-		__HAL_UART_CLEAR_IT(&huart2, UART_CLEAR_NEF|UART_CLEAR_OREF);
-		memset(RX_buffer, 0, len);
-
-		HAL_UART_Receive_DMA(&huart1, RX_buffer, len);
-		HAL_UART_Receive_DMA(&huart2, RX_buffer, len);
-		HAL_Delay(trans_delay);
-
-		RX_buffer[B_SIZE - 2] = '\n';
-		RX_buffer[B_SIZE - 1] = '\r';
-		//HAL_UART_Transmit_DMA(&huart1, RX_buffer, len);
-		//HAL_UART_Transmit_DMA(&huart2, RX_buffer, len);
 		HAL_Delay(trans_delay);
 
 		///////////////////////////// LED 3
@@ -427,19 +392,19 @@ static void MX_GPIO_Init(void) {
 	;
 
 	/*Configure GPIO pin Output Level */
-	HAL_GPIO_WritePin(GPIOB, LD3_Pin | HX711_CLK_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOB, CLK_A_Pin | LD3_Pin | CLK_B_Pin, GPIO_PIN_RESET);
 
-	/*Configure GPIO pins : ADC_A_Pin ADC_B_Pin */
-	GPIO_InitStruct.Pin = ADC_A_Pin | ADC_B_Pin;
-	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-	GPIO_InitStruct.Pull = GPIO_PULLUP;
-	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-	/*Configure GPIO pins : LD3_Pin HX711_CLK_Pin */
-	GPIO_InitStruct.Pin = LD3_Pin | HX711_CLK_Pin;
+	/*Configure GPIO pins : CLK_A_Pin LD3_Pin CLK_B_Pin */
+	GPIO_InitStruct.Pin = CLK_A_Pin | LD3_Pin | CLK_B_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+	HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+	/*Configure GPIO pins : DAT_B_Pin DAT_A_Pin */
+	GPIO_InitStruct.Pin = DAT_B_Pin | DAT_A_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+	GPIO_InitStruct.Pull = GPIO_PULLUP;
 	HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 }
@@ -513,27 +478,27 @@ void read_HX711(void) {
 	/* Adapted from Arduino Script "ShiftIn()" */
 	// Count should always be 24
 	// order is MSB for HX711
-	uint8_t i = 0;
 	ADC_A_Value = 0;
 
-	HX711_CLK_RESET;
-	HAL_Delay(1);
-	while(HX711_A_READ == PIN_HI) {;}
-	for (i = 0; i < 24; i++) {
-		HX711_CLK_SET;
-		HAL_Delay(1);
-		HX711_CLK_RESET;
-		HAL_Delay(1);
+	while (ADC_A_READ == 1)
+		;
+	for (uint8_t i = 0; i < 24; i++) {
+		CLK_A_SET;
 		ADC_A_Value = ADC_A_Value << 1;
-		if (HX711_A_READ == PIN_HI) {
-			ADC_A_Value++;
-		}
-	}
-	HX711_CLK_SET;
-	HAL_Delay(1);
-	HX711_CLK_RESET;
-	HAL_Delay(1);
 
+		if (ADC_A_READ) { // if High
+			ADC_A_Value++;
+
+		}
+		CLK_A_RESET;
+
+	}
+	for (i = 0; i < 3; i++) {
+		CLK_A_SET;
+		CLK_A_RESET;
+	}
+	ADC_A_Value = ADC_A_Value ^ 0x800000;
+	return;
 }
 
 /* USER CODE END 4 */
