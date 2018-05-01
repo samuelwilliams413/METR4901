@@ -96,6 +96,11 @@ ADC_ChannelConfTypeDef sConfig_C;
 ADC_ChannelConfTypeDef sConfig_D;
 ADC_ChannelConfTypeDef sConfig_E;
 ADC_ChannelConfTypeDef sConfig_F;
+
+
+extern __IO uint32_t microDelay;
+volatile uint32_t DWT_START;
+volatile uint32_t DWT_TOTAL;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -111,6 +116,7 @@ static void MX_NVIC_Init(void);
 /* Private function prototypes -----------------------------------------------*/
 void Update_ADC_Values(void);
 void read_HX711(void);
+void HAL_Delay_Microseconds(__IO uint32_t);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
@@ -557,7 +563,7 @@ void read_HX711(void) {
 			ADC_A_Value++;
 
 		}
-		HAL_Delay_Microseconds(8);
+		HAL_Delay_Microseconds(1);
 		CLK_A_RESET;
 
 	}
@@ -567,6 +573,25 @@ void read_HX711(void) {
 	}
 	ADC_A_Value = ADC_A_Value ^ 0x800000;
 	return;
+}
+
+
+
+void HAL_Delay_Microseconds(uint32_t uSec)
+{
+
+  // keep DWT_TOTAL from overflowing (max 59.652323s w/72MHz SystemCoreClock)
+  if (uSec > (UINT_MAX / SYSTEM_US_TICKS))
+  {
+    uSec = (UINT_MAX / SYSTEM_US_TICKS);
+  }
+
+
+
+  while((DWT->CYCCNT - DWT_START) < DWT_TOTAL)
+  {
+    ;
+  }
 }
 
 /* USER CODE END 4 */
