@@ -45,6 +45,7 @@
 #include "stdio.h"
 #include "string.h"
 #include "hx711.h"
+#include "dwt_stm32_delay.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -97,10 +98,7 @@ ADC_ChannelConfTypeDef sConfig_D;
 ADC_ChannelConfTypeDef sConfig_E;
 ADC_ChannelConfTypeDef sConfig_F;
 
-
 extern __IO uint32_t microDelay;
-volatile uint32_t DWT_START;
-volatile uint32_t DWT_TOTAL;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -553,8 +551,8 @@ void read_HX711(void) {
 	// order is MSB for HX711
 	ADC_A_Value = 0;
 
-	while (ADC_A_READ == 1)
-		;
+	//while (ADC_A_READ == 1)
+	//	;
 	for (uint8_t i = 0; i < 24; i++) {
 		CLK_A_SET;
 		ADC_A_Value = ADC_A_Value << 1;
@@ -563,10 +561,11 @@ void read_HX711(void) {
 			ADC_A_Value++;
 
 		}
-		HAL_Delay_Microseconds(1);
+
 		CLK_A_RESET;
 
 	}
+	DWT_Delay_us (8);
 	for (i = 0; i < 3; i++) {
 		CLK_A_SET;
 		CLK_A_RESET;
@@ -575,23 +574,11 @@ void read_HX711(void) {
 	return;
 }
 
-
-
-void HAL_Delay_Microseconds(uint32_t uSec)
-{
-
-  // keep DWT_TOTAL from overflowing (max 59.652323s w/72MHz SystemCoreClock)
-  if (uSec > (UINT_MAX / SYSTEM_US_TICKS))
-  {
-    uSec = (UINT_MAX / SYSTEM_US_TICKS);
-  }
-
-
-
-  while((DWT->CYCCNT - DWT_START) < DWT_TOTAL)
-  {
-    ;
-  }
+void HAL_Delay_Microseconds(__IO uint32_t time) {
+	microDelay = time;
+	microDelay = (microDelay < 0) ? 0 : microDelay;
+	while (microDelay != 0)
+		;
 }
 
 /* USER CODE END 4 */
