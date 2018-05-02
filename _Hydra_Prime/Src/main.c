@@ -276,7 +276,9 @@ int main(void) {
 		if (LED_ENABLE) {
 			///////////////////////////// LED 3
 
+			CLK_A_SET;
 			HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+			CLK_A_RESET;
 			HAL_Delay(trans_delay);
 		}
 
@@ -639,8 +641,9 @@ void read_HX711(void) {
 	/* Adapted from Arduino Script "ShiftIn()" */
 	// Count should always be 24
 	// order is MSB for HX711
-	int DI_A = 0;
-	int DI_B = 0;
+	unsigned long Count;
+	int DI_A = 1;
+	int DI_B = 1;
 
 	if (HAL_ADC_ConfigChannel(&hadc1, &sConfig_A) != HAL_OK) {
 		Error_Handler();
@@ -648,14 +651,34 @@ void read_HX711(void) {
 	if (HAL_ADC_Start(&hadc1) != HAL_OK) {
 		Error_Handler();
 	}
-	if (HAL_ADC_PollForConversion(&hadc1, 50) == HAL_OK) {
-		ADC_A_Value = HAL_ADC_GetValue(&hadc1);
-		DI_A = (ADC_A_Value > (4096)) ? 1:0;
+	while (DI_A) {
+		if (HAL_ADC_PollForConversion(&hadc1, 50) == HAL_OK) {
+			ADC_A_Value = HAL_ADC_GetValue(&hadc1);
+			DI_A = (ADC_A_Value > (4096)) ? 1 : 0;
+		}
 	}
 	if (HAL_ADC_Stop(&hadc1) != HAL_OK) {
 		Error_Handler();
 	}
 
+	for (uint8_t i = 0; i < 24; i++) {
+		CLK_A_SET;
+		Count = Count << 1;
+
+		if (HAL_ADC_PollForConversion(&hadc1, 50) == HAL_OK) {
+			ADC_A_Value = HAL_ADC_GetValue(&hadc1);
+			DI_A = (ADC_A_Value > (4096)) ? 1 : 0;
+		}
+
+		DI_A ? Count++ : 0; // if High
+		CLK_A_RESET;
+	}
+	for (i = 0; i < 3; i++) {
+		CLK_A_SET;
+		CLK_A_RESET;
+	}
+	ADC_A_Value = Count ^ 0x800000;
+	return;
 }
 
 void HAL_Delay_Microseconds(__IO uint32_t time) {

@@ -2105,3 +2105,6 @@ java.lang.IllegalArgumentException: Index out of bounds
 !ENTRY org.eclipse.cdt.dsf.gdb 4 5012 2018-05-02 12:30:05.138
 !MESSAGE Error in initializing ST-Link device.
 Reason: (2) ST-Link DLL error.
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2018-05-02 13:05:32.067
+!MESSAGE Unloading product manager
