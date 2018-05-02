@@ -61,13 +61,13 @@ DMA_HandleTypeDef hdma_usart2_tx;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-#define B_SIZE	70
+#define B_SIZE			50
 #define TRUE			1
 #define FALSE			0
 #define PIN_HI			1
 #define PIN_LO			0
-#define LSB		0
-#define MSB		1
+#define LSB				0
+#define MSB				1
 #define VERBOSE	TRUE
 
 #define CLK_A_SET	HAL_GPIO_WritePin(GPIOB, CLK_A_Pin, GPIO_PIN_SET)
@@ -158,13 +158,25 @@ int main(void)
   /* Initialize interrupts */
   MX_NVIC_Init();
   /* USER CODE BEGIN 2 */
-
 	hmmmm = 0;
+	char c = '*';
+	for (i = 0; i < B_SIZE - 2; ++i) {
+		buffer[i] = c;
+		RX_buffer[i] = c;
+		ADC_buffer[i] = c;
+	}
+	buffer[B_SIZE - 2] = '\n';
+	buffer[B_SIZE - 1] = '\r';
+	RX_buffer[B_SIZE - 2] = '\n';
+	RX_buffer[B_SIZE - 1] = '\r';
+	ADC_buffer[B_SIZE - 2] = '\n';
+	ADC_buffer[B_SIZE - 1] = '\r';
 	len = sizeof(buffer);
 
 	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig_C) != HAL_OK) {
-			_Error_Handler(__FILE__, __LINE__);
-		}
+		_Error_Handler(__FILE__, __LINE__);
+	}
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -172,7 +184,8 @@ int main(void)
 	/* USER CODE BEGIN WHILE */
 	int ADC_ENABLE = 0;
 	int TX_ENABLE = 1;
-	int RX_ENABLE = 1;
+	int RX_ENABLE_PASS = 0;
+	int RX_ENABLE_ECHO = 0;
 	int LED_ENABLE = 1;
 	int HX_ENABLE = 0;
 	while (1) {
@@ -188,7 +201,7 @@ int main(void)
 		if (TX_ENABLE) {
 			hmmmm = ((hmmmm + 1) % 2);
 			for (i = 0; i < (B_SIZE - 2); ++i) {
-				buffer[i] = 'p' + hmmmm;
+				buffer[i] = 's' + hmmmm;
 			}
 			buffer[B_SIZE - 2] = '\n';
 			buffer[B_SIZE - 1] = '\r';
@@ -196,6 +209,67 @@ int main(void)
 
 			HAL_UART_Transmit_DMA(&huart1, buffer, len);
 			HAL_UART_Transmit_DMA(&huart2, buffer, len);
+			HAL_Delay(trans_delay);
+		}
+
+		if (RX_ENABLE_PASS) {
+			///////////////////////////// RX
+
+			__HAL_UART_CLEAR_IT(&huart1, UART_CLEAR_NEF|UART_CLEAR_OREF);
+			__HAL_UART_CLEAR_IT(&huart2, UART_CLEAR_NEF|UART_CLEAR_OREF);
+			memset(RX_buffer, 0, len);
+			HAL_UART_Receive_DMA(&huart1, RX_buffer, len);
+			HAL_Delay(trans_delay);
+			RX_buffer[B_SIZE - 2] = '\n';
+			RX_buffer[B_SIZE - 1] = '\r';
+			HAL_UART_Transmit_DMA(&huart2, RX_buffer, len);
+			HAL_Delay(trans_delay);
+
+			__HAL_UART_CLEAR_IT(&huart1, UART_CLEAR_NEF|UART_CLEAR_OREF);
+			__HAL_UART_CLEAR_IT(&huart2, UART_CLEAR_NEF|UART_CLEAR_OREF);
+			memset(RX_buffer, 0, len);
+			HAL_UART_Receive_DMA(&huart2, RX_buffer, len);
+			HAL_Delay(trans_delay);
+			RX_buffer[B_SIZE - 2] = '\n';
+			RX_buffer[B_SIZE - 1] = '\r';
+			HAL_UART_Transmit_DMA(&huart1, RX_buffer, len);
+			HAL_Delay(trans_delay);
+		}
+
+		if (RX_ENABLE_ECHO) {
+			///////////////////////////// RX
+
+			__HAL_UART_CLEAR_IT(&huart1, UART_CLEAR_NEF|UART_CLEAR_OREF);
+			__HAL_UART_CLEAR_IT(&huart2, UART_CLEAR_NEF|UART_CLEAR_OREF);
+			memset(RX_buffer, 0, len);
+			HAL_UART_Receive_DMA(&huart1, RX_buffer, len);
+			HAL_Delay(trans_delay);
+			RX_buffer[B_SIZE - 2] = '\n';
+			RX_buffer[B_SIZE - 1] = '\r';
+			HAL_UART_Transmit_DMA(&huart1, RX_buffer, len);
+			HAL_UART_Transmit_DMA(&huart2, RX_buffer, len);
+			HAL_Delay(trans_delay);
+
+			__HAL_UART_CLEAR_IT(&huart1, UART_CLEAR_NEF|UART_CLEAR_OREF);
+			__HAL_UART_CLEAR_IT(&huart2, UART_CLEAR_NEF|UART_CLEAR_OREF);
+			memset(RX_buffer, 0, len);
+			HAL_UART_Receive_DMA(&huart2, RX_buffer, len);
+			HAL_Delay(trans_delay);
+			RX_buffer[B_SIZE - 2] = '\n';
+			RX_buffer[B_SIZE - 1] = '\r';
+			HAL_UART_Transmit_DMA(&huart1, RX_buffer, len);
+			HAL_UART_Transmit_DMA(&huart2, RX_buffer, len);
+			HAL_Delay(trans_delay);
+		}
+
+		if (ADC_ENABLE) {
+			Update_ADC_Values();
+			memset(ADC_buffer, 0, B_SIZE);
+			HAL_Delay(trans_delay);
+			sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value, ADC_D_Value, ADC_E_Value, ADC_F_Value);
+			HAL_Delay(trans_delay);
+			HAL_UART_Transmit_DMA(&huart1, ADC_buffer, len);
+			HAL_UART_Transmit_DMA(&huart2, ADC_buffer, len);
 			HAL_Delay(trans_delay);
 		}
 
@@ -283,9 +357,6 @@ static void MX_NVIC_Init(void)
   /* USART1_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(USART1_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(USART1_IRQn);
-  /* USART2_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(USART2_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(USART2_IRQn);
   /* DMA1_Channel7_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Channel7_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(DMA1_Channel7_IRQn);

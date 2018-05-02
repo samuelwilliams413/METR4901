@@ -1,29 +1,45 @@
-21:57:34 **** Incremental Build of configuration Debug for project _Infinite_Cobra ****
+22:12:44 **** Incremental Build of configuration Debug for project _Infinite_Cobra ****
+Info: Internal Builder is used for build
+Info: Parallel threads used: 0
+22:12:47 **** Incremental Build of configuration Debug for project _Infinite_Cobra ****
+Info: Internal Builder is used for build
+Info: Parallel threads used: 0
+22:13:15 **** Incremental Build of configuration Debug for project _Infinite_Cobra ****
 Info: Internal Builder is used for build
 arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
 ..\Src\main.c: In function 'main':
-..\Src\main.c:164:6: warning: unused variable 'HX_ENABLE' [-Wunused-variable]
+..\Src\main.c:254:12: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+            ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:45,
+                 from ../Inc/stm32f3xx_hal_conf.h:196,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:46,
+                 from ..\Src\main.c:40:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:254:29: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                             ^
+..\Src\main.c:254:34: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                                  ^
+..\Src\main.c:254:39: warning: format '%u' expects argument of type 'unsigned int', but argument 5 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                                       ^
+..\Src\main.c:254:44: warning: format '%u' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                                            ^
+..\Src\main.c:176:6: warning: unused variable 'HX_ENABLE' [-Wunused-variable]
   int HX_ENABLE = 0;
       ^~~~~~~~~
-..\Src\main.c:162:6: warning: unused variable 'RX_ENABLE' [-Wunused-variable]
-  int RX_ENABLE = 1;
-      ^~~~~~~~~
-..\Src\main.c:160:6: warning: unused variable 'ADC_ENABLE' [-Wunused-variable]
-  int ADC_ENABLE = 0;
-      ^~~~~~~~~~
-..\Src\main.c: In function 'MX_ADC1_Init':
-..\Src\main.c:253:25: warning: unused variable 'sConfig' [-Wunused-variable]
-  ADC_ChannelConfTypeDef sConfig;
-                         ^~~~~~~
-..\Src\main.c: In function 'MX_ADC2_Init':
-..\Src\main.c:309:25: warning: unused variable 'sConfig' [-Wunused-variable]
-  ADC_ChannelConfTypeDef sConfig;
-                         ^~~~~~~
 ..\Src\main.c: In function 'read_HX711':
-..\Src\main.c:542:6: warning: unused variable 'DI_B' [-Wunused-variable]
+..\Src\main.c:589:6: warning: unused variable 'DI_B' [-Wunused-variable]
   int DI_B = 1;
       ^~~~
-..\Src\main.c:562:9: warning: 'Count' may be used uninitialized in this function [-Wmaybe-uninitialized]
+..\Src\main.c:609:9: warning: 'Count' may be used uninitialized in this function [-Wmaybe-uninitialized]
    Count = Count << 1;
    ~~~~~~^~~~~~~~~~~~
 arm-atollic-eabi-gcc -o _Infinite_Cobra.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\dwt_stm32_delay.o Src\hx711.o Src\main.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Infinite_Cobra.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
@@ -31,13 +47,715 @@ D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar 
 Generate build reports...
 Print size information
    text	   data	    bss	    dec	    hex	filename
-   9196	     16	   2632	  11844	   2e44	_Infinite_Cobra.elf
+   9784	     16	   2440	  12240	   2fd0	_Infinite_Cobra.elf
 Print size information done
 Generate listing file
 Output sent to: _Infinite_Cobra.list
 Generate listing file done
 Generate build reports done
 Info: Parallel threads used: 1
-21:57:36 **** Incremental Build of configuration Debug for project _Infinite_Cobra ****
+22:13:42 **** Incremental Build of configuration Debug for project _Infinite_Cobra ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:254:12: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+            ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:45,
+                 from ../Inc/stm32f3xx_hal_conf.h:196,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:46,
+                 from ..\Src\main.c:40:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:254:29: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                             ^
+..\Src\main.c:254:34: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                                  ^
+..\Src\main.c:254:39: warning: format '%u' expects argument of type 'unsigned int', but argument 5 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                                       ^
+..\Src\main.c:254:44: warning: format '%u' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                                            ^
+..\Src\main.c:176:6: warning: unused variable 'HX_ENABLE' [-Wunused-variable]
+  int HX_ENABLE = 0;
+      ^~~~~~~~~
+..\Src\main.c: In function 'read_HX711':
+..\Src\main.c:589:6: warning: unused variable 'DI_B' [-Wunused-variable]
+  int DI_B = 1;
+      ^~~~
+..\Src\main.c:609:9: warning: 'Count' may be used uninitialized in this function [-Wmaybe-uninitialized]
+   Count = Count << 1;
+   ~~~~~~^~~~~~~~~~~~
+arm-atollic-eabi-gcc -o _Infinite_Cobra.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\dwt_stm32_delay.o Src\hx711.o Src\main.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Infinite_Cobra.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Infinite_Cobra.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  12288	    116	   2456	  14860	   3a0c	_Infinite_Cobra.elf
+Print size information done
+Generate listing file
+Output sent to: _Infinite_Cobra.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 1
+22:15:02 **** Incremental Build of configuration Debug for project _Infinite_Cobra ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:265:12: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+            ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:45,
+                 from ../Inc/stm32f3xx_hal_conf.h:196,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:46,
+                 from ..\Src\main.c:40:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:265:29: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                             ^
+..\Src\main.c:265:34: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                                  ^
+..\Src\main.c:265:39: warning: format '%u' expects argument of type 'unsigned int', but argument 5 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                                       ^
+..\Src\main.c:265:44: warning: format '%u' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                                            ^
+..\Src\main.c:187:6: warning: unused variable 'HX_ENABLE' [-Wunused-variable]
+  int HX_ENABLE = 0;
+      ^~~~~~~~~
+..\Src\main.c: In function 'read_HX711':
+..\Src\main.c:600:6: warning: unused variable 'DI_B' [-Wunused-variable]
+  int DI_B = 1;
+      ^~~~
+..\Src\main.c:620:9: warning: 'Count' may be used uninitialized in this function [-Wmaybe-uninitialized]
+   Count = Count << 1;
+   ~~~~~~^~~~~~~~~~~~
+arm-atollic-eabi-gcc -o _Infinite_Cobra.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\dwt_stm32_delay.o Src\hx711.o Src\main.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Infinite_Cobra.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Infinite_Cobra.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  12300	    116	   2456	  14872	   3a18	_Infinite_Cobra.elf
+Print size information done
+Generate listing file
+Output sent to: _Infinite_Cobra.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 1
+22:16:38 **** Incremental Build of configuration Debug for project _Infinite_Cobra ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:265:12: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+            ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:45,
+                 from ../Inc/stm32f3xx_hal_conf.h:196,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:46,
+                 from ..\Src\main.c:40:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:265:29: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                             ^
+..\Src\main.c:265:34: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                                  ^
+..\Src\main.c:265:39: warning: format '%u' expects argument of type 'unsigned int', but argument 5 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                                       ^
+..\Src\main.c:265:44: warning: format '%u' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                                            ^
+..\Src\main.c:187:6: warning: unused variable 'HX_ENABLE' [-Wunused-variable]
+  int HX_ENABLE = 0;
+      ^~~~~~~~~
+..\Src\main.c: In function 'MX_ADC1_Init':
+..\Src\main.c:365:25: warning: unused variable 'sConfig' [-Wunused-variable]
+  ADC_ChannelConfTypeDef sConfig;
+                         ^~~~~~~
+..\Src\main.c: In function 'MX_ADC2_Init':
+..\Src\main.c:421:25: warning: unused variable 'sConfig' [-Wunused-variable]
+  ADC_ChannelConfTypeDef sConfig;
+                         ^~~~~~~
+..\Src\main.c: In function 'read_HX711':
+..\Src\main.c:640:6: warning: unused variable 'DI_B' [-Wunused-variable]
+  int DI_B = 1;
+      ^~~~
+..\Src\main.c:660:9: warning: 'Count' may be used uninitialized in this function [-Wmaybe-uninitialized]
+   Count = Count << 1;
+   ~~~~~~^~~~~~~~~~~~
+arm-atollic-eabi-gcc -o _Infinite_Cobra.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\dwt_stm32_delay.o Src\hx711.o Src\main.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Infinite_Cobra.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Infinite_Cobra.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  12440	    116	   2456	  15012	   3aa4	_Infinite_Cobra.elf
+Print size information done
+Generate listing file
+Output sent to: _Infinite_Cobra.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 1
+22:28:11 **** Rebuild of configuration Debug for project _Infinite_Cobra ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\stm32f3xx_it.o ..\Src\stm32f3xx_it.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\system_stm32f3xx.o ..\Src\system_stm32f3xx.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:267:12: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+            ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:45,
+                 from ../Inc/stm32f3xx_hal_conf.h:196,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:46,
+                 from ..\Src\main.c:41:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:267:29: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                             ^
+..\Src\main.c:267:34: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                                  ^
+..\Src\main.c:267:39: warning: format '%u' expects argument of type 'unsigned int', but argument 5 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                                       ^
+..\Src\main.c:267:44: warning: format '%u' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                                            ^
+..\Src\main.c:189:6: warning: unused variable 'HX_ENABLE' [-Wunused-variable]
+  int HX_ENABLE = 0;
+      ^~~~~~~~~
+..\Src\main.c: In function 'read_HX711':
+..\Src\main.c:612:6: warning: unused variable 'DI_B' [-Wunused-variable]
+  int DI_B = 1;
+      ^~~~
+..\Src\main.c:632:9: warning: 'Count' may be used uninitialized in this function [-Wmaybe-uninitialized]
+   Count = Count << 1;
+   ~~~~~~^~~~~~~~~~~~
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -g -Wa,--no-warn -x assembler-with-cpp -specs=nano.specs -o startup\startup_stm32f303x8.o ..\startup\startup_stm32f303x8.s 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\stm32f3xx_hal_msp.o ..\Src\stm32f3xx_hal_msp.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\dwt_stm32_delay.o ..\Src\dwt_stm32_delay.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\hx711.o ..\Src\hx711.c 
+arm-atollic-eabi-gcc -o _Infinite_Cobra.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\dwt_stm32_delay.o Src\hx711.o Src\main.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Infinite_Cobra.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Infinite_Cobra.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  12316	    116	   2456	  14888	   3a28	_Infinite_Cobra.elf
+Print size information done
+Generate listing file
+Output sent to: _Infinite_Cobra.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 4
+22:28:20 **** Rebuild of configuration Debug for project _Infinite_Cobra ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\stm32f3xx_it.o ..\Src\stm32f3xx_it.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\stm32f3xx_hal_msp.o ..\Src\stm32f3xx_hal_msp.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:267:12: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+            ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:45,
+                 from ../Inc/stm32f3xx_hal_conf.h:196,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:46,
+                 from ..\Src\main.c:41:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:267:29: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                             ^
+..\Src\main.c:267:34: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                                  ^
+..\Src\main.c:267:39: warning: format '%u' expects argument of type 'unsigned int', but argument 5 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                                       ^
+..\Src\main.c:267:44: warning: format '%u' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
+                                            ^
+..\Src\main.c:189:6: warning: unused variable 'HX_ENABLE' [-Wunused-variable]
+  int HX_ENABLE = 0;
+      ^~~~~~~~~
+..\Src\main.c: In function 'read_HX711':
+..\Src\main.c:612:6: warning: unused variable 'DI_B' [-Wunused-variable]
+  int DI_B = 1;
+      ^~~~
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.c 
+..\Src\main.c:632:9: warning: 'Count' may be used uninitialized in this function [-Wmaybe-uninitialized]
+   Count = Count << 1;
+   ~~~~~~^~~~~~~~~~~~
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -g -Wa,--no-warn -x assembler-with-cpp -specs=nano.specs -o startup\startup_stm32f303x8.o ..\startup\startup_stm32f303x8.s 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\hx711.o ..\Src\hx711.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\system_stm32f3xx.o ..\Src\system_stm32f3xx.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\dwt_stm32_delay.o ..\Src\dwt_stm32_delay.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.c 
+arm-atollic-eabi-gcc -o _Infinite_Cobra.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\dwt_stm32_delay.o Src\hx711.o Src\main.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Infinite_Cobra.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Infinite_Cobra.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  12316	    116	   2456	  14888	   3a28	_Infinite_Cobra.elf
+Print size information done
+Generate listing file
+Output sent to: _Infinite_Cobra.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 4
+22:28:32 **** Incremental Build of configuration Debug for project _Infinite_Cobra ****
 Info: Internal Builder is used for build
 Info: Parallel threads used: 0
+22:29:35 **** Incremental Build of configuration Debug for project _Infinite_Cobra ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:268:43: error: expected ';' before ')' token
+      ADC_D_Value, ADC_E_Value, ADC_F_Value);
+                                           ^
+..\Src\main.c:268:43: error: expected statement before ')' token
+..\Src\main.c:189:6: warning: unused variable 'HX_ENABLE' [-Wunused-variable]
+  int HX_ENABLE = 0;
+      ^~~~~~~~~
+..\Src\main.c: In function 'read_HX711':
+..\Src\main.c:612:6: warning: unused variable 'DI_B' [-Wunused-variable]
+  int DI_B = 1;
+      ^~~~
+Info: Parallel threads used: 1
+22:29:44 **** Incremental Build of configuration Debug for project _Infinite_Cobra ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:189:6: warning: unused variable 'HX_ENABLE' [-Wunused-variable]
+  int HX_ENABLE = 0;
+      ^~~~~~~~~
+..\Src\main.c: In function 'read_HX711':
+..\Src\main.c:612:6: warning: unused variable 'DI_B' [-Wunused-variable]
+  int DI_B = 1;
+      ^~~~
+..\Src\main.c:632:9: warning: 'Count' may be used uninitialized in this function [-Wmaybe-uninitialized]
+   Count = Count << 1;
+   ~~~~~~^~~~~~~~~~~~
+arm-atollic-eabi-gcc -o _Infinite_Cobra.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\dwt_stm32_delay.o Src\hx711.o Src\main.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Infinite_Cobra.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Infinite_Cobra.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+   9896	     16	   2440	  12352	   3040	_Infinite_Cobra.elf
+Print size information done
+Generate listing file
+Output sent to: _Infinite_Cobra.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 1
+22:30:02 **** Incremental Build of configuration Debug for project _Infinite_Cobra ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:189:6: warning: unused variable 'HX_ENABLE' [-Wunused-variable]
+  int HX_ENABLE = 0;
+      ^~~~~~~~~
+..\Src\main.c: In function 'read_HX711':
+..\Src\main.c:612:6: warning: unused variable 'DI_B' [-Wunused-variable]
+  int DI_B = 1;
+      ^~~~
+..\Src\main.c:632:9: warning: 'Count' may be used uninitialized in this function [-Wmaybe-uninitialized]
+   Count = Count << 1;
+   ~~~~~~^~~~~~~~~~~~
+arm-atollic-eabi-gcc -o _Infinite_Cobra.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\dwt_stm32_delay.o Src\hx711.o Src\main.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Infinite_Cobra.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Infinite_Cobra.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  10932	     16	   2440	  13388	   344c	_Infinite_Cobra.elf
+Print size information done
+Generate listing file
+Output sent to: _Infinite_Cobra.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 1
+22:30:57 **** Incremental Build of configuration Debug for project _Infinite_Cobra ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:190:6: warning: unused variable 'HX_ENABLE' [-Wunused-variable]
+  int HX_ENABLE = 0;
+      ^~~~~~~~~
+..\Src\main.c: In function 'read_HX711':
+..\Src\main.c:612:6: warning: unused variable 'DI_B' [-Wunused-variable]
+  int DI_B = 1;
+      ^~~~
+..\Src\main.c:632:9: warning: 'Count' may be used uninitialized in this function [-Wmaybe-uninitialized]
+   Count = Count << 1;
+   ~~~~~~^~~~~~~~~~~~
+arm-atollic-eabi-gcc -o _Infinite_Cobra.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\dwt_stm32_delay.o Src\hx711.o Src\main.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Infinite_Cobra.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Infinite_Cobra.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  10940	     16	   2440	  13396	   3454	_Infinite_Cobra.elf
+Print size information done
+Generate listing file
+Output sent to: _Infinite_Cobra.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 1
+22:31:24 **** Incremental Build of configuration Debug for project _Infinite_Cobra ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:269:12: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", 1, 2, 3, 4);
+            ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:45,
+                 from ../Inc/stm32f3xx_hal_conf.h:196,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:46,
+                 from ..\Src\main.c:41:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:190:6: warning: unused variable 'HX_ENABLE' [-Wunused-variable]
+  int HX_ENABLE = 0;
+      ^~~~~~~~~
+..\Src\main.c: In function 'read_HX711':
+..\Src\main.c:613:6: warning: unused variable 'DI_B' [-Wunused-variable]
+  int DI_B = 1;
+      ^~~~
+..\Src\main.c:633:9: warning: 'Count' may be used uninitialized in this function [-Wmaybe-uninitialized]
+   Count = Count << 1;
+   ~~~~~~^~~~~~~~~~~~
+arm-atollic-eabi-gcc -o _Infinite_Cobra.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\dwt_stm32_delay.o Src\hx711.o Src\main.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Infinite_Cobra.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Infinite_Cobra.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  13332	    116	   2456	  15904	   3e20	_Infinite_Cobra.elf
+Print size information done
+Generate listing file
+Output sent to: _Infinite_Cobra.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 1
+22:32:04 **** Incremental Build of configuration Debug for project _Infinite_Cobra ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:270:12: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+    sprintf(ADC_buffer, "|C||D||E||F|\n\r");
+            ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:45,
+                 from ../Inc/stm32f3xx_hal_conf.h:196,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:46,
+                 from ..\Src\main.c:41:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:190:6: warning: unused variable 'HX_ENABLE' [-Wunused-variable]
+  int HX_ENABLE = 0;
+      ^~~~~~~~~
+..\Src\main.c: In function 'read_HX711':
+..\Src\main.c:613:6: warning: unused variable 'DI_B' [-Wunused-variable]
+  int DI_B = 1;
+      ^~~~
+..\Src\main.c:633:9: warning: 'Count' may be used uninitialized in this function [-Wmaybe-uninitialized]
+   Count = Count << 1;
+   ~~~~~~^~~~~~~~~~~~
+arm-atollic-eabi-gcc -o _Infinite_Cobra.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\dwt_stm32_delay.o Src\hx711.o Src\main.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Infinite_Cobra.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Infinite_Cobra.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  10984	     16	   2440	  13440	   3480	_Infinite_Cobra.elf
+Print size information done
+Generate listing file
+Output sent to: _Infinite_Cobra.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 1
+22:32:29 **** Incremental Build of configuration Debug for project _Infinite_Cobra ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:190:6: warning: unused variable 'HX_ENABLE' [-Wunused-variable]
+  int HX_ENABLE = 0;
+      ^~~~~~~~~
+..\Src\main.c: In function 'read_HX711':
+..\Src\main.c:613:6: warning: unused variable 'DI_B' [-Wunused-variable]
+  int DI_B = 1;
+      ^~~~
+..\Src\main.c:633:9: warning: 'Count' may be used uninitialized in this function [-Wmaybe-uninitialized]
+   Count = Count << 1;
+   ~~~~~~^~~~~~~~~~~~
+arm-atollic-eabi-gcc -o _Infinite_Cobra.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\dwt_stm32_delay.o Src\hx711.o Src\main.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Infinite_Cobra.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Infinite_Cobra.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  10940	     16	   2440	  13396	   3454	_Infinite_Cobra.elf
+Print size information done
+Generate listing file
+Output sent to: _Infinite_Cobra.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 1
+22:33:43 **** Incremental Build of configuration Debug for project _Infinite_Cobra ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:271:12: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+    sprintf(ADC_buffer, "|C||D||E||F|\n\r");
+            ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:45,
+                 from ../Inc/stm32f3xx_hal_conf.h:196,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:46,
+                 from ..\Src\main.c:41:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:190:6: warning: unused variable 'HX_ENABLE' [-Wunused-variable]
+  int HX_ENABLE = 0;
+      ^~~~~~~~~
+..\Src\main.c: In function 'read_HX711':
+..\Src\main.c:615:6: warning: unused variable 'DI_B' [-Wunused-variable]
+  int DI_B = 1;
+      ^~~~
+..\Src\main.c:635:9: warning: 'Count' may be used uninitialized in this function [-Wmaybe-uninitialized]
+   Count = Count << 1;
+   ~~~~~~^~~~~~~~~~~~
+arm-atollic-eabi-gcc -o _Infinite_Cobra.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\dwt_stm32_delay.o Src\hx711.o Src\main.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Infinite_Cobra.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Infinite_Cobra.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  11020	     16	   2572	  13608	   3528	_Infinite_Cobra.elf
+Print size information done
+Generate listing file
+Output sent to: _Infinite_Cobra.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 1
+22:34:04 **** Incremental Build of configuration Debug for project _Infinite_Cobra ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:270:12: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", 1, 2, 3, 4);
+            ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:45,
+                 from ../Inc/stm32f3xx_hal_conf.h:196,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:46,
+                 from ..\Src\main.c:41:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:190:6: warning: unused variable 'HX_ENABLE' [-Wunused-variable]
+  int HX_ENABLE = 0;
+      ^~~~~~~~~
+..\Src\main.c: In function 'read_HX711':
+..\Src\main.c:615:6: warning: unused variable 'DI_B' [-Wunused-variable]
+  int DI_B = 1;
+      ^~~~
+..\Src\main.c:635:9: warning: 'Count' may be used uninitialized in this function [-Wmaybe-uninitialized]
+   Count = Count << 1;
+   ~~~~~~^~~~~~~~~~~~
+arm-atollic-eabi-gcc -o _Infinite_Cobra.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\dwt_stm32_delay.o Src\hx711.o Src\main.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Infinite_Cobra.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Infinite_Cobra.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  13372	    116	   2588	  16076	   3ecc	_Infinite_Cobra.elf
+Print size information done
+Generate listing file
+Output sent to: _Infinite_Cobra.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 1
+22:34:38 **** Incremental Build of configuration Debug for project _Infinite_Cobra ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:269:12: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value, ADC_D_Value, ADC_E_Value, ADC_F_Value);
+            ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:45,
+                 from ../Inc/stm32f3xx_hal_conf.h:196,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:46,
+                 from ..\Src\main.c:41:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:269:29: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value, ADC_D_Value, ADC_E_Value, ADC_F_Value);
+                             ^
+..\Src\main.c:269:34: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value, ADC_D_Value, ADC_E_Value, ADC_F_Value);
+                                  ^
+..\Src\main.c:269:39: warning: format '%u' expects argument of type 'unsigned int', but argument 5 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value, ADC_D_Value, ADC_E_Value, ADC_F_Value);
+                                       ^
+..\Src\main.c:269:44: warning: format '%u' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value, ADC_D_Value, ADC_E_Value, ADC_F_Value);
+                                            ^
+..\Src\main.c:190:6: warning: unused variable 'HX_ENABLE' [-Wunused-variable]
+  int HX_ENABLE = 0;
+      ^~~~~~~~~
+..\Src\main.c: In function 'read_HX711':
+..\Src\main.c:614:6: warning: unused variable 'DI_B' [-Wunused-variable]
+  int DI_B = 1;
+      ^~~~
+..\Src\main.c:634:9: warning: 'Count' may be used uninitialized in this function [-Wmaybe-uninitialized]
+   Count = Count << 1;
+   ~~~~~~^~~~~~~~~~~~
+arm-atollic-eabi-gcc -o _Infinite_Cobra.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\dwt_stm32_delay.o Src\hx711.o Src\main.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Infinite_Cobra.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Infinite_Cobra.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  13404	    116	   2588	  16108	   3eec	_Infinite_Cobra.elf
+Print size information done
+Generate listing file
+Output sent to: _Infinite_Cobra.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 1
+22:35:26 **** Rebuild of configuration Debug for project _Infinite_Cobra ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\hx711.o ..\Src\hx711.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\system_stm32f3xx.o ..\Src\system_stm32f3xx.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\stm32f3xx_hal_msp.o ..\Src\stm32f3xx_hal_msp.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -g -Wa,--no-warn -x assembler-with-cpp -specs=nano.specs -o startup\startup_stm32f303x8.o ..\startup\startup_stm32f303x8.s 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\stm32f3xx_it.o ..\Src\stm32f3xx_it.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:269:12: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value, ADC_D_Value, ADC_E_Value, ADC_F_Value);
+            ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:29:0,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h:50,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:45,
+                 from ../Inc/stm32f3xx_hal_conf.h:196,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:46,
+                 from ..\Src\main.c:41:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:269:29: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value, ADC_D_Value, ADC_E_Value, ADC_F_Value);
+                             ^
+..\Src\main.c:269:34: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value, ADC_D_Value, ADC_E_Value, ADC_F_Value);
+                                  ^
+..\Src\main.c:269:39: warning: format '%u' expects argument of type 'unsigned int', but argument 5 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value, ADC_D_Value, ADC_E_Value, ADC_F_Value);
+                                       ^
+..\Src\main.c:269:44: warning: format '%u' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value, ADC_D_Value, ADC_E_Value, ADC_F_Value);
+                                            ^
+..\Src\main.c:190:6: warning: unused variable 'HX_ENABLE' [-Wunused-variable]
+  int HX_ENABLE = 0;
+      ^~~~~~~~~
+..\Src\main.c: In function 'read_HX711':
+..\Src\main.c:613:6: warning: unused variable 'DI_B' [-Wunused-variable]
+  int DI_B = 1;
+      ^~~~
+..\Src\main.c:633:9: warning: 'Count' may be used uninitialized in this function [-Wmaybe-uninitialized]
+   Count = Count << 1;
+   ~~~~~~^~~~~~~~~~~~
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\dwt_stm32_delay.o ..\Src\dwt_stm32_delay.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.c 
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o ..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.c 
+arm-atollic-eabi-gcc -o _Infinite_Cobra.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\dwt_stm32_delay.o Src\hx711.o Src\main.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Infinite_Cobra.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Infinite_Cobra.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+   9876	     16	   2572	  12464	   30b0	_Infinite_Cobra.elf
+Print size information done
+Generate listing file
+Output sent to: _Infinite_Cobra.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 4
