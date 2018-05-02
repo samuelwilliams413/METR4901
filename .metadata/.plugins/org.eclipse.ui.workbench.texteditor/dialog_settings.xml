@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="SYSTICK" key="selection"/>
+		<item value="DWT" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="DWT"/>
 			<item value="systick"/>
 			<item value="read_HX711"/>
 			<item value="TXRXBUFFERSIZE"/>
@@ -15,7 +16,6 @@
 			<item value="HAL_ADC_Start"/>
 			<item value="HAL_ADC_GetValue"/>
 			<item value="get"/>
-			<item value="/**"/>
 		</list>
 		<list key="replacehistory">
 			<item value="B_SIZE"/>
