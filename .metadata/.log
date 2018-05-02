@@ -1728,3 +1728,10 @@ java.lang.Exception
 
 !ENTRY org.eclipse.cdt.core 1 0 2018-05-02 09:34:47.382
 !MESSAGE Indexed '_Hydra_Prime' (22 sources, 87 headers) in 4.25 sec: 8,829 declarations; 38,450 references; 0 unresolved inclusions; 153 syntax errors; 54 unresolved names (0.11%)
+
+!ENTRY TrueSTUDIO 4 0 2018-05-02 10:41:36.184
+!MESSAGE ST-Link GDB server failed to start (exit code = 2).
+
+!ENTRY org.eclipse.cdt.dsf.gdb 4 5012 2018-05-02 10:41:36.277
+!MESSAGE Error in initializing ST-Link device.
+Reason: (2) ST-Link DLL error.
