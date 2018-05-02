@@ -206,11 +206,11 @@ int main(void) {
 
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
-	int ADC_ENABLE = 1;
+	int ADC_ENABLE = 0;
 	int TX_ENABLE = 0;
-	int RX_ENABLE = 0;
+	int RX_ENABLE = 1;
 	int LED_ENABLE = 1;
-	int HX_ENABLE = 1;
+	int HX_ENABLE = 0;
 	while (1) {
 
 		/* USER CODE END WHILE */
@@ -256,32 +256,33 @@ int main(void) {
 		if (RX_ENABLE) {
 			///////////////////////////// RX
 
+			__HAL_UART_CLEAR_IT(&huart1, UART_CLEAR_NEF|UART_CLEAR_OREF);
+			__HAL_UART_CLEAR_IT(&huart2, UART_CLEAR_NEF|UART_CLEAR_OREF);
+			memset(RX_buffer, 0, len);
+			HAL_UART_Receive_DMA(&huart1, RX_buffer, len);
+			HAL_Delay(trans_delay);
+			RX_buffer[B_SIZE - 2] = '\n';
+			RX_buffer[B_SIZE - 1] = '\r';
+			HAL_UART_Transmit_DMA(&huart2, RX_buffer, len);
 			HAL_Delay(trans_delay);
 
 			__HAL_UART_CLEAR_IT(&huart1, UART_CLEAR_NEF|UART_CLEAR_OREF);
 			__HAL_UART_CLEAR_IT(&huart2, UART_CLEAR_NEF|UART_CLEAR_OREF);
 			memset(RX_buffer, 0, len);
-
-			HAL_UART_Receive_DMA(&huart1, RX_buffer, len);
 			HAL_UART_Receive_DMA(&huart2, RX_buffer, len);
 			HAL_Delay(trans_delay);
-
 			RX_buffer[B_SIZE - 2] = '\n';
 			RX_buffer[B_SIZE - 1] = '\r';
 			HAL_UART_Transmit_DMA(&huart1, RX_buffer, len);
-			HAL_UART_Transmit_DMA(&huart2, RX_buffer, len);
 			HAL_Delay(trans_delay);
 		}
 
 		if (LED_ENABLE) {
 			///////////////////////////// LED 3
 
-			CLK_A_SET;
 			HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-			CLK_A_RESET;
 			HAL_Delay(trans_delay);
 		}
-
 	}
 	/* USER CODE END 3 */
 
