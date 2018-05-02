@@ -206,11 +206,11 @@ int main(void) {
 
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
-	int ADC_ENABLE = 0;
-	int TX_ENABLE = 1;
-	int RX_ENABLE = 1;
-	int LED_ENABLE = 1;
-	int HX_ENABLE = 0;
+	int ADC_ENABLE 	= 0;
+	int TX_ENABLE 	= 1;
+	int RX_ENABLE 	= 0;
+	int LED_ENABLE 	= 1;
+	int HX_ENABLE 	= 0;
 	while (1) {
 
 		/* USER CODE END WHILE */
@@ -283,6 +283,20 @@ int main(void) {
 			HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
 			HAL_Delay(trans_delay);
 		}
+		if (TX_ENABLE) {
+					///////////////////////////// buffer
+					hmmmm = ((hmmmm + 1) % 2);
+					for (i = 0; i < (B_SIZE - 2); ++i) {
+						buffer[i] = 'p' + hmmmm;
+					}
+					buffer[B_SIZE - 2] = '\n';
+					buffer[B_SIZE - 1] = '\r';
+					HAL_Delay(trans_delay);
+
+					HAL_UART_Transmit_DMA(&huart1, buffer, len);
+					HAL_UART_Transmit_DMA(&huart2, buffer, len);
+					HAL_Delay(trans_delay);
+				}
 	}
 	/* USER CODE END 3 */
 
