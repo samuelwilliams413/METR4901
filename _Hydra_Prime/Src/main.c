@@ -207,7 +207,7 @@ int main(void) {
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
 	int ADC_ENABLE = 0;
-	int TX_ENABLE = 0;
+	int TX_ENABLE = 1;
 	int RX_ENABLE = 1;
 	int LED_ENABLE = 1;
 	int HX_ENABLE = 0;
@@ -241,9 +241,9 @@ int main(void) {
 
 		if (TX_ENABLE) {
 			///////////////////////////// buffer
-			hmmmm = ((hmmmm + 1) % 10);
+			hmmmm = ((hmmmm + 1) % 2);
 			for (i = 0; i < (B_SIZE - 2); ++i) {
-				buffer[i] = 'a' + hmmmm;
+				buffer[i] = 'g' + hmmmm;
 			}
 			buffer[B_SIZE - 2] = '\n';
 			buffer[B_SIZE - 1] = '\r';
