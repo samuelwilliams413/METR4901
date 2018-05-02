@@ -243,7 +243,7 @@ int main(void) {
 			///////////////////////////// buffer
 			hmmmm = ((hmmmm + 1) % 2);
 			for (i = 0; i < (B_SIZE - 2); ++i) {
-				buffer[i] = 'g' + hmmmm;
+				buffer[i] = 'p' + hmmmm;
 			}
 			buffer[B_SIZE - 2] = '\n';
 			buffer[B_SIZE - 1] = '\r';
