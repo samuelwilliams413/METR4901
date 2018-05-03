@@ -69,12 +69,14 @@ DMA_HandleTypeDef hdma_usart2_tx;
 #define MSB				1
 #define VERBOSE	TRUE
 
+#define DAT_A_READ 		HAL_GPIO_ReadPin(DAT_A_GPIO_Port, DAT_A_Pin)
+#define DAT_B_READ 		HAL_GPIO_ReadPin(DAT_B_GPIO_Port, DAT_B_Pin)
 #define CLK_A_SET		HAL_GPIO_WritePin(CLK_A_GPIO_Port, CLK_A_Pin, GPIO_PIN_SET)
 #define CLK_A_RESET		HAL_GPIO_WritePin(CLK_A_GPIO_Port, CLK_A_Pin, GPIO_PIN_RESET)
 #define CLK_B_SET		HAL_GPIO_WritePin(CLK_B_GPIO_Port, CLK_B_Pin, GPIO_PIN_SET)
 #define CLK_B_RESET		HAL_GPIO_WritePin(CLK_B_GPIO_Port, CLK_B_Pin, GPIO_PIN_RESET)
 #define LED3_ON			HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_SET)
-#define LED3_OF			HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET)
+#define LED3_OFF		HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET)
 
 uint8_t buffer[B_SIZE];
 uint8_t RX_buffer[B_SIZE];
@@ -82,6 +84,7 @@ uint8_t ADC_buffer[B_SIZE];
 uint16_t len, i, j, hmmmm;
 int trans_delay = 75;
 int ticker = 0;
+unsigned long Count;
 
 volatile uint32_t a;
 volatile uint32_t ADC_A_Value;
@@ -186,8 +189,8 @@ int main(void) {
 	int TX_ENABLE = 0;
 	int RX_ENABLE_PASS = 0;
 	int RX_ENABLE_ECHO = 0;
-	int LED_ENABLE = 1;
-	int HX_ENABLE = 0;
+	int LED_ENABLE = 0;
+	int HX_ENABLE = 1;
 	while (1) {
 
 		/* USER CODE END WHILE */
@@ -201,7 +204,7 @@ int main(void) {
 		if (TX_ENABLE) {
 			hmmmm = ((hmmmm + 1) % 2);
 			for (i = 0; i < (B_SIZE - 2); ++i) {
-				buffer[i] = 's' + hmmmm;
+				buffer[i] = 'p' + hmmmm;
 			}
 			buffer[B_SIZE - 2] = '\n';
 			buffer[B_SIZE - 1] = '\r';
@@ -276,7 +279,6 @@ int main(void) {
 
 		if (HX_ENABLE) {
 			read_HX711();
-
 		}
 
 	}
@@ -637,36 +639,17 @@ void read_HX711(void) {
 	/* Adapted from Arduino Script "ShiftIn()" */
 	// Count should always be 24
 	// order is MSB for HX711
-	unsigned long Count;
-	int DI_A = 1;
-	int DI_B = 1;
 
-	if (HAL_ADC_ConfigChannel(&hadc1, &sConfig_A) != HAL_OK) {
-		Error_Handler();
-	}
-	if (HAL_ADC_Start(&hadc1) != HAL_OK) {
-		Error_Handler();
-	}
 
 	LED3_ON;
-	while (DI_A) {
-		if (HAL_ADC_PollForConversion(&hadc1, 0) == HAL_OK) {
-			ADC_A_Value = HAL_ADC_GetValue(&hadc1);
-			DI_A = (ADC_A_Value > (4096 / 2)) ? 1 : 0;
-		}
+	while (DAT_A_READ) {
+		;
 	}
-	LED3_OF;
 
 	for (uint8_t i = 0; i < 24; i++) {
 		CLK_A_SET;
 		Count = Count << 1;
-
-		if (HAL_ADC_PollForConversion(&hadc1, 0) == HAL_OK) {
-			ADC_A_Value = HAL_ADC_GetValue(&hadc1);
-			DI_A = (ADC_A_Value > (4096 / 2)) ? 1 : 0;
-		}
-
-		DI_A ? Count++ : 0; // if High
+		DAT_A_READ ? Count++ : 0; // if High
 		CLK_A_RESET;
 	}
 
@@ -674,11 +657,10 @@ void read_HX711(void) {
 		CLK_A_SET;
 		CLK_A_RESET;
 	}
-	if (HAL_ADC_Stop(&hadc1) != HAL_OK) {
-		Error_Handler();
-	}
+
 	ADC_A_Value = Count ^ 0x800000;
 	CLK_A_RESET;
+	LED3_OFF;
 	return;
 }
 /* USER CODE END 4 */
