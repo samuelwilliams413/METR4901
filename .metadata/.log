@@ -6973,3 +6973,10 @@ java.io.IOException: Cannot run program "gdb": Launching failed
 	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1039)
 	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1256)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY TrueSTUDIO 4 0 2018-05-03 14:15:34.926
+!MESSAGE ST-Link GDB server failed to start (exit code = 2).
+
+!ENTRY org.eclipse.cdt.dsf.gdb 4 5012 2018-05-03 14:15:34.998
+!MESSAGE Error in initializing ST-Link device.
+Reason: (2) ST-Link DLL error.

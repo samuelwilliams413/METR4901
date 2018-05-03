@@ -79,7 +79,9 @@ DMA_HandleTypeDef hdma_usart2_tx;
 #define LED3_OFF		HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET)
 
 uint8_t buffer[B_SIZE];
-uint8_t RX_buffer[B_SIZE];
+uint8_t empty_buffer[B_SIZE];
+uint8_t RX_buffer1[B_SIZE];
+uint8_t RX_buffer2[B_SIZE];
 uint8_t ADC_buffer[B_SIZE];
 uint16_t len, i, j, hmmmm;
 int trans_delay = 75;
@@ -166,16 +168,21 @@ int main(void) {
 	char c = '*';
 	for (i = 0; i < B_SIZE - 2; ++i) {
 		buffer[i] = c;
-		RX_buffer[i] = c;
+		RX_buffer1[i] = c;
+		RX_buffer2[i] = c;
 		ADC_buffer[i] = c;
 	}
 	buffer[B_SIZE - 2] = '\n';
 	buffer[B_SIZE - 1] = '\r';
-	RX_buffer[B_SIZE - 2] = '\n';
-	RX_buffer[B_SIZE - 1] = '\r';
+	RX_buffer1[B_SIZE - 2] = '\n';
+	RX_buffer1[B_SIZE - 1] = '\r';
+	RX_buffer2[B_SIZE - 2] = '\n';
+	RX_buffer2[B_SIZE - 1] = '\r';
 	ADC_buffer[B_SIZE - 2] = '\n';
 	ADC_buffer[B_SIZE - 1] = '\r';
 	len = sizeof(buffer);
+
+	memset(empty_buffer, 0, len);
 
 	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig_C) != HAL_OK) {
 		_Error_Handler(__FILE__, __LINE__);
@@ -186,18 +193,18 @@ int main(void) {
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
 	/* USER CODE BEGIN WHILE */
-	int ADC_ENABLE = 1;
-	int TX_ENABLE = 1;
-	int RX_ENABLE_PASS = 0;
+	int ADC_ENABLE = 0;
+	int TX_ENABLE = 0;
+	int RX_ENABLE_PASS = 1;
 	int RX_ENABLE_ECHO = 0;
 	int LED_ENABLE = 1;
-	int HX_ENABLE = 1;
+	int HX_ENABLE = 0;
 
 	// EPOCHS
 	int epoch_LED = 0;
 
 	// DELAYS
-	int delay_LED = 50;
+	int delay_LED = 25;
 	while (1) {
 
 		/* USER CODE END WHILE */
@@ -218,58 +225,32 @@ int main(void) {
 			buffer[B_SIZE - 2] = '\n';
 			buffer[B_SIZE - 1] = '\r';
 
+			while (isTransmitting(&huart1, &huart2))
+				;
 			HAL_UART_Transmit_DMA(&huart1, buffer, len);
 			HAL_UART_Transmit_DMA(&huart2, buffer, len);
-
-			while (isTransmitting(&huart1, &huart2));
 		}
 
 		if (RX_ENABLE_PASS) {
 			///////////////////////////// RX
 
+			memset(RX_buffer1, 0, len);
 			__HAL_UART_CLEAR_IT(&huart1, UART_CLEAR_NEF|UART_CLEAR_OREF);
 			__HAL_UART_CLEAR_IT(&huart2, UART_CLEAR_NEF|UART_CLEAR_OREF);
-			memset(RX_buffer, 0, len);
-			HAL_UART_Receive_DMA(&huart1, RX_buffer, len);
+			HAL_UART_Receive_DMA(&huart1, RX_buffer1, len);
+			while (isTransmitting(&huart1, &huart2))
+				;
+			HAL_UART_Transmit_DMA(&huart1, RX_buffer1, len);
+			HAL_UART_Transmit_DMA(&huart2, RX_buffer1, len);
 
-			RX_buffer[B_SIZE - 2] = '\n';
-			RX_buffer[B_SIZE - 1] = '\r';
-			HAL_UART_Transmit_DMA(&huart2, RX_buffer, len);
-			while (isTransmitting(&huart1, &huart2));
-
+			memset(RX_buffer2, 0, len);
 			__HAL_UART_CLEAR_IT(&huart1, UART_CLEAR_NEF|UART_CLEAR_OREF);
 			__HAL_UART_CLEAR_IT(&huart2, UART_CLEAR_NEF|UART_CLEAR_OREF);
-			memset(RX_buffer, 0, len);
-			HAL_UART_Receive_DMA(&huart2, RX_buffer, len);
-
-			RX_buffer[B_SIZE - 2] = '\n';
-			RX_buffer[B_SIZE - 1] = '\r';
-			HAL_UART_Transmit_DMA(&huart1, RX_buffer, len);
-			while (isTransmitting(&huart1, &huart2));
-		}
-
-		if (RX_ENABLE_ECHO) {
-			///////////////////////////// RX
-
-			__HAL_UART_CLEAR_IT(&huart1, UART_CLEAR_NEF|UART_CLEAR_OREF);
-			__HAL_UART_CLEAR_IT(&huart2, UART_CLEAR_NEF|UART_CLEAR_OREF);
-			memset(RX_buffer, 0, len);
-			HAL_UART_Receive_DMA(&huart1, RX_buffer, len);
-
-			RX_buffer[B_SIZE - 2] = '\n';
-			RX_buffer[B_SIZE - 1] = '\r';
-			HAL_UART_Transmit_DMA(&huart1, RX_buffer, len);
-			HAL_UART_Transmit_DMA(&huart2, RX_buffer, len);
-			while (isTransmitting(&huart1, &huart2));
-			__HAL_UART_CLEAR_IT(&huart1, UART_CLEAR_NEF|UART_CLEAR_OREF);
-			__HAL_UART_CLEAR_IT(&huart2, UART_CLEAR_NEF|UART_CLEAR_OREF);
-			memset(RX_buffer, 0, len);
-			HAL_UART_Receive_DMA(&huart2, RX_buffer, len);
-			RX_buffer[B_SIZE - 2] = '\n';
-			RX_buffer[B_SIZE - 1] = '\r';
-			HAL_UART_Transmit_DMA(&huart1, RX_buffer, len);
-			HAL_UART_Transmit_DMA(&huart2, RX_buffer, len);
-			while (isTransmitting(&huart1, &huart2));
+			HAL_UART_Receive_DMA(&huart2, RX_buffer2, len);
+			while (isTransmitting(&huart1, &huart2))
+				;
+			HAL_UART_Transmit_DMA(&huart1, RX_buffer2, len);
+			HAL_UART_Transmit_DMA(&huart2, RX_buffer2, len);
 		}
 
 		if (ADC_ENABLE) {
@@ -277,18 +258,20 @@ int main(void) {
 			memset(ADC_buffer, 0, B_SIZE);
 			sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
 					ADC_D_Value, ADC_E_Value, ADC_F_Value);
+			while (isTransmitting(&huart1, &huart2))
+				;
 			HAL_UART_Transmit_DMA(&huart1, ADC_buffer, len);
 			HAL_UART_Transmit_DMA(&huart2, ADC_buffer, len);
-			while (isTransmitting(&huart1, &huart2));
 		}
 
 		if (HX_ENABLE) {
 			read_HX711();
 			memset(ADC_buffer, 0, B_SIZE);
 			sprintf(ADC_buffer, "|A|%u|B|%u|\n\r", ADC_A_Value, ADC_B_Value);
+			while (isTransmitting(&huart1, &huart2))
+				;
 			HAL_UART_Transmit_DMA(&huart1, ADC_buffer, len);
 			HAL_UART_Transmit_DMA(&huart2, ADC_buffer, len);
-			while (isTransmitting(&huart1, &huart2));
 		}
 
 	}
