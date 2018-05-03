@@ -135,6 +135,8 @@ int isTransmitting(UART_HandleTypeDef *, UART_HandleTypeDef *);
  */
 int main(void) {
 	/* USER CODE BEGIN 1 */
+	UART_HandleTypeDef UART_A;
+	UART_HandleTypeDef UART_B;
 	/* USER CODE END 1 */
 
 	/* MCU Configuration----------------------------------------------------------*/
@@ -234,23 +236,61 @@ int main(void) {
 		if (RX_ENABLE_PASS) {
 			///////////////////////////// RX
 
+			UART_A = huart1;
+			UART_B = huart2;
+
 			memset(RX_buffer1, 0, len);
-			__HAL_UART_CLEAR_IT(&huart1, UART_CLEAR_NEF|UART_CLEAR_OREF);
-			__HAL_UART_CLEAR_IT(&huart2, UART_CLEAR_NEF|UART_CLEAR_OREF);
-			HAL_UART_Receive_DMA(&huart1, RX_buffer1, len);
-			while (isTransmitting(&huart1, &huart2))
-				;
-			HAL_UART_Transmit_DMA(&huart1, RX_buffer1, len);
-			HAL_UART_Transmit_DMA(&huart2, RX_buffer1, len);
+			__HAL_UART_CLEAR_IT(&UART_A, UART_CLEAR_NEF|UART_CLEAR_OREF);
+			__HAL_UART_CLEAR_IT(&UART_B, UART_CLEAR_NEF|UART_CLEAR_OREF);
+			HAL_UART_Receive_DMA(&UART_A, RX_buffer1, len);
+
+			if (!emptyRX(RX_buffer1)) {
+				while (isTransmitting(&UART_A, &UART_B))
+					;
+				HAL_UART_Transmit_DMA(&UART_B, RX_buffer1, len);
+			}
+			UART_A = huart2;
+			UART_B = huart1;
 
 			memset(RX_buffer2, 0, len);
-			__HAL_UART_CLEAR_IT(&huart1, UART_CLEAR_NEF|UART_CLEAR_OREF);
-			__HAL_UART_CLEAR_IT(&huart2, UART_CLEAR_NEF|UART_CLEAR_OREF);
-			HAL_UART_Receive_DMA(&huart2, RX_buffer2, len);
-			while (isTransmitting(&huart1, &huart2))
+			__HAL_UART_CLEAR_IT(&UART_A, UART_CLEAR_NEF|UART_CLEAR_OREF);
+			__HAL_UART_CLEAR_IT(&UART_B, UART_CLEAR_NEF|UART_CLEAR_OREF);
+			HAL_UART_Receive_DMA(&UART_A, RX_buffer2, len);
+			if (!emptyRX(RX_buffer2)) {
+				while (isTransmitting(&UART_A, &UART_B))
+					;
+				HAL_UART_Transmit_DMA(&UART_B, RX_buffer2, len);
+			}
+
+		}
+
+		if (RX_ENABLE_ECHO) {
+			///////////////////////////// RX
+
+			UART_A = huart1;
+			UART_B = huart2;
+
+			memset(RX_buffer1, 0, len);
+			__HAL_UART_CLEAR_IT(&UART_A, UART_CLEAR_NEF|UART_CLEAR_OREF);
+			__HAL_UART_CLEAR_IT(&UART_B, UART_CLEAR_NEF|UART_CLEAR_OREF);
+			HAL_UART_Receive_DMA(&UART_A, RX_buffer1, len);
+			while (isTransmitting(&UART_A, &UART_B))
 				;
-			HAL_UART_Transmit_DMA(&huart1, RX_buffer2, len);
-			HAL_UART_Transmit_DMA(&huart2, RX_buffer2, len);
+			HAL_UART_Transmit_DMA(&UART_A, RX_buffer1, len);
+			HAL_UART_Transmit_DMA(&UART_B, RX_buffer1, len);
+
+			UART_A = huart2;
+			UART_B = huart1;
+
+			memset(RX_buffer2, 0, len);
+			__HAL_UART_CLEAR_IT(&UART_A, UART_CLEAR_NEF|UART_CLEAR_OREF);
+			__HAL_UART_CLEAR_IT(&UART_B, UART_CLEAR_NEF|UART_CLEAR_OREF);
+			HAL_UART_Receive_DMA(&UART_A, RX_buffer2, len);
+			while (isTransmitting(&UART_A, &UART_B))
+				;
+			HAL_UART_Transmit_DMA(&UART_A, RX_buffer2, len);
+			HAL_UART_Transmit_DMA(&UART_B, RX_buffer2, len);
+
 		}
 
 		if (ADC_ENABLE) {
@@ -626,6 +666,17 @@ void Update_ADC_Values(void) {
 	}
 
 	return;
+}
+
+int emptyRX(uint8_t RX_buffer[]) {
+	int i =0;
+	for (i = 0; i < B_SIZE; i++) {
+		if (RX_buffer[i] != 0) {
+			return 1;
+		}
+	}
+	return 0;
+
 }
 
 int isTransmitting(UART_HandleTypeDef *huart1, UART_HandleTypeDef *huart2) {

@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="sConfig_C" key="selection"/>
+		<item value="RX_buffer" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="RX_buffer"/>
+			<item value="HAL_Delay(trans_delay);"/>
 			<item value="sConfig_C"/>
 			<item value="DWT"/>
 			<item value="systick"/>
 			<item value="read_HX711"/>
 			<item value="TXRXBUFFERSIZE"/>
 			<item value="HAL_ADC_"/>
-			<item value="HAL_ADC_Start"/>
-			<item value="HAL_ADC_GetValue"/>
 		</list>
 		<list key="replacehistory">
 			<item value="B_SIZE"/>
