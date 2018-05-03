@@ -119,6 +119,7 @@ static void MX_NVIC_Init(void);
 void Update_ADC_Values(void);
 void read_HX711(void);
 void HAL_Delay_Microseconds(__IO uint32_t);
+int isTransmitting(UART_HandleTypeDef *, UART_HandleTypeDef *);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
@@ -185,34 +186,42 @@ int main(void) {
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
 	/* USER CODE BEGIN WHILE */
-	int ADC_ENABLE = 0;
-	int TX_ENABLE = 0;
+	int ADC_ENABLE = 1;
+	int TX_ENABLE = 1;
 	int RX_ENABLE_PASS = 0;
 	int RX_ENABLE_ECHO = 0;
-	int LED_ENABLE = 0;
+	int LED_ENABLE = 1;
 	int HX_ENABLE = 1;
+
+	// EPOCHS
+	int epoch_LED = 0;
+
+	// DELAYS
+	int delay_LED = 50;
 	while (1) {
 
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */
 		if (LED_ENABLE) {
-			HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-			HAL_Delay(trans_delay);
+			if (HAL_GetTick() > (epoch_LED + delay_LED)) {
+				HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+				epoch_LED = HAL_GetTick();
+			}
 		}
 
 		if (TX_ENABLE) {
 			hmmmm = ((hmmmm + 1) % 2);
 			for (i = 0; i < (B_SIZE - 2); ++i) {
-				buffer[i] = 'p' + hmmmm;
+				buffer[i] = 'x' + hmmmm;
 			}
 			buffer[B_SIZE - 2] = '\n';
 			buffer[B_SIZE - 1] = '\r';
-			HAL_Delay(trans_delay);
 
 			HAL_UART_Transmit_DMA(&huart1, buffer, len);
 			HAL_UART_Transmit_DMA(&huart2, buffer, len);
-			HAL_Delay(trans_delay);
+
+			while (isTransmitting(&huart1, &huart2));
 		}
 
 		if (RX_ENABLE_PASS) {
@@ -222,21 +231,21 @@ int main(void) {
 			__HAL_UART_CLEAR_IT(&huart2, UART_CLEAR_NEF|UART_CLEAR_OREF);
 			memset(RX_buffer, 0, len);
 			HAL_UART_Receive_DMA(&huart1, RX_buffer, len);
-			HAL_Delay(trans_delay);
+
 			RX_buffer[B_SIZE - 2] = '\n';
 			RX_buffer[B_SIZE - 1] = '\r';
 			HAL_UART_Transmit_DMA(&huart2, RX_buffer, len);
-			HAL_Delay(trans_delay);
+			while (isTransmitting(&huart1, &huart2));
 
 			__HAL_UART_CLEAR_IT(&huart1, UART_CLEAR_NEF|UART_CLEAR_OREF);
 			__HAL_UART_CLEAR_IT(&huart2, UART_CLEAR_NEF|UART_CLEAR_OREF);
 			memset(RX_buffer, 0, len);
 			HAL_UART_Receive_DMA(&huart2, RX_buffer, len);
-			HAL_Delay(trans_delay);
+
 			RX_buffer[B_SIZE - 2] = '\n';
 			RX_buffer[B_SIZE - 1] = '\r';
 			HAL_UART_Transmit_DMA(&huart1, RX_buffer, len);
-			HAL_Delay(trans_delay);
+			while (isTransmitting(&huart1, &huart2));
 		}
 
 		if (RX_ENABLE_ECHO) {
@@ -246,39 +255,40 @@ int main(void) {
 			__HAL_UART_CLEAR_IT(&huart2, UART_CLEAR_NEF|UART_CLEAR_OREF);
 			memset(RX_buffer, 0, len);
 			HAL_UART_Receive_DMA(&huart1, RX_buffer, len);
-			HAL_Delay(trans_delay);
+
 			RX_buffer[B_SIZE - 2] = '\n';
 			RX_buffer[B_SIZE - 1] = '\r';
 			HAL_UART_Transmit_DMA(&huart1, RX_buffer, len);
 			HAL_UART_Transmit_DMA(&huart2, RX_buffer, len);
-			HAL_Delay(trans_delay);
-
+			while (isTransmitting(&huart1, &huart2));
 			__HAL_UART_CLEAR_IT(&huart1, UART_CLEAR_NEF|UART_CLEAR_OREF);
 			__HAL_UART_CLEAR_IT(&huart2, UART_CLEAR_NEF|UART_CLEAR_OREF);
 			memset(RX_buffer, 0, len);
 			HAL_UART_Receive_DMA(&huart2, RX_buffer, len);
-			HAL_Delay(trans_delay);
 			RX_buffer[B_SIZE - 2] = '\n';
 			RX_buffer[B_SIZE - 1] = '\r';
 			HAL_UART_Transmit_DMA(&huart1, RX_buffer, len);
 			HAL_UART_Transmit_DMA(&huart2, RX_buffer, len);
-			HAL_Delay(trans_delay);
+			while (isTransmitting(&huart1, &huart2));
 		}
 
 		if (ADC_ENABLE) {
 			Update_ADC_Values();
 			memset(ADC_buffer, 0, B_SIZE);
-			HAL_Delay(trans_delay);
 			sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
 					ADC_D_Value, ADC_E_Value, ADC_F_Value);
-			HAL_Delay(trans_delay);
 			HAL_UART_Transmit_DMA(&huart1, ADC_buffer, len);
 			HAL_UART_Transmit_DMA(&huart2, ADC_buffer, len);
-			HAL_Delay(trans_delay);
+			while (isTransmitting(&huart1, &huart2));
 		}
 
 		if (HX_ENABLE) {
 			read_HX711();
+			memset(ADC_buffer, 0, B_SIZE);
+			sprintf(ADC_buffer, "|A|%u|B|%u|\n\r", ADC_A_Value, ADC_B_Value);
+			HAL_UART_Transmit_DMA(&huart1, ADC_buffer, len);
+			HAL_UART_Transmit_DMA(&huart2, ADC_buffer, len);
+			while (isTransmitting(&huart1, &huart2));
 		}
 
 	}
@@ -635,12 +645,16 @@ void Update_ADC_Values(void) {
 	return;
 }
 
+int isTransmitting(UART_HandleTypeDef *huart1, UART_HandleTypeDef *huart2) {
+	return ((huart1->gState != HAL_UART_STATE_READY)
+			|| (huart2->gState != HAL_UART_STATE_READY)) ? 1 : 0;
+}
+
 void read_HX711(void) {
 	/* Adapted from Arduino Script "ShiftIn()" */
 	// Count should always be 24
 	// order is MSB for HX711
-
-
+	Count = 0;
 	LED3_ON;
 	while (DAT_A_READ) {
 		;
