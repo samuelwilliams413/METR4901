@@ -186,8 +186,8 @@ int main(void) {
 	int TX_ENABLE = 0;
 	int RX_ENABLE_PASS = 0;
 	int RX_ENABLE_ECHO = 0;
-	int LED_ENABLE = 0;
-	int HX_ENABLE = 1;
+	int LED_ENABLE = 1;
+	int HX_ENABLE = 0;
 	while (1) {
 
 		/* USER CODE END WHILE */
@@ -438,13 +438,43 @@ static void MX_ADC2_Init(void) {
 
 	/**Configure Regular Channel
 	 */
-	sConfig.Channel = ADC_CHANNEL_1;
-	sConfig.Rank = ADC_REGULAR_RANK_1;
-	sConfig.SingleDiff = ADC_SINGLE_ENDED;
-	sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
-	sConfig.OffsetNumber = ADC_OFFSET_NONE;
-	sConfig.Offset = 0;
-	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig) != HAL_OK) {
+	sConfig_C.Channel = ADC_CHANNEL_1;
+	sConfig_C.Rank = ADC_REGULAR_RANK_1;
+	sConfig_C.SingleDiff = ADC_SINGLE_ENDED;
+	sConfig_C.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+	sConfig_C.OffsetNumber = ADC_OFFSET_NONE;
+	sConfig_C.Offset = 0;
+	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig_C) != HAL_OK) {
+		_Error_Handler(__FILE__, __LINE__);
+	}
+
+	sConfig_D.Channel = ADC_CHANNEL_2;
+	sConfig_D.Rank = ADC_REGULAR_RANK_1;
+	sConfig_D.SingleDiff = ADC_SINGLE_ENDED;
+	sConfig_D.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+	sConfig_D.OffsetNumber = ADC_OFFSET_NONE;
+	sConfig_D.Offset = 0;
+	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig_D) != HAL_OK) {
+		_Error_Handler(__FILE__, __LINE__);
+	}
+
+	sConfig_E.Channel = ADC_CHANNEL_3;
+	sConfig_E.Rank = ADC_REGULAR_RANK_1;
+	sConfig_E.SingleDiff = ADC_SINGLE_ENDED;
+	sConfig_E.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+	sConfig_E.OffsetNumber = ADC_OFFSET_NONE;
+	sConfig_E.Offset = 0;
+	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig_E) != HAL_OK) {
+		_Error_Handler(__FILE__, __LINE__);
+	}
+
+	sConfig_F.Channel = ADC_CHANNEL_4;
+	sConfig_F.Rank = ADC_REGULAR_RANK_1;
+	sConfig_F.SingleDiff = ADC_SINGLE_ENDED;
+	sConfig_F.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+	sConfig_F.OffsetNumber = ADC_OFFSET_NONE;
+	sConfig_F.Offset = 0;
+	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig_F) != HAL_OK) {
 		_Error_Handler(__FILE__, __LINE__);
 	}
 
@@ -527,6 +557,12 @@ static void MX_GPIO_Init(void) {
 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
 	HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
+	/*Configure GPIO pins : DAT_B_Pin DAT_A_Pin */
+	GPIO_InitStruct.Pin = DAT_B_Pin | DAT_A_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
 	/**/
 	HAL_I2CEx_EnableFastModePlus(SYSCFG_CFGR1_I2C_PB6_FMP);
 
@@ -605,15 +641,18 @@ void read_HX711(void) {
 	int DI_A = 1;
 	int DI_B = 1;
 
-	if (HAL_ADC_ConfigChannel(&hadc1, &sConfig_A) != HAL_OK) {		Error_Handler();	}
-	if (HAL_ADC_Start(&hadc1) != HAL_OK) {		Error_Handler();	}
-
+	if (HAL_ADC_ConfigChannel(&hadc1, &sConfig_A) != HAL_OK) {
+		Error_Handler();
+	}
+	if (HAL_ADC_Start(&hadc1) != HAL_OK) {
+		Error_Handler();
+	}
 
 	LED3_ON;
 	while (DI_A) {
 		if (HAL_ADC_PollForConversion(&hadc1, 0) == HAL_OK) {
 			ADC_A_Value = HAL_ADC_GetValue(&hadc1);
-			DI_A = (ADC_A_Value > (4096/2)) ? 1 : 0;
+			DI_A = (ADC_A_Value > (4096 / 2)) ? 1 : 0;
 		}
 	}
 	LED3_OF;
@@ -624,7 +663,7 @@ void read_HX711(void) {
 
 		if (HAL_ADC_PollForConversion(&hadc1, 0) == HAL_OK) {
 			ADC_A_Value = HAL_ADC_GetValue(&hadc1);
-			DI_A = (ADC_A_Value > (4096/2)) ? 1 : 0;
+			DI_A = (ADC_A_Value > (4096 / 2)) ? 1 : 0;
 		}
 
 		DI_A ? Count++ : 0; // if High
@@ -635,7 +674,9 @@ void read_HX711(void) {
 		CLK_A_SET;
 		CLK_A_RESET;
 	}
-	if (HAL_ADC_Stop(&hadc1) != HAL_OK) {		Error_Handler();	}
+	if (HAL_ADC_Stop(&hadc1) != HAL_OK) {
+		Error_Handler();
+	}
 	ADC_A_Value = Count ^ 0x800000;
 	CLK_A_RESET;
 	return;
