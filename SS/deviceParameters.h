@@ -1,30 +1,20 @@
 /**
   ******************************************************************************
   * @file    msgProcessing.h
-  * @brief   This file contains the handler files for parsing input messages
+  * @brief   This file contains the deviceParameters
   ******************************************************************************
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __control_H
-#define __control_H
+#ifndef __deviceParameters_H
+#define __deviceParameters_H
 
 #include "main.h"
 /* Exported types ------------------------------------------------------------*/
-typedef struct {
-	uint32_t*  buffer;
-	int head;
-	int len;
-} MAA; // Moving average array
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void control(void);
-uint32_t get_integral(MAA*);
-void maaPush(MAA*, uint8_t);
 
-
-
-#endif /* __msgProcessing_H */
+#endif /* __deviceParameters_H */
 
 /*****************************END OF FILE****/

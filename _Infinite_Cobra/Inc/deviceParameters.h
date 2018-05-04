@@ -14,6 +14,8 @@
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
+int getEGO(void);
+int getID(uint8_t);
 
 #endif /* __deviceParameters_H */
 

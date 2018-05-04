@@ -26,6 +26,8 @@ enum LOC {
 /* This is the identity of the current device */
 #define		EGO		RF
 
+int getEGO(void);
+
 /**
  * @brief  Returns a preassigned ID for each component of the exoskeleton
  * @note   This function is dependant on a preagreed set of definitions for each component

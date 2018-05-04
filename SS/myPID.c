@@ -5,6 +5,8 @@
   */
 /* Includes ------------------------------------------------------------------*/
 #include "myPID.h"
+#include "stdlib.h"
+#include "stdio.h"
 
 typedef struct {
 	unit8_t * const buffer,

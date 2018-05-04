@@ -40,11 +40,6 @@
 #include "stm32f3xx_hal.h"
 
 /* USER CODE BEGIN Includes */
-#include "stdlib.h"
-#include "stdio.h"
-#include "string.h"
-#include "hx711.h"
-#include "dwt_stm32_delay.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -138,8 +133,6 @@ int strip_str(uint8_t[], uint8_t[]);
  */
 int main(void) {
 	/* USER CODE BEGIN 1 */
-	UART_HandleTypeDef UART_A;
-	UART_HandleTypeDef UART_B;
 	/* USER CODE END 1 */
 
 	/* MCU Configuration----------------------------------------------------------*/
@@ -199,9 +192,8 @@ int main(void) {
 	/* USER CODE BEGIN WHILE */
 	/* USER CODE BEGIN WHILE */
 	int ADC_ENABLE = 0;
-	int TX_ENABLE = 0;
+	int TX_ENABLE = 1;
 	int RX_ENABLE_PASS = 1;
-	int RX_ENABLE_ECHO = 0;
 	int LED_ENABLE = 1;
 	int HX_ENABLE = 0;
 
@@ -209,7 +201,7 @@ int main(void) {
 	int epoch_LED = 0;
 
 	// DELAYS
-	int delay_LED = 25;
+	int delay_LED = 10;
 	while (1) {
 
 		/* USER CODE END WHILE */
@@ -266,8 +258,8 @@ int main(void) {
 		if (ADC_ENABLE) {
 			Update_ADC_Values();
 			memset(ADC_buffer, 0, B_SIZE);
-			sprintf(ADC_buffer, "|C|%u|D|%u|E|%u|F|%u|\n\r", ADC_C_Value,
-					ADC_D_Value, ADC_E_Value, ADC_F_Value);
+			sprintf(ADC_buffer, "|C|%lu|D|%lu|E|%lu|F|%lu|\n\r", ( unsigned long )ADC_C_Value,
+					( unsigned long )ADC_D_Value, ( unsigned long )ADC_E_Value, ( unsigned long )ADC_F_Value);
 			while (isTransmitting(&huart1, &huart2))
 				;
 			HAL_UART_Transmit_DMA(&huart1, ADC_buffer, len);
@@ -277,7 +269,7 @@ int main(void) {
 		if (HX_ENABLE) {
 			read_HX711();
 			memset(ADC_buffer, 0, B_SIZE);
-			sprintf(ADC_buffer, "|A|%u|B|%u|\n\r", ADC_A_Value, ADC_B_Value);
+			sprintf(ADC_buffer, "|A|%lu|B|%lu|\n\r", ( unsigned long )ADC_A_Value, ( unsigned long )ADC_B_Value);
 			while (isTransmitting(&huart1, &huart2))
 				;
 			HAL_UART_Transmit_DMA(&huart1, ADC_buffer, len);
@@ -418,8 +410,6 @@ static void MX_ADC1_Init(void) {
 
 /* ADC2 init function */
 static void MX_ADC2_Init(void) {
-
-	ADC_ChannelConfTypeDef sConfig;
 
 	/**Common config
 	 */

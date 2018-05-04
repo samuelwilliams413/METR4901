@@ -1,23 +1,19 @@
+
 /**
  ******************************************************************************
  * @file    control.c
  * @brief   This file contains the handler functions for parsing input messages.
  */
 /* Includes ------------------------------------------------------------------*/
-
+#include "control.h"
+#include "deviceParameters.h"
+#include "stdlib.h"
+#include "stdio.h"
 
 /* External variables --------------------------------------------------------*/
-
-
-
-typedef struct {
-	uint32_t*  buffer;
-	int head;
-	int len;
-} MAA; // Moving average array
-void control(void);
-uint32_t get_integral(MAA*);
-void maaPush(MAA*, uint8_t);
+enum LOC {
+	LF = 0, LS = 1, LT = 2, RF = 3, RS = 4, RT = 5
+};
 
 void control(void) {
 	uint32_t controlValues[9] = {1,2,3,4,5,6,7,8,9};
@@ -63,8 +59,6 @@ void control(void) {
 	MAA* q = (MAA*) malloc(sizeof(MAA));
 	q->len = 5;
 	q->buffer = (uint32_t*) malloc(sizeof(uint32_t) * q->len);
-
-
 
 	while (1) {
 		p = get_p();

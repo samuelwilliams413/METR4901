@@ -1,14 +1,8 @@
 /**
   ******************************************************************************
-  * @file           : main.h
-  * @brief          : Header for main.c file.
-  *                   This file contains the common defines of the application.
+  * @file    stm32f3xx_it.h
+  * @brief   This file contains the headers of the interrupt handlers.
   ******************************************************************************
-  ** This notice applies to any and all portions of this file
-  * that are not between comment pairs USER CODE BEGIN and
-  * USER CODE END. Other portions of this file, whether 
-  * inserted by the user or by software development tools
-  * are owned by their respective copyright owners.
   *
   * COPYRIGHT(c) 2018 STMicroelectronics
   *
@@ -38,67 +32,34 @@
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __MAIN_H__
-#define __MAIN_H__
-
-/* Includes ------------------------------------------------------------------*/
-
-/* USER CODE BEGIN Includes */
-#include "stdlib.h"
-#include "stdio.h"
-#include "string.h"
-
-
-#include "deviceParameters.h"
-#include "control.h"
-/* USER CODE END Includes */
-
-/* Private define ------------------------------------------------------------*/
-
-#define ADC_A_Pin GPIO_PIN_0
-#define ADC_A_GPIO_Port GPIOA
-#define ADC_B_Pin GPIO_PIN_1
-#define ADC_B_GPIO_Port GPIOA
-#define ADC_C_Pin GPIO_PIN_4
-#define ADC_C_GPIO_Port GPIOA
-#define ADC_D_Pin GPIO_PIN_5
-#define ADC_D_GPIO_Port GPIOA
-#define ADC_E_Pin GPIO_PIN_6
-#define ADC_E_GPIO_Port GPIOA
-#define ADC_F_Pin GPIO_PIN_7
-#define ADC_F_GPIO_Port GPIOA
-#define CLK_A_Pin GPIO_PIN_0
-#define CLK_A_GPIO_Port GPIOB
-#define DAT_B_Pin GPIO_PIN_1
-#define DAT_B_GPIO_Port GPIOB
-#define LD3_Pin GPIO_PIN_3
-#define LD3_GPIO_Port GPIOB
-#define CLK_B_Pin GPIO_PIN_6
-#define CLK_B_GPIO_Port GPIOB
-#define DAT_A_Pin GPIO_PIN_7
-#define DAT_A_GPIO_Port GPIOB
-
-/* ########################## Assert Selection ############################## */
-/**
-  * @brief Uncomment the line below to expanse the "assert_param" macro in the 
-  *        HAL drivers code
-  */
-/* #define USE_FULL_ASSERT    1U */
-
-/* USER CODE BEGIN Private defines */
-
-/* USER CODE END Private defines */
+#ifndef __STM32F3xx_IT_H
+#define __STM32F3xx_IT_H
 
 #ifdef __cplusplus
  extern "C" {
-#endif
-void _Error_Handler(char *, int);
+#endif 
 
-#define Error_Handler() _Error_Handler(__FILE__, __LINE__)
+/* Includes ------------------------------------------------------------------*/
+#include "stm32f3xx_hal.h"
+#include "main.h"
+/* Exported types ------------------------------------------------------------*/
+/* Exported constants --------------------------------------------------------*/
+/* Exported macro ------------------------------------------------------------*/
+/* Exported functions ------------------------------------------------------- */
+
+void SysTick_Handler(void);
+void DMA1_Channel4_IRQHandler(void);
+void DMA1_Channel5_IRQHandler(void);
+void DMA1_Channel6_IRQHandler(void);
+void DMA1_Channel7_IRQHandler(void);
+void TIM1_UP_TIM16_IRQHandler(void);
+void USART1_IRQHandler(void);
+void USART2_IRQHandler(void);
+
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* __MAIN_H__ */
+#endif /* __STM32F3xx_IT_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
