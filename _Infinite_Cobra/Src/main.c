@@ -85,6 +85,12 @@ int trans_delay = 75;
 int ticker = 0;
 unsigned long Count;
 
+// EPOCHS
+int epoch_LED = 0;
+
+// DELAYS
+int delay_LED = 100;
+
 volatile uint32_t a;
 volatile uint32_t ADC_A_Value;
 volatile uint32_t ADC_B_Value;
@@ -197,11 +203,6 @@ int main(void) {
 	int LED_ENABLE = 1;
 	int HX_ENABLE = 0;
 
-	// EPOCHS
-	int epoch_LED = 0;
-
-	// DELAYS
-	int delay_LED = 10;
 	while (1) {
 
 		/* USER CODE END WHILE */
