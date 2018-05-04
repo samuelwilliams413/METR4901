@@ -56,8 +56,6 @@ DMA_HandleTypeDef hdma_usart2_tx;
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 #define B_SIZE			50
-#define TRUE			1
-#define FALSE			0
 #define PIN_HI			1
 #define PIN_LO			0
 #define LSB				0
@@ -126,6 +124,8 @@ void read_HX711(void);
 void HAL_Delay_Microseconds(__IO uint32_t);
 int isTransmitting(UART_HandleTypeDef *, UART_HandleTypeDef *);
 int strip_str(uint8_t[], uint8_t[]);
+int channelBusy(UART_HandleTypeDef *);
+
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
@@ -222,11 +222,13 @@ int main(void) {
 			}
 			buffer[B_SIZE - 2] = '\n';
 			buffer[B_SIZE - 1] = '\r';
-
 			while (isTransmitting(&huart1, &huart2))
-				;
+							;
 			HAL_UART_Transmit_DMA(&huart1, buffer, len);
 			HAL_UART_Transmit_DMA(&huart2, buffer, len);
+
+			transmit(1,buffer);
+			transmit(2,buffer);
 		}
 
 		if (RX_ENABLE_PASS) {
@@ -259,8 +261,9 @@ int main(void) {
 		if (ADC_ENABLE) {
 			Update_ADC_Values();
 			memset(ADC_buffer, 0, B_SIZE);
-			sprintf(ADC_buffer, "|C|%lu|D|%lu|E|%lu|F|%lu|\n\r", ( unsigned long )ADC_C_Value,
-					( unsigned long )ADC_D_Value, ( unsigned long )ADC_E_Value, ( unsigned long )ADC_F_Value);
+			sprintf(ADC_buffer, "|C|%lu|D|%lu|E|%lu|F|%lu|\n\r",
+					(unsigned long) ADC_C_Value, (unsigned long) ADC_D_Value,
+					(unsigned long) ADC_E_Value, (unsigned long) ADC_F_Value);
 			while (isTransmitting(&huart1, &huart2))
 				;
 			HAL_UART_Transmit_DMA(&huart1, ADC_buffer, len);
@@ -270,7 +273,8 @@ int main(void) {
 		if (HX_ENABLE) {
 			read_HX711();
 			memset(ADC_buffer, 0, B_SIZE);
-			sprintf(ADC_buffer, "|A|%lu|B|%lu|\n\r", ( unsigned long )ADC_A_Value, ( unsigned long )ADC_B_Value);
+			sprintf(ADC_buffer, "|A|%lu|B|%lu|\n\r",
+					(unsigned long) ADC_A_Value, (unsigned long) ADC_B_Value);
 			while (isTransmitting(&huart1, &huart2))
 				;
 			HAL_UART_Transmit_DMA(&huart1, ADC_buffer, len);
@@ -684,6 +688,21 @@ void read_HX711(void) {
 	LED3_OFF;
 	return;
 }
+
+void transmit(int channel, uint8_t* buffer) {
+	UART_HandleTypeDef c;
+
+	if (channel == 1) {
+		c = huart1;
+	} else {
+		c = huart2;
+	}
+	while (isTransmitting(&huart1, &huart2));
+	HAL_UART_Transmit_DMA(&c, buffer, len);
+	return;
+}
+
+
 /* USER CODE END 4 */
 
 /**

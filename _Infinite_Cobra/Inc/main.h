@@ -51,6 +51,7 @@
 
 #include "deviceParameters.h"
 #include "control.h"
+#include "msg.h"
 /* USER CODE END Includes */
 
 /* Private define ------------------------------------------------------------*/
@@ -86,7 +87,10 @@
 /* #define USE_FULL_ASSERT    1U */
 
 /* USER CODE BEGIN Private defines */
+#define TRUE			1
+#define FALSE			0
 
+void transmit(int , uint8_t*) ;
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
