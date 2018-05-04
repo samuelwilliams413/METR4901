@@ -246,7 +246,6 @@ int main(void) {
 			RX_buffer1[B_SIZE - 1] = '\r';
 			while (isTransmitting(&huart1, &huart2))
 				;
-			HAL_UART_Transmit_DMA(&huart1, RX_buffer1, len);
 			HAL_UART_Transmit_DMA(&huart2, RX_buffer1, len);
 		}
 
@@ -261,7 +260,6 @@ int main(void) {
 			while (isTransmitting(&huart1, &huart2))
 				;
 			HAL_UART_Transmit_DMA(&huart1, RX_buffer2, len);
-			HAL_UART_Transmit_DMA(&huart2, RX_buffer2, len);
 
 		}
 
