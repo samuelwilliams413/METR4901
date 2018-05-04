@@ -50,6 +50,7 @@
 
 
 #include "deviceParameters.h"
+#include "circ_buff.h"
 #include "control.h"
 #include "msg.h"
 /* USER CODE END Includes */
@@ -89,6 +90,10 @@
 /* USER CODE BEGIN Private defines */
 #define TRUE			1
 #define FALSE			0
+#define B_SIZE			128
+
+// DELAYS
+#define D_LED		 	25
 
 void transmit(int , uint8_t*) ;
 /* USER CODE END Private defines */
