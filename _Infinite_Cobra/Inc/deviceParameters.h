@@ -68,7 +68,7 @@ double deg2rad(double);
 uint32_t get_p(struct PARAMETERS*);
 uint32_t get_p_target(struct PARAMETERS*);
 uint32_t get_p_error(struct PARAMETERS*);
-uint32_t get_T_error(struct PARAMETERS*);
+uint32_t get_T_target(struct PARAMETERS*);
 /* Set Methods --------------------------------------------------------*/
 void set_p(struct PARAMETERS*, uint32_t);
 void set_p_target(struct PARAMETERS*, uint32_t);

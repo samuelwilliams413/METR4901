@@ -82,6 +82,9 @@ uint8_t RX_B2[B_SIZE];
 uint8_t TX_B1[B_SIZE];
 uint8_t TX_B2[B_SIZE];
 
+char TX_T[B_SIZE];
+char TX_A[B_SIZE];
+
 uint8_t RX_buffer1[B_SIZE];
 uint8_t RX_buffer2[B_SIZE];
 uint8_t TX_buffer1[B_SIZE];
@@ -210,6 +213,22 @@ int main(void) {
 	msg->value = 0;
 	msg->complete = 0;
 
+	MSG* msgT = 0;
+	msgT = (MSG*) malloc(sizeof(MSG));
+	msgT->type = 0;
+	msgT->ID = 0;
+	msgT->sign = 0;
+	msgT->value = 0;
+	msgT->complete = 0;
+
+	MSG* msgA = 0;
+	msgA = (MSG*) malloc(sizeof(MSG));
+	msgA->type = 0;
+	msgA->ID = 0;
+	msgA->sign = 0;
+	msgA->value = 0;
+	msgA->complete = 0;
+
 	memset(TX_buffer2, '&', B_SIZE);
 	TX_buffer2[B_SIZE - 2] = '\n';
 	TX_buffer2[B_SIZE - 1] = '\r';
@@ -233,8 +252,9 @@ int main(void) {
 				RX_B1[x - 1] = '@';
 				update_value(par, msg);
 
-				contructMSG(TX_B2, msg, B_SIZE);
-				while (isTransmitting(&huart1, &huart2));
+				contructMSG((char*) TX_B2, msg, B_SIZE);
+				while (isTransmitting(&huart1, &huart2))
+					;
 				HAL_UART_Transmit_DMA(&huart1, TX_B2, B_SIZE);
 				HAL_UART_Transmit_DMA(&huart2, TX_B2, B_SIZE);
 			}
@@ -250,8 +270,9 @@ int main(void) {
 				RX_B2[x - 1] = '@';
 				update_value(par, msg);
 
-				contructMSG(TX_B1, msg, B_SIZE);
-				while (isTransmitting(&huart1, &huart2));
+				contructMSG((char*) TX_B1, msg, B_SIZE);
+				while (isTransmitting(&huart1, &huart2))
+					;
 				HAL_UART_Transmit_DMA(&huart1, TX_B1, B_SIZE);
 				HAL_UART_Transmit_DMA(&huart2, TX_B1, B_SIZE);
 			}
@@ -263,10 +284,19 @@ int main(void) {
 		update_state(par);
 		update_control(par);
 
-		/* Send Messages */
-		// We need to pass on any received messages
-		// We need to the current position an desired torque for this point
-		// ffs the other angles will decide what the values for Ep, Ei, Ed
+		/* Create messages to send off */
+		contruct_X_msg('T', par, msgT, TX_T);
+		contruct_X_msg('A', par, msgA, TX_A);
+
+		/* Send out messages */
+		while (isTransmitting(&huart1, &huart2));
+		HAL_UART_Transmit_DMA(&huart1, (uint8_t*)TX_T, B_SIZE);
+		HAL_UART_Transmit_DMA(&huart2, (uint8_t*)TX_T, B_SIZE);
+
+		while (isTransmitting(&huart1, &huart2));
+		HAL_UART_Transmit_DMA(&huart1, (uint8_t*)TX_A, B_SIZE);
+		HAL_UART_Transmit_DMA(&huart2, (uint8_t*)TX_A, B_SIZE);
+
 		/* Toggle LED */
 		if (HAL_GetTick() > (epoch_LED + D_LED)) {
 			HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);

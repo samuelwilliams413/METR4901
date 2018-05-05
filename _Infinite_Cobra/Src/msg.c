@@ -9,6 +9,15 @@
 /* External variables --------------------------------------------------------*/
 char acceptedTypes[] = "pPtT";
 
+void contruct_X_msg(char x, struct PARAMETERS* par,struct MSG* msg, char* message) {
+	msg->type = x;
+	msg->value = get_T_target(par);
+	msg->sign = ((msg->value) > 0) ? '+':'-';
+	msg->ID = getEGO();
+	contructMSG(message, msg, B_SIZE);
+}
+
+
 /**
  * @brief  Checks if message type is valid
  * @note   This function is dependant on a preagreed set of definitions for paramaters
@@ -83,7 +92,7 @@ uint8_t numToValue(uint8_t left, uint8_t right) {
  */
 void contructMSG(char* message, struct MSG* msg, int size) {
 	memset(message, 0, size);
-	sprintf(message, "\0%c%d%c%lu.%lu;\0", msg->type, msg->ID,
+	sprintf(message, "%c%d%c%lu.%lu;", msg->type, msg->ID,
 			msg->sign, (msg->value / 1000), (msg->value % 1000));
 	return;
 }
