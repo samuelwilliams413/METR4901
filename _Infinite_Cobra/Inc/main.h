@@ -90,12 +90,15 @@
 /* USER CODE BEGIN Private defines */
 #define TRUE			1
 #define FALSE			0
-#define B_SIZE			128
+#define B_SIZE			50
+#define errorMsgSize	128
 
 // DELAYS
-#define D_LED		 	25
+#define D_LED		 	100
 
 void transmit(int , uint8_t*) ;
+void msgERROR_init(void);
+void msgERROR(int, uint8_t);
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

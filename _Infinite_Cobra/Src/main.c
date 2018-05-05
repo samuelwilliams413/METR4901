@@ -56,6 +56,8 @@ DMA_HandleTypeDef hdma_usart2_tx;
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 
+CBUFF* cbuff = 0;
+
 #define PIN_HI			1
 #define PIN_LO			0
 #define LSB				0
@@ -73,12 +75,18 @@ DMA_HandleTypeDef hdma_usart2_tx;
 
 uint8_t buffer[B_SIZE];
 uint8_t empty_buffer[B_SIZE];
+
+uint8_t RX_B1[B_SIZE];
+uint8_t RX_B2[B_SIZE];
+uint8_t TX_B1[B_SIZE];
+uint8_t TX_B2[B_SIZE];
+
 uint8_t RX_buffer1[B_SIZE];
 uint8_t RX_buffer2[B_SIZE];
 uint8_t TX_buffer1[B_SIZE];
 uint8_t TX_buffer2[B_SIZE];
 uint8_t ADC_buffer[B_SIZE];
-uint16_t len, i, j, hmmmm;
+uint16_t len = sizeof(buffer), i, j, hmmmm;
 int trans_delay = 75;
 int ticker = 0;
 unsigned long Count;
@@ -102,7 +110,8 @@ ADC_ChannelConfTypeDef sConfig_D;
 ADC_ChannelConfTypeDef sConfig_E;
 ADC_ChannelConfTypeDef sConfig_F;
 
-extern __IO uint32_t microDelay;
+char* errorMsg = 0;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -137,6 +146,10 @@ int channelBusy(UART_HandleTypeDef *);
  */
 int main(void) {
 	/* USER CODE BEGIN 1 */
+	memset(RX_B1, 0, len);
+	memset(RX_B2, 0, len);
+	memset(TX_B1, 0, len);
+	memset(TX_B2, 0, len);
 	/* USER CODE END 1 */
 
 	/* MCU Configuration----------------------------------------------------------*/
@@ -166,8 +179,6 @@ int main(void) {
 	/* Initialize interrupts */
 	MX_NVIC_Init();
 	/* USER CODE BEGIN 2 */
-	hmmmm = 0;
-	len = sizeof(buffer);
 
 	memset(empty_buffer, 0, len);
 
@@ -175,7 +186,6 @@ int main(void) {
 		_Error_Handler(__FILE__, __LINE__);
 	}
 
-	CBUFF* cbuff = 0;
 	cbuff = circ_buff_init();
 	/* USER CODE END 2 */
 
@@ -183,21 +193,79 @@ int main(void) {
 	/* USER CODE BEGIN WHILE */
 	/* USER CODE BEGIN WHILE */
 	int ADC_ENABLE = 0;
-	int TX_ENABLE = 1;
-	int RX_ENABLE_PASS = 0;
+	int TX_ENABLE = 0;
+	int RX_ENABLE_PASS = 1;
 	int LED_ENABLE = 1;
 	int HX_ENABLE = 0;
 
+	struct MSG {
+		uint8_t type;
+		uint8_t ID;
+		uint8_t sign;
+		uint32_t value;
+	};
+
+	MSG* msg = 0;
+	msg = (MSG*) malloc(sizeof(MSG));
+	msg->type = 0;
+	msg->ID = 0;
+	msg->sign = 0;
+	msg->value = 0;
+	msg->complete = 0;
+
+	memset(TX_buffer2, '&', B_SIZE);
+	TX_buffer2[B_SIZE - 2] = '\n';
+	TX_buffer2[B_SIZE - 1] = '\r';
+
+	int i, j, k;
+	int dif;
+	int x = 0, x0 = x;
+	msgERROR_init();
 	while (1) {
 
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */
+		for (i = 0; i < B_SIZE; i++) {
+			readMSG(msg, RX_B2, &x, &x0);
+			if (msg->complete) {
+				RX_B2[x-1] = '@';
+
+				contructMSG(TX_B1, msg, B_SIZE);
+				while (isTransmitting(&huart1, &huart2))
+					;
+				HAL_UART_Transmit_DMA(&huart1, TX_B1, errorMsgSize);
+				HAL_UART_Transmit_DMA(&huart2, TX_B1, errorMsgSize);
+				while (isTransmitting(&huart1, &huart2))
+					;
+
+				memset(TX_B1, 0, B_SIZE);
+			}
+		}
+
 		if (LED_ENABLE) {
 			if (HAL_GetTick() > (epoch_LED + D_LED)) {
 				HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
 				epoch_LED = HAL_GetTick();
+				//transmit(1, TX_buffer2);
+				//transmit(2, TX_buffer2);
 			}
+		}
+
+		if (RX_ENABLE_PASS) {
+			while (isTransmitting(&huart1, &huart2))
+				;
+
+			HAL_UART_Receive_DMA(&huart2, RX_B2, len);
+			strcpy(TX_B2, RX_B2);
+			TX_B2[B_SIZE - 2] = '\n';
+			TX_B2[B_SIZE - 1] = '\r';
+
+			while (isTransmitting(&huart1, &huart2))
+				;
+			HAL_UART_Transmit_DMA(&huart1, TX_B2, B_SIZE);
+			HAL_UART_Transmit_DMA(&huart2, TX_B2, B_SIZE);
+
 		}
 	}
 	/* USER CODE END 3 */
@@ -618,6 +686,57 @@ void transmit(int channel, uint8_t* buffer) {
 	while (isTransmitting(&huart1, &huart2))
 		;
 	HAL_UART_Transmit_DMA(&c, buffer, len);
+
+	while (isTransmitting(&huart1, &huart2))
+		;
+	return;
+}
+
+void msgERROR_init(void) {
+	errorMsg = (char*) malloc(sizeof(char) * errorMsgSize);
+	return;
+}
+
+/**
+ * @brief  Send out an error message if an incoming message is incorrect
+ */
+void msgERROR(int e, uint8_t c) {
+	memset(errorMsg, 0, errorMsgSize);
+
+	switch (e) {
+	case BAD_TYPE:
+		sprintf(errorMsg, "\n\rBAD_TYPE|%c|%d|\n\r", c, c);
+		break;
+	case BAD_ID:
+		sprintf(errorMsg, "\n\rBAD_ID|%c|%d|\n\r", c, c);
+		break;
+	case BAD_SIGN:
+		sprintf(errorMsg, "\n\rBAD_SIGN|%c|%d|\n\r", c, c);
+		break;
+	case BAD_LHS:
+		sprintf(errorMsg, "\n\rBAD_LHS|%c|%d|\n\r", c, c);
+		break;
+	case BAD_DOT:
+		sprintf(errorMsg, "\n\rBAD_DOT|%c|%d|\n\r", c, c);
+		break;
+	case BAD_RHS:
+		sprintf(errorMsg, "\n\rBAD_RHS|%c|%d|\n\r", c, c);
+		break;
+	case BAD_COLON:
+		sprintf(errorMsg, "\n\rBAD_COLON|%c|%d|\n\r", c, c);
+		break;
+	case BAD_LEN:
+		sprintf(errorMsg, "\n\rBAD_LEN\n\r");
+		break;
+	default:
+		sprintf(errorMsg, "\n\rBAD_MSG (you should not see this)\n\r");
+		break;
+	}
+
+	while (isTransmitting(&huart1, &huart2))
+		;
+	HAL_UART_Transmit_DMA(&huart1, errorMsg, errorMsgSize);
+	HAL_UART_Transmit_DMA(&huart2, errorMsg, errorMsgSize);
 	return;
 }
 
