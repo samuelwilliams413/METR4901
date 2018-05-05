@@ -7,7 +7,7 @@
 #include "msg.h"
 
 /* External variables --------------------------------------------------------*/
-char acceptedTypes[] = "mMpMfFaA";
+char acceptedTypes[] = "pPtT";
 
 /**
  * @brief  Checks if message type is valid
@@ -96,9 +96,7 @@ void contructMSG(char* message, struct MSG* msg, int size) {
  */
 void readMSG(struct MSG* msg, uint8_t* buff, uint8_t* x, uint8_t* x0) {
 	uint8_t i, c, xi;
-
 	xi = *x;
-
 	msg->complete = 0;
 	c = buff[*x];
 	*x = ((*x + 1) % B_SIZE);
@@ -112,9 +110,9 @@ void readMSG(struct MSG* msg, uint8_t* buff, uint8_t* x, uint8_t* x0) {
 	uint32_t value = 0;
 
 	uint8_t valueBuffer = 10;
-	uint8_t* LHS = (uint8_t*) malloc(sizeof(uint8_t) * valueBuffer);
+	char* LHS = (char*) malloc(sizeof(char) * valueBuffer);
 	memset(LHS, 0, valueBuffer);
-	uint8_t* RHS = (uint8_t*) malloc(sizeof(uint8_t) * valueBuffer);
+	char* RHS = (char*) malloc(sizeof(char) * valueBuffer);
 	memset(RHS, 0, valueBuffer);
 	RHS[0] = 0;
 	RHS[1] = 0;
@@ -197,7 +195,7 @@ void readMSG(struct MSG* msg, uint8_t* buff, uint8_t* x, uint8_t* x0) {
 	}
 	if (MSG_DEBUG_MODE) {
 		memset(m, 0, errorMsgSize);
-		sprintf(m, "\n\r\t\t\t\t Val: |%d|", atoi(LHS));
+		sprintf(m, "\n\r\t\t\t\t Val: |%d|",  atoi(LHS));
 		transmit(1, m);
 		transmit(2, m);
 	}
@@ -248,13 +246,13 @@ void readMSG(struct MSG* msg, uint8_t* buff, uint8_t* x, uint8_t* x0) {
 	value = (uint32_t) ((1000 * atoi(LHS)) + atoi(RHS));
 	if (MSG_DEBUG_MODE) {
 		memset(m, 0, errorMsgSize);
-		sprintf(m, "\n\r\t\t\t\t Value: |%lu|", (unsigned long) value);
+		sprintf(m, "\n\r\t\t\t\t Value: |%lu|", value);
 		transmit(1, m);
 		transmit(2, m);
 	}
 
 	msg->type = type;
-	msg->ID = atoi(ID);
+	msg->ID = atoi((char*) ID);
 	msg->sign = sign;
 	msg->value = (uint32_t) ((1000 * atoi(LHS)) + atoi(RHS));
 	msg->complete = 1;

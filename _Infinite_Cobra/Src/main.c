@@ -57,6 +57,7 @@ DMA_HandleTypeDef hdma_usart2_tx;
 /* Private variables ---------------------------------------------------------*/
 
 CBUFF* cbuff = 0;
+PARAMETERS* par = 0;
 
 #define PIN_HI			1
 #define PIN_LO			0
@@ -187,16 +188,12 @@ int main(void) {
 	}
 
 	cbuff = circ_buff_init();
+	par = parameters_init();
 	/* USER CODE END 2 */
 
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
 	/* USER CODE BEGIN WHILE */
-	int ADC_ENABLE = 0;
-	int TX_ENABLE = 0;
-	int RX_ENABLE_PASS = 1;
-	int LED_ENABLE = 1;
-	int HX_ENABLE = 0;
 
 	struct MSG {
 		uint8_t type;
@@ -217,59 +214,42 @@ int main(void) {
 	TX_buffer2[B_SIZE - 2] = '\n';
 	TX_buffer2[B_SIZE - 1] = '\r';
 
-	int i, j, k;
-	int dif;
-	int x = 0, x0 = x;
+	int i;
+	uint8_t x = 0, x0 = x;
 	msgERROR_init();
 	while (1) {
 
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */
+
+		/* Read messages from UART */
+		if (RX_ENABLE_PASS) {
+			HAL_UART_Receive_DMA(&huart2, RX_B2, len);
+		}
+
+		/* Process messages */
 		for (i = 0; i < B_SIZE; i++) {
 			readMSG(msg, RX_B2, &x, &x0);
 			if (msg->complete) {
-				RX_B2[x-1] = '@';
-
-				contructMSG(TX_B1, msg, B_SIZE);
-				while (isTransmitting(&huart1, &huart2))
-					;
-				HAL_UART_Transmit_DMA(&huart1, TX_B1, errorMsgSize);
-				HAL_UART_Transmit_DMA(&huart2, TX_B1, errorMsgSize);
-				while (isTransmitting(&huart1, &huart2))
-					;
-
-				memset(TX_B1, 0, B_SIZE);
+				RX_B2[x - 1] = '@';
+				update_value(par, msg);
 			}
 		}
 
-		if (LED_ENABLE) {
-			if (HAL_GetTick() > (epoch_LED + D_LED)) {
-				HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-				epoch_LED = HAL_GetTick();
-				//transmit(1, TX_buffer2);
-				//transmit(2, TX_buffer2);
-			}
+		/* Update Values */
+		update_values(par, ADC_A_Value, ADC_B_Value, ADC_C_Value, ADC_D_Value, ADC_E_Value, ADC_F_Value);
+		update_state(par);
+
+
+		/* Toggle LED */
+		if (HAL_GetTick() > (epoch_LED + D_LED)) {
+			HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+			epoch_LED = HAL_GetTick();
 		}
 
-		if (RX_ENABLE_PASS) {
-			while (isTransmitting(&huart1, &huart2))
-				;
-
-			HAL_UART_Receive_DMA(&huart2, RX_B2, len);
-			strcpy(TX_B2, RX_B2);
-			TX_B2[B_SIZE - 2] = '\n';
-			TX_B2[B_SIZE - 1] = '\r';
-
-			while (isTransmitting(&huart1, &huart2))
-				;
-			HAL_UART_Transmit_DMA(&huart1, TX_B2, B_SIZE);
-			HAL_UART_Transmit_DMA(&huart2, TX_B2, B_SIZE);
-
-		}
 	}
 	/* USER CODE END 3 */
-
 }
 
 /**
@@ -675,7 +655,7 @@ void read_HX711(void) {
 	return;
 }
 
-void transmit(int channel, uint8_t* buffer) {
+void transmit(int channel, char* buffer) {
 	UART_HandleTypeDef c;
 
 	if (channel == 1) {
@@ -685,7 +665,7 @@ void transmit(int channel, uint8_t* buffer) {
 	}
 	while (isTransmitting(&huart1, &huart2))
 		;
-	HAL_UART_Transmit_DMA(&c, buffer, len);
+	HAL_UART_Transmit_DMA(&c, (uint8_t*) buffer, len);
 
 	while (isTransmitting(&huart1, &huart2))
 		;
@@ -735,8 +715,8 @@ void msgERROR(int e, uint8_t c) {
 
 	while (isTransmitting(&huart1, &huart2))
 		;
-	HAL_UART_Transmit_DMA(&huart1, errorMsg, errorMsgSize);
-	HAL_UART_Transmit_DMA(&huart2, errorMsg, errorMsgSize);
+	HAL_UART_Transmit_DMA(&huart1, (uint8_t*) errorMsg, errorMsgSize);
+	HAL_UART_Transmit_DMA(&huart2, (uint8_t*) errorMsg, errorMsgSize);
 	return;
 }
 

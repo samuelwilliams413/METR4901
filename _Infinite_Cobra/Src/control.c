@@ -1,4 +1,3 @@
-
 /**
  ******************************************************************************
  * @file    control.c
@@ -16,7 +15,7 @@ enum LOC {
 };
 
 void control(void) {
-	uint32_t controlValues[9] = {1,2,3,4,5,6,7,8,9};
+	uint32_t controlValues[9] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 	uint32_t Kp, Ki, Kd;
 	uint32_t control_var = 0;
 	switch (getEGO()) {
@@ -53,29 +52,25 @@ void control(void) {
 	}
 
 	uint32_t p, p_last, p_target, e, e_last, Ep, Ei, Ed;
-	p = get_p();
-	get_p_target();
 
 	MAA* q = (MAA*) malloc(sizeof(MAA));
 	q->len = 5;
 	q->buffer = (uint32_t*) malloc(sizeof(uint32_t) * q->len);
 
-	while (1) {
-		p = get_p();
-		p_target = get_p_target();
+	p = get_p();
+	p_target = get_p_target();
 
-		e = p_target - p;
-		maaPush(q, e);
+	e = p_target - p;
+	maaPush(q, e);
 
-		Ep = e;
-		Ei = get_integral(q);
-		Ed = e - e_last;
+	Ep = e;
+	Ei = get_integral(q);
+	Ed = e - e_last;
 
-		control_var = Kp*Ep + Ki*Ei + Kd*Ed;
+	control_var = Kp * Ep + Ki * Ei + Kd * Ed;
 
-		e_last = e;
-		p_last = p;
-	}
+	e_last = e;
+	p_last = p;
 	return;
 }
 

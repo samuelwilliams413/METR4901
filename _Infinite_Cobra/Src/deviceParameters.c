@@ -49,4 +49,116 @@ int getEGO(void) {
 	return (int) EGO;
 }
 
+PARAMETERS* parameters_init(void) {
+	int h, w;
+	h = 6; // six units to the suit
+	w = 11; // ten types of points stored
+	/*
+	 * 00: ADC_A
+	 * 01: ADC_B
+	 * 02: ADC_C
+	 * 03: ADC_D
+	 * 04: ADC_E
+	 * 05: ADC_F
+	 *
+	 * 06: R(TORQUE) // REAL
+	 * 07: Y(TORQUE) // MEASURED
+	 * 08: E(TORQUE) // ERROR
+	 *
+	 * 09: R(POSITION) // REAL
+	 * 10: Y(POSITION) // MEASURED
+	 * 11: E(POSITION) // ERROR
+	 *
+	 */
+	PARAMETERS* par = (struct PARAMETERS*) malloc(
+			sizeof(struct PARAMETERS) * 1);
+	par->p = (uint32_t*) malloc(sizeof(uint32_t) * w * h);
+	par->w = w;
+
+	switch(getEGO()) {
+	case LF:
+		par->l = LENGTH_FOOT;
+		break;
+	case LS:
+		par->l = LENGTH_SHIN;
+		break;
+	case LT:
+		par->l = LENGTH_THIGH;
+		break;
+	case RF:
+		par->l = LENGTH_FOOT;
+		break;
+	case RS:
+		par->l = LENGTH_SHIN;
+		break;
+	case RT:
+		par->l = LENGTH_THIGH;
+		break;
+	}
+
+	memset(par->p, 0, w * h);
+	return par;
+}
+
+void update_values(struct PARAMETERS* par, uint32_t A, uint32_t B, uint32_t C,
+		uint32_t D, uint32_t E, uint32_t F) {
+
+	par->p[getEGO()*par->w + LA] = A;
+	par->p[getEGO()*par->w + LB] = B;
+
+	par->p[getEGO()*par->w + PC] = C;
+	par->p[getEGO()*par->w + PD] = D;
+	par->p[getEGO()*par->w + PE] = E;
+	par->p[getEGO()*par->w + PF] = F;
+
+	return;
+}
+
+void update_value(struct PARAMETERS* par, struct MSG* msg) {
+	int type = 0, sign;
+	switch (msg->type) {
+	case 't':
+		type = YT;
+		break;
+	case 'T':
+		type = YT;
+		break;
+	case 'a':
+		type = YA;
+		break;
+	case 'A':
+		type = YA;
+		break;
+	}
+
+	sign = ((msg->sign == '+') ? 1 : ((msg->sign == '-') ? -1 : 0));
+
+	par->p[msg->ID*par->w + type] = sign*msg->value;
+
+	return;
+}
+
+double deg2rad(double angle) {
+	double val;
+	val = 180 / PI;
+	return angle*val;
+}
+
+void update_state(struct PARAMETERS* par) {
+	int average_f, average_r;
+	double  dx, angle;
+
+	/* Get average signal strength in mm  */
+	average_f = (sig2mm(par->p[getEGO()*par->w + PC]) + sig2mm(par->p[getEGO()*par->w + PD]))/2;
+	average_r = (sig2mm(par->p[getEGO()*par->w + PE]) + sig2mm(par->p[getEGO()*par->w + PF]))/2;
+
+	dx = average_f - average_r;
+
+	angle = atan(dx/(par->l));
+	angle = deg2rad(angle);
+
+	par->p[getEGO()*par->w + YA] = angle;
+	return;
+}
+
 /*****************************END OF FILE****/
