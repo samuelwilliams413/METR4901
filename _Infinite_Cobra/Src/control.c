@@ -14,63 +14,57 @@ enum LOC {
 	LF = 0, LS = 1, LT = 2, RF = 3, RS = 4, RT = 5
 };
 
-void control(void) {
-	uint32_t controlValues[9] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-	uint32_t Kp, Ki, Kd;
-	uint32_t control_var = 0;
+uint32_t e, Ep, Ei, Ed;
+
+void getPIDparameters(uint32_t* Kp, uint32_t* Ki, uint32_t* Kd) {
+
+	uint32_t controlValues[9] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+
 	switch (getEGO()) {
 	case RF:
-		Kp = controlValues[1];
-		Ki = controlValues[2];
-		Kd = controlValues[3];
+		*Kp = controlValues[0];
+		*Ki = controlValues[1];
+		*Kd = controlValues[2];
 		break;
 	case LF:
-		Kp = controlValues[1];
-		Ki = controlValues[2];
-		Kd = controlValues[3];
+		*Kp = controlValues[0];
+		*Ki = controlValues[1];
+		*Kd = controlValues[2];
 		break;
 	case LS:
-		Kp = controlValues[4];
-		Ki = controlValues[5];
-		Kd = controlValues[6];
+		*Kp = controlValues[3];
+		*Ki = controlValues[4];
+		*Kd = controlValues[5];
 		break;
 	case RS:
-		Kp = controlValues[4];
-		Ki = controlValues[5];
-		Kd = controlValues[6];
+		*Kp = controlValues[3];
+		*Ki = controlValues[4];
+		*Kd = controlValues[5];
 		break;
 	case LT:
-		Kp = controlValues[7];
-		Ki = controlValues[8];
-		Kd = controlValues[9];
+		*Kp = controlValues[6];
+		*Ki = controlValues[7];
+		*Kd = controlValues[8];
 		break;
 	case RT:
-		Kp = controlValues[7];
-		Ki = controlValues[8];
-		Kd = controlValues[9];
+		*Kp = controlValues[6];
+		*Ki = controlValues[7];
+		*Kd = controlValues[8];
 		break;
 	}
+	return;
+}
 
-	uint32_t p, p_last, p_target, e, e_last, Ep, Ei, Ed;
-
-	MAA* q = (MAA*) malloc(sizeof(MAA));
-	q->len = 5;
-	q->buffer = (uint32_t*) malloc(sizeof(uint32_t) * q->len);
-
-	p = get_p();
-	p_target = get_p_target();
-
-	e = p_target - p;
-	maaPush(q, e);
+void updateControl(struct PARAMETERS* par) {
+	e = get_p_target(par) - get_p(par);
+	maaPush(par->q, e);
 
 	Ep = e;
-	Ei = get_integral(q);
-	Ed = e - e_last;
+	Ei = get_integral(par->q);
+	Ed = e - par->e_last;
 
-	control_var = Kp * Ep + Ki * Ei + Kd * Ed;
-
-	e_last = e;
-	p_last = p;
+	set_T_target(par, (par->Kp * Ep + par->Ki * Ei + par->Kd * Ed));
+	par->e_last = e;
 	return;
 }
 

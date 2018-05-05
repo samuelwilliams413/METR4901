@@ -61,21 +61,23 @@ PARAMETERS* parameters_init(void) {
 	 * 04: ADC_E
 	 * 05: ADC_F
 	 *
-	 * 06: R(TORQUE) // REAL
-	 * 07: Y(TORQUE) // MEASURED
-	 * 08: E(TORQUE) // ERROR
+	 * 06: R(TORQUE) // Desire Torque
+	 * 07: Y(TORQUE) // Current Torque
+	 * 08: E(TORQUE) // Error Torque
 	 *
-	 * 09: R(POSITION) // REAL
-	 * 10: Y(POSITION) // MEASURED
-	 * 11: E(POSITION) // ERROR
+	 * 09: R(ANGLE) // Desire Angle
+	 * 10: Y(ANGLE) // Current Angle
+	 * 11: E(ANGLE) // Error Angle
 	 *
 	 */
 	PARAMETERS* par = (struct PARAMETERS*) malloc(
 			sizeof(struct PARAMETERS) * 1);
 	par->p = (uint32_t*) malloc(sizeof(uint32_t) * w * h);
+	memset(par->p, 0, w * h);
+
 	par->w = w;
 
-	switch(getEGO()) {
+	switch (getEGO()) {
 	case LF:
 		par->l = LENGTH_FOOT;
 		break;
@@ -96,20 +98,23 @@ PARAMETERS* parameters_init(void) {
 		break;
 	}
 
-	memset(par->p, 0, w * h);
+	getPIDparameters(&(par->Kp), &(par->Ki), &(par->Kd));
+	par->q = (MAA*) malloc(sizeof(MAA));
+	par->q->len = 5;
+	par->q->buffer = (uint32_t*) malloc(sizeof(uint32_t) * par->q->len);
 	return par;
 }
 
 void update_values(struct PARAMETERS* par, uint32_t A, uint32_t B, uint32_t C,
 		uint32_t D, uint32_t E, uint32_t F) {
 
-	par->p[getEGO()*par->w + LA] = A;
-	par->p[getEGO()*par->w + LB] = B;
+	par->p[(getEGO() * par->w) + LA] = A;
+	par->p[(getEGO() * par->w) + LB] = B;
 
-	par->p[getEGO()*par->w + PC] = C;
-	par->p[getEGO()*par->w + PD] = D;
-	par->p[getEGO()*par->w + PE] = E;
-	par->p[getEGO()*par->w + PF] = F;
+	par->p[(getEGO() * par->w) + PC] = C;
+	par->p[(getEGO() * par->w) + PD] = D;
+	par->p[(getEGO() * par->w) + PE] = E;
+	par->p[(getEGO() * par->w) + PF] = F;
 
 	return;
 }
@@ -133,7 +138,7 @@ void update_value(struct PARAMETERS* par, struct MSG* msg) {
 
 	sign = ((msg->sign == '+') ? 1 : ((msg->sign == '-') ? -1 : 0));
 
-	par->p[msg->ID*par->w + type] = sign*msg->value;
+	par->p[msg->ID * par->w + type] = sign * msg->value;
 
 	return;
 }
@@ -141,24 +146,63 @@ void update_value(struct PARAMETERS* par, struct MSG* msg) {
 double deg2rad(double angle) {
 	double val;
 	val = 180 / PI;
-	return angle*val;
+	return angle * val;
 }
 
 void update_state(struct PARAMETERS* par) {
 	int average_f, average_r;
-	double  dx, angle;
+	double dx, angle;
 
 	/* Get average signal strength in mm  */
-	average_f = (sig2mm(par->p[getEGO()*par->w + PC]) + sig2mm(par->p[getEGO()*par->w + PD]))/2;
-	average_r = (sig2mm(par->p[getEGO()*par->w + PE]) + sig2mm(par->p[getEGO()*par->w + PF]))/2;
+	average_f = (sig2mm(par->p[(getEGO() * par->w) + PC])
+			+ sig2mm(par->p[(getEGO() * par->w) + PD])) / 2;
+	average_r = (sig2mm(par->p[(getEGO() * par->w) + PE])
+			+ sig2mm(par->p[(getEGO() * par->w) + PF])) / 2;
 
+	/* Get difference between sides */
 	dx = average_f - average_r;
 
-	angle = atan(dx/(par->l));
+	/* Convert to angle */
+	angle = atan(dx / (par->l));
 	angle = deg2rad(angle);
 
-	par->p[getEGO()*par->w + YA] = angle;
+	par->p[(getEGO() * par->w) + DA] = angle; // The desired angle is the pilots angle
+
 	return;
+}
+
+/* Get Methods --------------------------------------------------------*/
+uint32_t get_p(struct PARAMETERS* par) {
+	return par->p[(getEGO() * par->w) + YA];
+}
+
+uint32_t get_p_target(struct PARAMETERS* par) {
+	return par->p[(getEGO() * par->w) + DA];
+}
+
+uint32_t get_p_error(struct PARAMETERS* par) {
+	return par->p[(getEGO() * par->w) + EA];
+}
+
+uint32_t get_T_target(struct PARAMETERS* par) {
+	return par->p[(getEGO() * par->w) + DT];
+}
+
+/* Set Methods --------------------------------------------------------*/
+void set_p(struct PARAMETERS* par, uint32_t p) {
+	par->p[(getEGO() * par->w) + YA] = p;
+}
+
+void set_p_target(struct PARAMETERS* par, uint32_t p) {
+	par->p[(getEGO() * par->w) + DA] = p;
+}
+
+void set_p_error(struct PARAMETERS* par, uint32_t p) {
+	par->p[(getEGO() * par->w) + EA] = p;
+}
+
+void set_T_target(struct PARAMETERS* par, uint32_t p) {
+	par->p[(getEGO() * par->w) + DT] = p;
 }
 
 /*****************************END OF FILE****/

@@ -2,22 +2,28 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="RX_buffer" key="selection"/>
+		<item value="x" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
-		<item value="false" key="wholeword"/>
+		<item value="true" key="wholeword"/>
 		<list key="findhistory">
+			<item value="x"/>
+			<item value="return x;"/>
+			<item value="buff[x] = 0;"/>
+			<item value="c = buff[x];"/>
+			<item value="COMPLETE"/>
+			<item value="x++;"/>
+			<item value="c"/>
 			<item value="RX_buffer"/>
-			<item value="HAL_Delay(trans_delay);"/>
-			<item value="sConfig_C"/>
-			<item value="DWT"/>
-			<item value="systick"/>
-			<item value="read_HX711"/>
-			<item value="TXRXBUFFERSIZE"/>
-			<item value="HAL_ADC_"/>
 		</list>
 		<list key="replacehistory">
+			<item value="*x"/>
+			<item value="return;"/>
+			<item value=" "/>
+			<item value="c = buff[x];"/>
+			<item value="x"/>
+			<item value="x = ((x + 1) % B_SIZE);"/>
 			<item value="B_SIZE"/>
 		</list>
 	</section>

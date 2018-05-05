@@ -11,17 +11,28 @@
 
 #include "main.h"
 /* Exported types ------------------------------------------------------------*/
-typedef struct {
+ struct MAA {
 	uint32_t*  buffer;
 	int head;
 	int len;
-} MAA; // Moving average array
+}; // Moving average array
+
+typedef struct MAA MAA;
+
+
+struct CBUFF;
+struct MSG;
+struct PARAMETERS;
+
+
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 void control(void);
 uint32_t get_integral(MAA*);
 void maaPush(MAA*, uint8_t);
+void getPIDparameters(uint32_t*, uint32_t*, uint32_t*);
+void updateControl(struct PARAMETERS* par);
 
 
 
