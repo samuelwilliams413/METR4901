@@ -83,7 +83,7 @@ uint8_t numToValue(uint8_t left, uint8_t right) {
  */
 void contructMSG(char* message, struct MSG* msg, int size) {
 	memset(message, 0, size);
-	sprintf(message, "\n\r Received: %c%d%c%lu.%lu;\n\r", msg->type, msg->ID,
+	sprintf(message, "\0%c%d%c%lu.%lu;\0", msg->type, msg->ID,
 			msg->sign, (msg->value / 1000), (msg->value % 1000));
 	return;
 }

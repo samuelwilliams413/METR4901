@@ -55,7 +55,7 @@ void getPIDparameters(uint32_t* Kp, uint32_t* Ki, uint32_t* Kd) {
 	return;
 }
 
-void updateControl(struct PARAMETERS* par) {
+void update_control(struct PARAMETERS* par) {
 	e = get_p_target(par) - get_p(par);
 	maaPush(par->q, e);
 

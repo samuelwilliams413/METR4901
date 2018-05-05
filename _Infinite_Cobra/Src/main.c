@@ -223,7 +223,24 @@ int main(void) {
 
 		/* USER CODE BEGIN 3 */
 
-		/* Read messages from UART */
+		/* Read messages from UART 1 */
+		HAL_UART_Receive_DMA(&huart1, RX_B1, len);
+
+		/* Process messages */
+		for (i = 0; i < B_SIZE; i++) {
+			readMSG(msg, RX_B1, &x, &x0);
+			if (msg->complete) {
+				RX_B1[x - 1] = '@';
+				update_value(par, msg);
+
+				contructMSG(TX_B2, msg, B_SIZE);
+				while (isTransmitting(&huart1, &huart2));
+				HAL_UART_Transmit_DMA(&huart1, TX_B2, B_SIZE);
+				HAL_UART_Transmit_DMA(&huart2, TX_B2, B_SIZE);
+			}
+		}
+
+		/* Read messages from UART 2 */
 		HAL_UART_Receive_DMA(&huart2, RX_B2, len);
 
 		/* Process messages */
@@ -232,19 +249,24 @@ int main(void) {
 			if (msg->complete) {
 				RX_B2[x - 1] = '@';
 				update_value(par, msg);
+
+				contructMSG(TX_B1, msg, B_SIZE);
+				while (isTransmitting(&huart1, &huart2));
+				HAL_UART_Transmit_DMA(&huart1, TX_B1, B_SIZE);
+				HAL_UART_Transmit_DMA(&huart2, TX_B1, B_SIZE);
 			}
 		}
 
 		/* Update Values */
-		update_values(par, ADC_A_Value, ADC_B_Value, ADC_C_Value, ADC_D_Value, ADC_E_Value, ADC_F_Value);
+		update_values(par, ADC_A_Value, ADC_B_Value, ADC_C_Value, ADC_D_Value,
+				ADC_E_Value, ADC_F_Value);
 		update_state(par);
-		updateControl(par);
+		update_control(par);
 
 		/* Send Messages */
 		// We need to pass on any received messages
 		// We need to the current position an desired torque for this point
 		// ffs the other angles will decide what the values for Ep, Ei, Ed
-
 		/* Toggle LED */
 		if (HAL_GetTick() > (epoch_LED + D_LED)) {
 			HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);

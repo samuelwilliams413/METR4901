@@ -32,9 +32,7 @@ void control(void);
 uint32_t get_integral(MAA*);
 void maaPush(MAA*, uint8_t);
 void getPIDparameters(uint32_t*, uint32_t*, uint32_t*);
-void updateControl(struct PARAMETERS* par);
-
-
+void update_control(struct PARAMETERS* par);
 
 #endif /* __msgProcessing_H */
 
