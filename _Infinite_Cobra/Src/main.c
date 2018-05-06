@@ -304,6 +304,10 @@ int main(void) {
 		}
 
 	}
+
+	free(msg);
+	free(msgT);
+	free(msgA);
 	/* USER CODE END 3 */
 }
 
