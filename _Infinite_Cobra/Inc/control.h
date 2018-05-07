@@ -26,6 +26,20 @@ struct PARAMETERS;
 
 
 /* Exported constants --------------------------------------------------------*/
+// Expected Response time: 0.2s
+#define Kp_T	4785
+#define Ki_T	8665
+#define Kd_T	658
+
+#define Kp_S	3243
+#define Ki_S	5885
+#define Kd_S	447
+
+#define Kp_F	1860
+#define Ki_F	3360
+#define Kd_F	258
+
+
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 void control(void);

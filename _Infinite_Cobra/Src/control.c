@@ -18,38 +18,36 @@ uint32_t e, Ep, Ei, Ed;
 
 void getPIDparameters(uint32_t* Kp, uint32_t* Ki, uint32_t* Kd) {
 
-	uint32_t controlValues[9] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-
 	switch (getEGO()) {
 	case RF:
-		*Kp = controlValues[0];
-		*Ki = controlValues[1];
-		*Kd = controlValues[2];
+		*Kp = Kp_F;
+		*Ki = Ki_F;
+		*Kd = Kd_F;
 		break;
 	case LF:
-		*Kp = controlValues[0];
-		*Ki = controlValues[1];
-		*Kd = controlValues[2];
+		*Kp = Kp_F;
+		*Ki = Ki_F;
+		*Kd = Kd_F;
 		break;
 	case LS:
-		*Kp = controlValues[3];
-		*Ki = controlValues[4];
-		*Kd = controlValues[5];
+		*Kp = Kp_S;
+		*Ki = Ki_S;
+		*Kd = Kd_S;
 		break;
 	case RS:
-		*Kp = controlValues[3];
-		*Ki = controlValues[4];
-		*Kd = controlValues[5];
+		*Kp = Kp_S;
+		*Ki = Ki_S;
+		*Kd = Kd_S;
 		break;
 	case LT:
-		*Kp = controlValues[6];
-		*Ki = controlValues[7];
-		*Kd = controlValues[8];
+		*Kp = Kp_T;
+		*Ki = Ki_T;
+		*Kd = Kd_T;
 		break;
 	case RT:
-		*Kp = controlValues[6];
-		*Ki = controlValues[7];
-		*Kd = controlValues[8];
+		*Kp = Kp_T;
+		*Ki = Ki_T;
+		*Kd = Kd_T;
 		break;
 	}
 	return;
