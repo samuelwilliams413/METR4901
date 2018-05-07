@@ -102,6 +102,7 @@
 
 // DELAYS
 #define D_LED		 	100
+#define D_INIT		 	1000
 
 void transmit(int, char*);
 void msgERROR_init(void);

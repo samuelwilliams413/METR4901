@@ -98,6 +98,7 @@ unsigned long Count;
 // EPOCHS
 int epoch_LED = 0;
 int epoch_TX = 0;
+int epoch_INIT = 0;
 
 volatile uint32_t a;
 volatile uint32_t ADC_A_Value;
@@ -236,6 +237,7 @@ int main(void) {
 	int i;
 	uint8_t x = 0, x0 = x;
 	msgERROR_init();
+	epoch_INIT = HAL_GetTick();
 	while (1) {
 
 		/* USER CODE END WHILE */
@@ -288,14 +290,19 @@ int main(void) {
 		contruct_X_msg('T', par, msgT, TX_T);
 		contruct_X_msg('A', par, msgA, TX_A);
 
-		/* Send out messages */
-		while (isTransmitting(&huart1, &huart2));
-		HAL_UART_Transmit_DMA(&huart1, (uint8_t*)TX_T, B_SIZE);
-		HAL_UART_Transmit_DMA(&huart2, (uint8_t*)TX_T, B_SIZE);
+		/* Give the system a second to get up to speed before having a fit */
+		if (HAL_GetTick() > (epoch_INIT + D_INIT)) {
+			/* Send out messages */
+			while (isTransmitting(&huart1, &huart2))
+				;
+			HAL_UART_Transmit_DMA(&huart1, (uint8_t*) TX_T, B_SIZE);
+			HAL_UART_Transmit_DMA(&huart2, (uint8_t*) TX_T, B_SIZE);
 
-		while (isTransmitting(&huart1, &huart2));
-		HAL_UART_Transmit_DMA(&huart1, (uint8_t*)TX_A, B_SIZE);
-		HAL_UART_Transmit_DMA(&huart2, (uint8_t*)TX_A, B_SIZE);
+			while (isTransmitting(&huart1, &huart2))
+				;
+			HAL_UART_Transmit_DMA(&huart1, (uint8_t*) TX_A, B_SIZE);
+			HAL_UART_Transmit_DMA(&huart2, (uint8_t*) TX_A, B_SIZE);
+		}
 
 		/* Toggle LED */
 		if (HAL_GetTick() > (epoch_LED + D_LED)) {
