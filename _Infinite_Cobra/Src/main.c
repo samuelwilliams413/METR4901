@@ -57,6 +57,10 @@ DMA_HandleTypeDef hdma_usart2_tx;
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 
+struct MSG;
+struct CBUFF;
+struct PARAMETERS;
+
 CBUFF* cbuff = 0;
 PARAMETERS* par = 0;
 
@@ -201,13 +205,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	/* USER CODE BEGIN WHILE */
 
-	struct MSG {
-		uint8_t type;
-		uint8_t ID;
-		uint8_t sign;
-		uint32_t value;
-	};
-
 	MSG* msg = 0;
 	msg = (MSG*) malloc(sizeof(MSG));
 	msg->type = 0;
@@ -248,6 +245,7 @@ int main(void)
 
 		/* Read messages from UART 1 */
 		HAL_UART_Receive_DMA(&huart1, RX_B1, len);
+		HAL_UART_Receive_DMA(&huart2, RX_B2, len);
 
 		/* Process messages */
 		for (i = 0; i < B_SIZE; i++) {
@@ -259,7 +257,7 @@ int main(void)
 				contructMSG((char*) TX_B2, msg, B_SIZE);
 				while (isTransmitting(&huart1, &huart2))
 					;
-				HAL_UART_Transmit_DMA(&huart1, TX_B2, B_SIZE);
+
 				HAL_UART_Transmit_DMA(&huart2, TX_B2, B_SIZE);
 			}
 		}
@@ -278,7 +276,7 @@ int main(void)
 				while (isTransmitting(&huart1, &huart2))
 					;
 				HAL_UART_Transmit_DMA(&huart1, TX_B1, B_SIZE);
-				HAL_UART_Transmit_DMA(&huart2, TX_B1, B_SIZE);
+
 			}
 		}
 
@@ -317,6 +315,8 @@ int main(void)
 	free(msg);
 	free(msgT);
 	free(msgA);
+	free(par);
+	free(cbuff);
   /* USER CODE END 3 */
 
 }
