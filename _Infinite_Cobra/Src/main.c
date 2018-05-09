@@ -231,6 +231,14 @@ int main(void) {
 	TX_buffer2[B_SIZE - 2] = '\n';
 	TX_buffer2[B_SIZE - 1] = '\r';
 
+	memset(TX_B1, 0 , B_SIZE);
+	sprintf(TX_B1,
+			"\n\r\n\r/* BOOT COMPLETE -> INITIALISING [%d] */\n\r\n\r", getEGO());
+	while (isTransmitting(&huart1, &huart2))
+		;
+	HAL_UART_Transmit_DMA(&huart1, TX_B1, B_SIZE);
+	HAL_UART_Transmit_DMA(&huart2, TX_B1, B_SIZE);
+
 	int i;
 	uint8_t x = 0, x0 = x;
 	msgERROR_init();
@@ -281,6 +289,7 @@ int main(void) {
 		update_values(par, ADC_A_Value, ADC_B_Value, ADC_C_Value, ADC_D_Value,
 				ADC_E_Value, ADC_F_Value);
 		update_state(par);
+		update_control(par);
 
 		/* Create messages to send off */
 		contruct_X_msg('T', par, msgT, TX_T);

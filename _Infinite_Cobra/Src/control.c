@@ -54,11 +54,14 @@ void getPIDparameters(uint32_t* Kp, uint32_t* Ki, uint32_t* Kd) {
 }
 
 void update_control(struct PARAMETERS* par) {
+
 	e = get_p_target(par) - get_p(par);
+
 	maaPush(par->q, e);
 
 	Ep = e;
 	Ei = get_integral(par->q);
+
 	Ed = e - par->e_last;
 
 	set_T_target(par, (par->Kp * Ep + par->Ki * Ei + par->Kd * Ed));
@@ -79,7 +82,7 @@ uint32_t get_integral(MAA* q) {
 void maaPush(MAA* q, uint8_t e) {
 	int i = 1 + q->head;
 	i = (i > q->len) ? 0 : i;
-	q->buffer[q->head] = e;
+	q->buffer[i] = e;
 	q->head = i;
 	return;
 }
