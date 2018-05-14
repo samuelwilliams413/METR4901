@@ -289,7 +289,7 @@ int main(void) {
 		update_values(par, ADC_A_Value, ADC_B_Value, ADC_C_Value, ADC_D_Value,
 				ADC_E_Value, ADC_F_Value);
 		update_state(par);
-		update_control(par);
+		//update_control(par);
 
 		/* Create messages to send off */
 		contruct_X_msg('T', par, msgT, TX_T);

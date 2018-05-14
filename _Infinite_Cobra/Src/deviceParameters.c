@@ -24,7 +24,7 @@ enum LOC {
 };
 
 /* This is the identity of the current device */
-#define		EGO		RF
+#define		EGO		6
 
 /**
  * @brief  Returns a preassigned ID for each component of the exoskeleton
