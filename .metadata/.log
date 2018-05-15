@@ -10995,3 +10995,6 @@ java.io.IOException: Cannot run program "D:\Users\Samuel\workspace\METR4901\_Inf
 	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1039)
 	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1256)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2018-05-14 22:09:26.123
+!MESSAGE Unloading product manager
