@@ -11095,3 +11095,6 @@ localhost:61234: The system tried to join a drive to a directory on a joined dri
 
 !ENTRY com.atollic.hardwaredebug.launch 2 0 2018-05-16 22:43:16.054
 !MESSAGE Terminated debug launch because: Failed to read device information
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2018-05-17 01:12:45.482
+!MESSAGE Unloading product manager
