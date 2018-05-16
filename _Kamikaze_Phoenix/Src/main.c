@@ -450,12 +450,14 @@ static void MX_ADC2_Init(void)
     _Error_Handler(__FILE__, __LINE__);
   }
 
+
+  int x = 1;
   /**Configure Regular Channel
   	 */
   	sConfig_C.Channel = ADC_CHANNEL_1;
   	sConfig_C.Rank = ADC_REGULAR_RANK_1;
   	sConfig_C.SingleDiff = ADC_SINGLE_ENDED;
-  	sConfig_C.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+  	sConfig_C.SamplingTime = ADC_SAMPLETIME_601CYCLES_5*x;
   	sConfig_C.OffsetNumber = ADC_OFFSET_NONE;
   	sConfig_C.Offset = 0;
   	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig_C) != HAL_OK) {
@@ -465,7 +467,7 @@ static void MX_ADC2_Init(void)
   	sConfig_D.Channel = ADC_CHANNEL_2;
   	sConfig_D.Rank = ADC_REGULAR_RANK_1;
   	sConfig_D.SingleDiff = ADC_SINGLE_ENDED;
-  	sConfig_D.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+  	sConfig_D.SamplingTime = ADC_SAMPLETIME_601CYCLES_5*x;
   	sConfig_D.OffsetNumber = ADC_OFFSET_NONE;
   	sConfig_D.Offset = 0;
   	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig_D) != HAL_OK) {
@@ -475,7 +477,7 @@ static void MX_ADC2_Init(void)
   	sConfig_E.Channel = ADC_CHANNEL_3;
   	sConfig_E.Rank = ADC_REGULAR_RANK_1;
   	sConfig_E.SingleDiff = ADC_SINGLE_ENDED;
-  	sConfig_E.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+  	sConfig_E.SamplingTime = ADC_SAMPLETIME_601CYCLES_5*x;
   	sConfig_E.OffsetNumber = ADC_OFFSET_NONE;
   	sConfig_E.Offset = 0;
   	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig_E) != HAL_OK) {
@@ -485,7 +487,7 @@ static void MX_ADC2_Init(void)
   	sConfig_F.Channel = ADC_CHANNEL_4;
   	sConfig_F.Rank = ADC_REGULAR_RANK_1;
   	sConfig_F.SingleDiff = ADC_SINGLE_ENDED;
-  	sConfig_F.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+  	sConfig_F.SamplingTime = ADC_SAMPLETIME_601CYCLES_5*x;
   	sConfig_F.OffsetNumber = ADC_OFFSET_NONE;
   	sConfig_F.Offset = 0;
   	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig_F) != HAL_OK) {
@@ -643,6 +645,7 @@ void Update_PWM(uint16_t angle) { // This would be updated for the final setup t
 }
 
 void Update_ADC_Values(void) {
+	int x = 2;
 	/* Read ADC_C
 	 * ADC C = PA4 = A3 = ADC2 Channel 1 */
 	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig_C) != HAL_OK) {
@@ -658,7 +661,7 @@ void Update_ADC_Values(void) {
 		Error_Handler();
 	}
 
-	HAL_Delay(1);
+	HAL_Delay(x);
 	/* Read ADC_D
 	 * ADC D = PA5 = A4 = ADC2 Channel 2 */
 	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig_D) != HAL_OK) {
@@ -673,7 +676,7 @@ void Update_ADC_Values(void) {
 	if (HAL_ADC_Stop(&hadc2) != HAL_OK) {
 		Error_Handler();
 	}
-	HAL_Delay(1);
+	HAL_Delay(x);
 
 	/* Read ADC_E
 	 * ADC E = PA6 = A5 = ADC2 Channel 3 */
@@ -689,7 +692,7 @@ void Update_ADC_Values(void) {
 	if (HAL_ADC_Stop(&hadc2) != HAL_OK) {
 		Error_Handler();
 	}
-	HAL_Delay(1);
+	HAL_Delay(x);
 
 	/* Read ADC_F
 	 * ADC F = PA7 = A6 = ADC2 Channel 4 */
@@ -705,7 +708,7 @@ void Update_ADC_Values(void) {
 	if (HAL_ADC_Stop(&hadc2) != HAL_OK) {
 		Error_Handler();
 	}
-	HAL_Delay(1);
+	HAL_Delay(x);
 
 	return;
 }
