@@ -100,7 +100,17 @@ uint8_t ADC_buffer[B_SIZE];
 uint16_t len = sizeof(buffer), i, j, hmmmm;
 int trans_delay = 75;
 int ticker = 0;
+
+
 unsigned long Count;
+
+
+#define CLOCK_WISE			0
+#define COUNTER_CLOCK_WISE	1
+#define PIN_LO			0
+volatile int DC = 50;
+volatile int DIR = CLOCK_WISE;
+volatile int SERVO_PULSE_WIDTH = 1;
 
 // EPOCHS
 int epoch_LED = 0;
@@ -147,6 +157,7 @@ int isTransmitting(UART_HandleTypeDef *, UART_HandleTypeDef *);
 int strip_str(uint8_t[], uint8_t[]);
 int channelBusy(UART_HandleTypeDef *);
 void Update_PWM(uint16_t);
+void set_pulse_width(void);
 
 /* USER CODE END PFP */
 
@@ -251,20 +262,30 @@ int main(void)
 	msgERROR_init();
 	epoch_INIT = HAL_GetTick();
 
-	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+
 	volatile uint16_t angle = 0;
 	int adc_compare = 0;
+
+
+	HAL_TIM_Base_Start_IT(&htim3);
 
 	while (1) {
 
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
+		/* Update PWM width */
+		set_pulse_width();
+
 		/* Toggle LED */
 		if (HAL_GetTick() > (epoch_LED + D_LED)) {
-			HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+			//HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
 			epoch_LED = HAL_GetTick();
 		}
+
+
+
+
 
 
 		//Update_PWM(angle);
@@ -593,6 +614,22 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
+	if(htim->Instance == TIM3) {
+		HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+	}
+	return;
+}
+
+
+
+
+
+
+
+
+
+
 
 void Update_PWM(uint16_t angle) { // This would be updated for the final setup to use torque
 	TIM_OC_InitTypeDef sConfigOC;
@@ -702,6 +739,16 @@ int strip_str(uint8_t RX_buffer[], uint8_t TX_buffer[]) {
 		}
 	}
 	return index;
+}
+
+void set_pulse_width(void) {
+	if (DIR == CLOCK_WISE) {
+		SERVO_PULSE_WIDTH =  150 + (20 * DC / 2);
+	} else {
+		SERVO_PULSE_WIDTH =  150 - (20 * DC / 2);
+	}
+
+
 }
 
 int isTransmitting(UART_HandleTypeDef *huart1, UART_HandleTypeDef *huart2) {
