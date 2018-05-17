@@ -11156,3 +11156,6 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 
 !ENTRY com.atollic.truestudio.debug 4 0 2018-05-17 18:11:41.174
 !MESSAGE Existing sessions are:
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2018-05-17 21:38:08.805
+!MESSAGE Unloading product manager
