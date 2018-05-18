@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="DIR" key="selection"/>
+		<item value="DC" key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="true" key="wholeword"/>
 		<list key="findhistory">
+			<item value="DC"/>
 			<item value="DIR"/>
 			<item value="Count"/>
 			<item value="ADC_SAMPLETIME_1CYCLE_5"/>
@@ -15,7 +16,6 @@
 			<item value="malloc"/>
 			<item value="getEGO() * par-&gt;w"/>
 			<item value="x"/>
-			<item value="return x;"/>
 		</list>
 		<list key="replacehistory">
 			<item value="ADC_SAMPLETIME_1CYCLE_5*10"/>

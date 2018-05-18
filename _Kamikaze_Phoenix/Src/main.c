@@ -715,9 +715,11 @@ int strip_str(uint8_t RX_buffer[], uint8_t TX_buffer[]) {
 
 void set_pulse_width(void) {
 
-	DIR = CLOCK_WISE;
+	DIR = COUNTER_CLOCK_WISE;
 
 	DC =(((ADC_C_Value * 0.0244 * 1000) / 1000));
+
+	DC = (DC < 5) ? 0 : DC;
 
 	if (POT_MODE) {
 		if (ADC_C_Value > 2048) {
@@ -730,9 +732,9 @@ void set_pulse_width(void) {
 	}
 
 	if (DIR == CLOCK_WISE) {
-		HI_PERIOD = (-11 * DC + 6200) / 100; // |57|68|75|
+		HI_PERIOD = (-8 * DC + 5900) / 100; // |57|68|75|
 	} else {
-		HI_PERIOD = 1 + (4 * DC + 6200) / 100; // |57|68|75|
+		HI_PERIOD = 1 + (8 * DC + 5900) / 100; // |57|68|75|
 	}
 
 	HI_PERIOD = HI_PERIOD;

@@ -365,3 +365,6 @@ Reason: (2) ST-Link DLL error.
 !ENTRY org.eclipse.cdt.dsf.gdb 4 5012 2018-05-18 19:37:34.974
 !MESSAGE Error in initializing ST-Link device.
 Reason: (2) ST-Link DLL error.
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2018-05-18 21:28:25.061
+!MESSAGE Unloading product manager
