@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="ADC_SAMPLETIME_1CYCLE_5" key="selection"/>
+		<item value="Count" key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="true" key="wholeword"/>
 		<list key="findhistory">
+			<item value="Count"/>
 			<item value="ADC_SAMPLETIME_1CYCLE_5"/>
 			<item value="A"/>
 			<item value="malloc"/>
@@ -15,7 +16,6 @@
 			<item value="x"/>
 			<item value="return x;"/>
 			<item value="buff[x] = 0;"/>
-			<item value="c = buff[x];"/>
 		</list>
 		<list key="replacehistory">
 			<item value="ADC_SAMPLETIME_1CYCLE_5*10"/>

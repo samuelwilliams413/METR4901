@@ -118,3 +118,6 @@ java.io.IOException: Cannot run program "gdb": Launching failed
 	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1039)
 	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1256)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2018-05-18 11:14:10.770
+!MESSAGE Unloading product manager
