@@ -73,7 +73,6 @@ PARAMETERS* par = 0;
 
 #define  PWM_PERIOD       (uint32_t)(40000 - 1)  /* Period Value  */
 
-
 #define DAT_A_READ 		HAL_GPIO_ReadPin(DAT_A_GPIO_Port, DAT_A_Pin)
 #define DAT_B_READ 		HAL_GPIO_ReadPin(DAT_B_GPIO_Port, DAT_B_Pin)
 #define CLK_A_SET		HAL_GPIO_WritePin(CLK_A_GPIO_Port, CLK_A_Pin, GPIO_PIN_SET)
@@ -287,8 +286,14 @@ int main(void) {
 		/* Update PWM width */
 		Update_ADC_Values();
 		set_pulse_width();
-		__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, (2000*1.5));
-		HAL_Delay(125);
+
+		while (isTransmitting(&huart1, &huart2))
+			;
+		memset(TX_B1, 0, B_SIZE);
+		sprintf(TX_B1, "C|%lu|DC|%lu|DIR|%lu|HI|%lu|pULSEwIDTH|%lu|\n\r",
+				(unsigned long) ADC_C_Value, DC, DIR, HI_PERIOD, (HI_PERIOD/2));
+		HAL_UART_Transmit_DMA(&huart1, TX_B1, B_SIZE);
+		HAL_UART_Transmit_DMA(&huart2, TX_B1, B_SIZE);
 
 		/* Toggle LED */
 		if (HAL_GetTick() > (epoch_LED + D_LED)) {
@@ -521,7 +526,7 @@ static void MX_TIM3_Init(void) {
 	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;
 	sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
 
-	sConfigOC.Pulse = (uint32_t)(PWM_PERIOD/2);
+	sConfigOC.Pulse = (uint32_t) (PWM_PERIOD / 2);
 	if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_1)
 			!= HAL_OK) {
 		/* Configuration Error */
@@ -715,32 +720,18 @@ int strip_str(uint8_t RX_buffer[], uint8_t TX_buffer[]) {
 }
 
 void set_pulse_width(void) {
-
 	DIR = COUNTER_CLOCK_WISE;
-
 	DC = (((ADC_C_Value * 0.0244 * 1000) / 1000));
-
 	DC = (DC < 5) ? 0 : DC;
 
-	if (POT_MODE) {
-		if (ADC_C_Value > 2048) {
-			DC = ((ADC_C_Value * 488.28125) / 10000) - 100; // integers are wack yo!
-			DIR = CLOCK_WISE;
-		} else {
-			DC = 199 - (((ADC_C_Value + 2048) * 488.28125) / 10000); // integers are wack yo!
-			DIR = COUNTER_CLOCK_WISE;
-		}
-	}
+	HI_PERIOD = 2000 * (1.5);
 
-	if (DIR == CLOCK_WISE) {
-		HI_PERIOD = (-8 * DC + 5900) / 100; // |57|68|75|
+	if (DIR == COUNTER_CLOCK_WISE) {
+		HI_PERIOD = 2 * (-0.0488 * (4096 - ADC_C_Value) + 1700);
 	} else {
-		HI_PERIOD = 1 + (8 * DC + 5900) / 100; // |57|68|75|
+		HI_PERIOD = 2 * (0.0488 * (4096 - ADC_C_Value) + 1300);
 	}
-
-	HI_PERIOD = HI_PERIOD;
-	LO_PERIOD = 790;
-
+	__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, HI_PERIOD);
 }
 
 int isTransmitting(UART_HandleTypeDef *huart1, UART_HandleTypeDef *huart2) {

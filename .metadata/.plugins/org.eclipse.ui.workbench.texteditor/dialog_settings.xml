@@ -2,30 +2,30 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="DC" key="selection"/>
+		<item value="PWM_PERIOD" key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
-		<item value="true" key="wholeword"/>
+		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="PERIOD_VALUE"/>
+			<item value="TIM4"/>
+			<item value="htim4"/>
+			<item value="htim1"/>
 			<item value="DC"/>
 			<item value="DIR"/>
 			<item value="Count"/>
 			<item value="ADC_SAMPLETIME_1CYCLE_5"/>
-			<item value="A"/>
-			<item value="malloc"/>
-			<item value="getEGO() * par-&gt;w"/>
-			<item value="x"/>
 		</list>
 		<list key="replacehistory">
+			<item value="PWM_PERIOD"/>
+			<item value="TIM3"/>
+			<item value="htim3"/>
 			<item value="ADC_SAMPLETIME_1CYCLE_5*10"/>
 			<item value="B"/>
 			<item value="(getEGO() * par-&gt;w)"/>
 			<item value="*x"/>
 			<item value="return;"/>
-			<item value=" "/>
-			<item value="c = buff[x];"/>
-			<item value="x"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
