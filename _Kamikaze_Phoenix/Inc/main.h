@@ -74,8 +74,6 @@
 #define DAT_B_GPIO_Port GPIOB
 #define LD3_Pin GPIO_PIN_3
 #define LD3_GPIO_Port GPIOB
-#define Servo_Pin GPIO_PIN_4
-#define Servo_GPIO_Port GPIOB
 #define CLK_B_Pin GPIO_PIN_6
 #define CLK_B_GPIO_Port GPIOB
 #define DAT_A_Pin GPIO_PIN_7
