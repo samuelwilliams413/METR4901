@@ -12,7 +12,7 @@ org.eclipse.launchbar.core.descriptorType.default\:_Hydra_Prime\ Release/activeL
 org.eclipse.launchbar.core.descriptorType.default\:_Hydra_Prime.elf\ (1)/activeLaunchMode=debug
 org.eclipse.launchbar.core.descriptorType.default\:_Hydra_Prime.elf/activeLaunchMode=debug
 org.eclipse.launchbar.core.descriptorType.default\:_Hydra_Prime_DnR.elf/activeLaunchMode=debug
-org.eclipse.launchbar.core.descriptorType.default\:_Infinite_Cobra\ run\ ffs/activeLaunchMode=run
+org.eclipse.launchbar.core.descriptorType.default\:_Infinite_Cobra\ run\ ffs/activeLaunchMode=debug
 org.eclipse.launchbar.core.descriptorType.default\:_Infinite_Cobra.elf\ (1)/activeLaunchMode=debug
 org.eclipse.launchbar.core.descriptorType.default\:_Infinite_Cobra.elf/activeLaunchMode=debug
 org.eclipse.launchbar.core.descriptorType.default\:_Infinite_Cobra_Jetstream.elf/activeLaunchMode=debug
