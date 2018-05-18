@@ -740,8 +740,8 @@ int strip_str(uint8_t RX_buffer[], uint8_t TX_buffer[]) {
 
 void set_pulse_width(void) {
 	// 1 ms = 44 ticks
-	HI_PERIOD = 1.7*ms_SCALER; // ms*100
-	LO_PERIOD = 20*ms_SCALER; // ms*100
+	HI_PERIOD = 68; // ms*100
+	LO_PERIOD = 894; // ms*100
 
 	if (DIR == CLOCK_WISE) {
 		SERVO_PULSE_WIDTH = 150 + (20 * DC / 2);
