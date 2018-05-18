@@ -104,6 +104,7 @@ int ticker = 0;
 
 unsigned long Count;
 
+#define POT_MODE			0
 #define CLOCK_WISE			0
 #define COUNTER_CLOCK_WISE	1
 #define PIN_LO			0
@@ -274,38 +275,23 @@ int main(void) {
 
 		/* USER CODE END WHILE */
 
+		while (isTransmitting(&huart1, &huart2))
+			;
+		memset(TX_B1, 0, B_SIZE);
+		sprintf(TX_B1, "C|%lu|DC|%lu|DIR|%lu|HI|%lu|\n\r",
+				(unsigned long) ADC_C_Value, DC, DIR, HI_PERIOD);
+		HAL_UART_Transmit_DMA(&huart1, TX_B1, B_SIZE);
+		HAL_UART_Transmit_DMA(&huart2, TX_B1, B_SIZE);
+
 		/* USER CODE BEGIN 3 */
 		/* Update PWM width */
+		Update_ADC_Values();
 		set_pulse_width();
 
 		/* Toggle LED */
 		if (HAL_GetTick() > (epoch_LED + D_LED)) {
 			HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
 			epoch_LED = HAL_GetTick();
-			DC = ((DC + 1) % 100);
-			if(DC == 0) {
-				if (DIR == CLOCK_WISE) {
-					DIR = COUNTER_CLOCK_WISE;
-				} else {
-					DIR = CLOCK_WISE;
-				}
-
-			}
-		}
-
-		//Update_PWM(angle);
-		if (adc_compare) {
-			Update_ADC_Values();
-
-			angle = ((ADC_C_Value * 1000 * 8399) / 4096) / 1000; // integers are wack yo!
-			memset(TX_B1, 0, B_SIZE);
-			sprintf(TX_B1, "C|%lu|D|%lu|E|%lu|F|%lu|\n\r",
-					(unsigned long) ADC_C_Value, (unsigned long) ADC_D_Value,
-					(unsigned long) ADC_E_Value, (unsigned long) ADC_F_Value);
-			while (isTransmitting(&huart1, &huart2))
-				;
-			HAL_UART_Transmit_DMA(&huart1, TX_B1, B_SIZE);
-			HAL_UART_Transmit_DMA(&huart2, TX_B1, B_SIZE);
 		}
 
 	}
@@ -585,8 +571,8 @@ static void MX_GPIO_Init(void) {
 	;
 
 	/*Configure GPIO pin Output Level */
-	HAL_GPIO_WritePin(GPIOB, CLK_A_Pin | LD3_Pin | Servo_Pin | CLK_B_Pin,
-			GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOB,
+	CLK_A_Pin | LD3_Pin | Servo_Pin | CLK_B_Pin, GPIO_PIN_RESET);
 
 	/*Configure GPIO pins : CLK_A_Pin LD3_Pin CLK_B_Pin */
 	GPIO_InitStruct.Pin = CLK_A_Pin | LD3_Pin | CLK_B_Pin;
@@ -728,13 +714,29 @@ int strip_str(uint8_t RX_buffer[], uint8_t TX_buffer[]) {
 }
 
 void set_pulse_width(void) {
-	if (DIR == CLOCK_WISE) {
-		HI_PERIOD = (-9 * DC + 6000) / 100; // |57|68|75|
-	} else {
-		HI_PERIOD = (6 * DC + 6000) / 100; // |57|68|75|
+
+	DIR = CLOCK_WISE;
+
+	DC =(((ADC_C_Value * 0.0244 * 1000) / 1000));
+
+	if (POT_MODE) {
+		if (ADC_C_Value > 2048) {
+			DC = ((ADC_C_Value * 488.28125) / 10000) - 100; // integers are wack yo!
+			DIR = CLOCK_WISE;
+		} else {
+			DC = 199 - (((ADC_C_Value + 2048) * 488.28125) / 10000); // integers are wack yo!
+			DIR = COUNTER_CLOCK_WISE;
+		}
 	}
+
+	if (DIR == CLOCK_WISE) {
+		HI_PERIOD = (-11 * DC + 6200) / 100; // |57|68|75|
+	} else {
+		HI_PERIOD = 1 + (4 * DC + 6200) / 100; // |57|68|75|
+	}
+
 	HI_PERIOD = HI_PERIOD;
-	LO_PERIOD = 894; // |57|68|75|
+	LO_PERIOD = 790;
 
 }
 
