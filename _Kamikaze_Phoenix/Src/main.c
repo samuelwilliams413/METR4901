@@ -71,11 +71,7 @@ PARAMETERS* par = 0;
 #define MSB				1
 #define VERBOSE	TRUE
 
-#define  PERIOD_VALUE       (uint32_t)(40000 - 1)  /* Period Value  */
-#define  PULSE1_VALUE       (uint32_t)(PERIOD_VALUE/2)        /* Capture Compare 1 Value  */
-#define  PULSE2_VALUE       (uint32_t)(PERIOD_VALUE*37.5/100) /* Capture Compare 2 Value  */
-#define  PULSE3_VALUE       (uint32_t)(PERIOD_VALUE/4)        /* Capture Compare 3 Value  */
-#define  PULSE4_VALUE       (uint32_t)(PERIOD_VALUE*12.5/100) /* Capture Compare 4 Value  */
+#define  PWM_PERIOD       (uint32_t)(40000 - 1)  /* Period Value  */
 
 
 #define DAT_A_READ 		HAL_GPIO_ReadPin(DAT_A_GPIO_Port, DAT_A_Pin)
@@ -291,7 +287,7 @@ int main(void) {
 		/* Update PWM width */
 		Update_ADC_Values();
 		set_pulse_width();
-		__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 1800);
+		__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, (2000*1.5));
 		HAL_Delay(125);
 
 		/* Toggle LED */
@@ -491,8 +487,8 @@ static void MX_TIM3_Init(void) {
 	htim3.Instance = TIM3;
 	htim3.Init.Prescaler = uhPrescalerValue;
 	printf("Prescaler Value: %lu\r\n", uhPrescalerValue);
-	htim3.Init.Period = PERIOD_VALUE;
-	printf("Period Value: %lu\r\n", PERIOD_VALUE);
+	htim3.Init.Period = PWM_PERIOD;
+	printf("Period Value: %lu\r\n", PWM_PERIOD);
 	htim3.Init.ClockDivision = 0;
 	htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
 	htim3.Init.RepetitionCounter = 0;
@@ -525,36 +521,13 @@ static void MX_TIM3_Init(void) {
 	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;
 	sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
 
-	sConfigOC.Pulse = PULSE1_VALUE;
+	sConfigOC.Pulse = (uint32_t)(PWM_PERIOD/2);
 	if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_1)
 			!= HAL_OK) {
 		/* Configuration Error */
 		Error_Handler();
 	}
 
-	/* Set the pulse value for channel 2 */
-	sConfigOC.Pulse = PULSE2_VALUE;
-	if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_2)
-			!= HAL_OK) {
-		/* Configuration Error */
-		Error_Handler();
-	}
-
-	/* Set the pulse value for channel 3 */
-	sConfigOC.Pulse = PULSE3_VALUE;
-	if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_3)
-			!= HAL_OK) {
-		/* Configuration Error */
-		Error_Handler();
-	}
-
-	/* Set the pulse value for channel 4 */
-	sConfigOC.Pulse = PULSE4_VALUE;
-	if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_4)
-			!= HAL_OK) {
-		/* Configuration Error */
-		Error_Handler();
-	}
 	HAL_TIM_MspPostInit(&htim3);
 
 }
