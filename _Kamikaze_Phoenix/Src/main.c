@@ -285,13 +285,20 @@ int main(void) {
 		/* USER CODE BEGIN 3 */
 		/* Update PWM width */
 		Update_ADC_Values();
+
+		update_values(par, ADC_A_Value, ADC_B_Value, ADC_C_Value,
+								ADC_D_Value, ADC_E_Value, ADC_F_Value);
+
+		update_state(par);
+
 		set_pulse_width();
 
 		while (isTransmitting(&huart1, &huart2))
 			;
 		memset(TX_B1, 0, B_SIZE);
-		sprintf(TX_B1, "C|%lu|DC|%lu|DIR|%lu|HI|%lu|pULSEwIDTH|%lu|\n\r",
-				(unsigned long) ADC_C_Value, DC, DIR, HI_PERIOD, (HI_PERIOD/2));
+		sprintf(TX_B1, "C|%lu|D|%lu|DC|%lu|DIR|%lu|HI|%lu|pULSEwIDTH|%lu|\n\r",
+				(unsigned long) ADC_C_Value, (unsigned long) ADC_D_Value, DC,
+				DIR, HI_PERIOD, (HI_PERIOD / 2));
 		HAL_UART_Transmit_DMA(&huart1, TX_B1, B_SIZE);
 		HAL_UART_Transmit_DMA(&huart2, TX_B1, B_SIZE);
 
@@ -465,13 +472,43 @@ static void MX_ADC2_Init(void) {
 
 	/**Configure Regular Channel
 	 */
-	sConfig.Channel = ADC_CHANNEL_1;
-	sConfig.Rank = ADC_REGULAR_RANK_1;
-	sConfig.SingleDiff = ADC_SINGLE_ENDED;
-	sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
-	sConfig.OffsetNumber = ADC_OFFSET_NONE;
-	sConfig.Offset = 0;
-	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig) != HAL_OK) {
+	sConfig_C.Channel = ADC_CHANNEL_1;
+	sConfig_C.Rank = ADC_REGULAR_RANK_1;
+	sConfig_C.SingleDiff = ADC_SINGLE_ENDED;
+	sConfig_C.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+	sConfig_C.OffsetNumber = ADC_OFFSET_NONE;
+	sConfig_C.Offset = 0;
+	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig_C) != HAL_OK) {
+		_Error_Handler(__FILE__, __LINE__);
+	}
+
+	sConfig_D.Channel = ADC_CHANNEL_2;
+	sConfig_D.Rank = ADC_REGULAR_RANK_1;
+	sConfig_D.SingleDiff = ADC_SINGLE_ENDED;
+	sConfig_D.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+	sConfig_D.OffsetNumber = ADC_OFFSET_NONE;
+	sConfig_D.Offset = 0;
+	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig_D) != HAL_OK) {
+		_Error_Handler(__FILE__, __LINE__);
+	}
+
+	sConfig_E.Channel = ADC_CHANNEL_3;
+	sConfig_E.Rank = ADC_REGULAR_RANK_1;
+	sConfig_E.SingleDiff = ADC_SINGLE_ENDED;
+	sConfig_E.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+	sConfig_E.OffsetNumber = ADC_OFFSET_NONE;
+	sConfig_E.Offset = 0;
+	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig_E) != HAL_OK) {
+		_Error_Handler(__FILE__, __LINE__);
+	}
+
+	sConfig_F.Channel = ADC_CHANNEL_4;
+	sConfig_F.Rank = ADC_REGULAR_RANK_1;
+	sConfig_F.SingleDiff = ADC_SINGLE_ENDED;
+	sConfig_F.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+	sConfig_F.OffsetNumber = ADC_OFFSET_NONE;
+	sConfig_F.Offset = 0;
+	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig_F) != HAL_OK) {
 		_Error_Handler(__FILE__, __LINE__);
 	}
 
@@ -720,17 +757,28 @@ int strip_str(uint8_t RX_buffer[], uint8_t TX_buffer[]) {
 }
 
 void set_pulse_width(void) {
-	DIR = COUNTER_CLOCK_WISE;
-	DC = (((ADC_C_Value * 0.0244 * 1000) / 1000));
-	DC = (DC < 5) ? 0 : DC;
+	int diff, k = 10;
+
+	if (ADC_C_Value > ADC_D_Value) {
+		diff = (ADC_C_Value - ADC_D_Value);
+	} else {
+		diff = (-ADC_C_Value + ADC_D_Value);
+	}
+
+	diff = diff * k;
+	diff = (diff > 4096) ? 4096 : diff;
 
 	HI_PERIOD = 2000 * (1.5);
+	if (ADC_C_Value > ADC_D_Value) {
+		DIR = COUNTER_CLOCK_WISE;
+		HI_PERIOD = 2 * (-0.0488 * (4096 - (diff)) + 1700);
 
-	if (DIR == COUNTER_CLOCK_WISE) {
-		HI_PERIOD = 2 * (-0.0488 * (4096 - ADC_C_Value) + 1700);
 	} else {
-		HI_PERIOD = 2 * (0.0488 * (4096 - ADC_C_Value) + 1300);
+		DIR = CLOCK_WISE;
+		HI_PERIOD = 2 * (0.0488 * (4096 - (diff)) + 1300);
+
 	}
+	HI_PERIOD = 2000 * (1.5);
 	__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, HI_PERIOD);
 }
 

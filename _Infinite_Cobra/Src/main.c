@@ -256,10 +256,18 @@ int main(void) {
 		if (onetwo) {
 			memset(ADC_buffer, 0, B_SIZE);
 			sprintf(ADC_buffer, "22222222222\n\r");
-			HAL_UART_Transmit_DMA(&huart1, ADC_buffer, B_SIZE);
-			HAL_UART_Transmit_DMA(&huart2, ADC_buffer, B_SIZE);
-			while (isTransmitting(&huart1, &huart2))
+			//HAL_UART_Transmit_DMA(&huart1, ADC_buffer, B_SIZE);
+			//HAL_UART_Transmit_DMA(&huart2, ADC_buffer, B_SIZE);
+			//while (isTransmitting(&huart1, &huart2))
 				;
+
+			Update_ADC_Values();
+			memset(ADC_buffer, 0, B_SIZE);
+			sprintf(ADC_buffer, "|A|%u|B|%u||C|%u|D|%u||E|%u|F|%u|\n\r", ADC_A_Value, ADC_B_Value, ADC_C_Value, ADC_D_Value, ADC_E_Value, ADC_F_Value);
+						HAL_UART_Transmit_DMA(&huart1, ADC_buffer, B_SIZE);
+						HAL_UART_Transmit_DMA(&huart2, ADC_buffer, B_SIZE);
+						while (isTransmitting(&huart1, &huart2))
+							;
 
 			HAL_UART_Receive_DMA(&huart1, RX_B1, B_SIZE);
 			HAL_UART_Transmit_DMA(&huart1, RX_B1, B_SIZE);
