@@ -246,80 +246,104 @@ int main(void) {
 	ADC_B_Value = 0;
 	ADC_A_Value = 0;
 	int pass_on = 1;
+	int onetwo = 1;
 	while (1) {
 
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */
 		/* Read messages from UART 1 */
+		if (onetwo) {
+			memset(ADC_buffer, 0, B_SIZE);
+			sprintf(ADC_buffer, "22222222222\n\r");
+			HAL_UART_Transmit_DMA(&huart1, ADC_buffer, B_SIZE);
+			HAL_UART_Transmit_DMA(&huart2, ADC_buffer, B_SIZE);
+			while (isTransmitting(&huart1, &huart2))
+				;
 
-		if (pass_on) {
-			read_HX711();
-						memset(ADC_buffer, 0, B_SIZE);
-						sprintf(ADC_buffer, "|A|%u|B|%u|\n\r", ADC_A_Value, ADC_B_Value);
-						HAL_UART_Transmit_DMA(&huart1, ADC_buffer, len);
-						HAL_UART_Transmit_DMA(&huart2, ADC_buffer, len);
-			while (isTransmitting(&huart1, &huart2));
+			HAL_UART_Receive_DMA(&huart1, RX_B1, B_SIZE);
+			HAL_UART_Transmit_DMA(&huart1, RX_B1, B_SIZE);
+			HAL_UART_Transmit_DMA(&huart2, RX_B1, B_SIZE);
+			while (isTransmitting(&huart1, &huart2))
+				;
+
+			HAL_UART_Receive_DMA(&huart2, RX_B2, B_SIZE);
+			HAL_UART_Transmit_DMA(&huart1, RX_B2, B_SIZE);
+			HAL_UART_Transmit_DMA(&huart2, RX_B2, B_SIZE);
+			while (isTransmitting(&huart1, &huart2))
+				;
 
 		} else {
-			HAL_UART_Receive_DMA(&huart1, RX_B1, len);
-			HAL_UART_Receive_DMA(&huart2, RX_B2, len);
-
-			/* Process messages */
-			for (i = 0; i < B_SIZE; i++) {
-				readMSG(msg, RX_B1, &x, &x0);
-				if (msg->complete) {
-					RX_B1[x - 1] = '@';
-					update_value(par, msg);
-
-					contructMSG((char*) TX_B2, msg, B_SIZE);
-					while (isTransmitting(&huart1, &huart2))
-						;
-
-					HAL_UART_Transmit_DMA(&huart2, TX_B2, B_SIZE);
-				}
-			}
-
-			/* Read messages from UART 2 */
-			HAL_UART_Receive_DMA(&huart2, RX_B2, len);
-
-			/* Process messages */
-			for (i = 0; i < B_SIZE; i++) {
-				readMSG(msg, RX_B2, &x, &x0);
-				if (msg->complete) {
-					RX_B2[x - 1] = '@';
-					update_value(par, msg);
-
-					contructMSG((char*) TX_B1, msg, B_SIZE);
-					while (isTransmitting(&huart1, &huart2))
-						;
-					HAL_UART_Transmit_DMA(&huart1, TX_B1, B_SIZE);
-
-				}
-			}
-
-			/* Update Values */
-			update_values(par, ADC_A_Value, ADC_B_Value, ADC_C_Value,
-					ADC_D_Value, ADC_E_Value, ADC_F_Value);
-			update_state(par);
-			//update_control(par);
-
-			/* Create messages to send off */
-			contruct_X_msg('T', par, msgT, TX_T);
-			contruct_X_msg('A', par, msgA, TX_A);
-
-			/* Give the system a second to get up to speed before having a fit */
-			if (HAL_GetTick() > (epoch_INIT + D_INIT)) {
-				/* Send out messages */
+			if (pass_on) {
+				read_HX711();
+				memset(ADC_buffer, 0, B_SIZE);
+				sprintf(ADC_buffer, "|A|%u|B|%u|\n\r", ADC_A_Value,
+						ADC_B_Value);
+				HAL_UART_Transmit_DMA(&huart1, ADC_buffer, len);
+				HAL_UART_Transmit_DMA(&huart2, ADC_buffer, len);
 				while (isTransmitting(&huart1, &huart2))
 					;
-				HAL_UART_Transmit_DMA(&huart1, (uint8_t*) TX_T, B_SIZE);
-				HAL_UART_Transmit_DMA(&huart2, (uint8_t*) TX_T, B_SIZE);
 
-				while (isTransmitting(&huart1, &huart2))
-					;
-				HAL_UART_Transmit_DMA(&huart1, (uint8_t*) TX_A, B_SIZE);
-				HAL_UART_Transmit_DMA(&huart2, (uint8_t*) TX_A, B_SIZE);
+			} else {
+				HAL_UART_Receive_DMA(&huart1, RX_B1, len);
+				HAL_UART_Receive_DMA(&huart2, RX_B2, len);
+
+				/* Process messages */
+				for (i = 0; i < B_SIZE; i++) {
+					readMSG(msg, RX_B1, &x, &x0);
+					if (msg->complete) {
+						RX_B1[x - 1] = '@';
+						update_value(par, msg);
+
+						contructMSG((char*) TX_B2, msg, B_SIZE);
+						while (isTransmitting(&huart1, &huart2))
+							;
+
+						HAL_UART_Transmit_DMA(&huart2, TX_B2, B_SIZE);
+					}
+				}
+
+				/* Read messages from UART 2 */
+				HAL_UART_Receive_DMA(&huart2, RX_B2, len);
+
+				/* Process messages */
+				for (i = 0; i < B_SIZE; i++) {
+					readMSG(msg, RX_B2, &x, &x0);
+					if (msg->complete) {
+						RX_B2[x - 1] = '@';
+						update_value(par, msg);
+
+						contructMSG((char*) TX_B1, msg, B_SIZE);
+						while (isTransmitting(&huart1, &huart2))
+							;
+						HAL_UART_Transmit_DMA(&huart1, TX_B1, B_SIZE);
+
+					}
+				}
+
+				/* Update Values */
+				update_values(par, ADC_A_Value, ADC_B_Value, ADC_C_Value,
+						ADC_D_Value, ADC_E_Value, ADC_F_Value);
+				update_state(par);
+				//update_control(par);
+
+				/* Create messages to send off */
+				contruct_X_msg('T', par, msgT, TX_T);
+				contruct_X_msg('A', par, msgA, TX_A);
+
+				/* Give the system a second to get up to speed before having a fit */
+				if (HAL_GetTick() > (epoch_INIT + D_INIT)) {
+					/* Send out messages */
+					while (isTransmitting(&huart1, &huart2))
+						;
+					HAL_UART_Transmit_DMA(&huart1, (uint8_t*) TX_T, B_SIZE);
+					HAL_UART_Transmit_DMA(&huart2, (uint8_t*) TX_T, B_SIZE);
+
+					while (isTransmitting(&huart1, &huart2))
+						;
+					HAL_UART_Transmit_DMA(&huart1, (uint8_t*) TX_A, B_SIZE);
+					HAL_UART_Transmit_DMA(&huart2, (uint8_t*) TX_A, B_SIZE);
+				}
 			}
 		}
 		/* Toggle LED */
@@ -747,7 +771,7 @@ void read_HX711(void) {
 	LED3_OFF;
 
 	ADC_B_Value = ADC_A_Value;
-return;
+	return;
 }
 
 void transmit(int channel, char* buffer) {

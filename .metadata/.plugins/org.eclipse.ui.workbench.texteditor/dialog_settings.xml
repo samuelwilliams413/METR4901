@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="PWM_PERIOD" key="selection"/>
+		<item value="len" key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="len"/>
 			<item value="PERIOD_VALUE"/>
 			<item value="TIM4"/>
 			<item value="htim4"/>
@@ -15,7 +16,6 @@
 			<item value="DC"/>
 			<item value="DIR"/>
 			<item value="Count"/>
-			<item value="ADC_SAMPLETIME_1CYCLE_5"/>
 		</list>
 		<list key="replacehistory">
 			<item value="PWM_PERIOD"/>
