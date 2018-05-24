@@ -101,7 +101,7 @@
 #define  HX_ENABLE		false
 
 // DELAYS
-#define D_LED		 	500
+#define D_LED		 	100
 #define D_ERROR		 	200
 #define D_INIT		 	5000
 
