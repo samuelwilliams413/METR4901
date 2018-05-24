@@ -1813,3 +1813,6 @@ java.lang.IllegalArgumentException: Index out of bounds
 
 !ENTRY com.atollic.truestudio.debug 4 0 2018-05-24 13:29:16.820
 !MESSAGE Existing sessions are:
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2018-05-24 13:50:43.902
+!MESSAGE Unloading product manager
