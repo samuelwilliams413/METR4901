@@ -167,6 +167,7 @@ int strip_str(uint8_t[], uint8_t[]);
 int channelBusy(UART_HandleTypeDef *);
 void Update_PWM(uint16_t);
 void set_pulse_width(void);
+int get_error(void);
 
 /* USER CODE END PFP */
 
@@ -223,7 +224,7 @@ int main(void) {
 	}
 
 	cbuff = circ_buff_init();
-	par = parameters_init();
+
 	/* USER CODE END 2 */
 
 	/* Infinite loop */
@@ -273,10 +274,13 @@ int main(void) {
 	volatile uint16_t angle = 0;
 	int adc_compare = 0;
 
+	int DEMAND;
+	par = parameters_init();
+
 	if (HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1) != HAL_OK) {
-		/* PWM Generation Error */
-		Error_Handler();
-	}
+			/* PWM Generation Error */
+			Error_Handler();
+		}
 
 	while (1) {
 
@@ -286,26 +290,32 @@ int main(void) {
 		/* Update PWM width */
 		Update_ADC_Values();
 
-		update_values(par, ADC_A_Value, ADC_B_Value, ADC_C_Value,
-								ADC_D_Value, ADC_E_Value, ADC_F_Value);
+		set_p(par, get_error());
+		update_control(par);
 
-		update_state(par);
+		DC = get_T_target(par);
 
+		DC = (DC > 4096) ? 4096 : DC;
 		set_pulse_width();
 
-		while (isTransmitting(&huart1, &huart2))
-			;
-		memset(TX_B1, 0, B_SIZE);
-		sprintf(TX_B1, "C|%lu|D|%lu|DC|%lu|DIR|%lu|HI|%lu|pULSEwIDTH|%lu|\n\r",
-				(unsigned long) ADC_C_Value, (unsigned long) ADC_D_Value, DC,
-				DIR, HI_PERIOD, (HI_PERIOD / 2));
-		HAL_UART_Transmit_DMA(&huart1, TX_B1, B_SIZE);
-		HAL_UART_Transmit_DMA(&huart2, TX_B1, B_SIZE);
+		DEMAND = (DC > 0) ? (DC * 100 / 4096) : (-DC * 100 / 4096);
+
+
 
 		/* Toggle LED */
 		if (HAL_GetTick() > (epoch_LED + D_LED)) {
 			HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
 			epoch_LED = HAL_GetTick();
+
+			while (isTransmitting(&huart1, &huart2))
+						;
+					memset(TX_B1, 0, B_SIZE);
+					sprintf(TX_B1,
+							"C|%lu|\tD|%lu|\tdir|%lu|\tHI|%lu|\tPW|%lu|\tDC|%d|\tE|%d|\tDEMAND|%d|\n\r",
+							(unsigned long) ADC_C_Value, (unsigned long) ADC_D_Value, DIR,
+							HI_PERIOD, (HI_PERIOD / 2), DC, get_error(), DEMAND);
+					HAL_UART_Transmit_DMA(&huart1, TX_B1, B_SIZE);
+					HAL_UART_Transmit_DMA(&huart2, TX_B1, B_SIZE);
 		}
 
 	}
@@ -733,6 +743,16 @@ void Update_ADC_Values(void) {
 	return;
 }
 
+int get_error(void) {
+	int C, D, C_0, D_0;
+	C = ADC_C_Value;
+	D = ADC_D_Value;
+
+	C_0 = 295;
+	D_0 = 0;
+	return (ADC_C_Value - ADC_D_Value);
+}
+
 int emptyRX(uint8_t RX_buffer[]) {
 	int i = 0;
 	for (i = 0; i < (B_SIZE - 2); i++) {
@@ -757,28 +777,17 @@ int strip_str(uint8_t RX_buffer[], uint8_t TX_buffer[]) {
 }
 
 void set_pulse_width(void) {
-	int diff, k = 10;
-
-	if (ADC_C_Value > ADC_D_Value) {
-		diff = (ADC_C_Value - ADC_D_Value);
-	} else {
-		diff = (-ADC_C_Value + ADC_D_Value);
-	}
-
-	diff = diff * k;
-	diff = (diff > 4096) ? 4096 : diff;
-
-	HI_PERIOD = 2000 * (1.5);
-	if (ADC_C_Value > ADC_D_Value) {
+	int DutyCycle = (DC < 0) ? -DC : DC; // ensure always positive
+	if (DC > 0) {
 		DIR = COUNTER_CLOCK_WISE;
-		HI_PERIOD = 2 * (-0.0488 * (4096 - (diff)) + 1700);
+		HI_PERIOD = 2 * (-0.0488 * (4096 - (DutyCycle)) + 1700);
 
 	} else {
 		DIR = CLOCK_WISE;
-		HI_PERIOD = 2 * (0.0488 * (4096 - (diff)) + 1300);
+		HI_PERIOD = 2 * (0.0488 * (4096 - (DutyCycle)) + 1300);
 
 	}
-	HI_PERIOD = 2000 * (1.5);
+	//HI_PERIOD = 2000 * (1.5);
 	__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, HI_PERIOD);
 }
 

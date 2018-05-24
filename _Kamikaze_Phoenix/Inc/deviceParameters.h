@@ -38,13 +38,13 @@ struct MSG;
 struct MAA;
 
 struct PARAMETERS {
-	uint32_t* p; 	// parameters
+	int* p; 	// parameters
 	uint8_t w; 		// width (number of parameters per unit)
-	uint32_t l; 	// limb segment length
-	uint32_t Kp; 	// limb segment length
-	uint32_t Ki; 	// limb segment length
-	uint32_t Kd; 	// limb segment length
-	uint32_t e_last; 	// limb segment length
+	int l; 	// limb segment length
+	int Kp; 	// limb segment length
+	int Ki; 	// limb segment length
+	int Kd; 	// limb segment length
+	int e_last; 	// limb segment length
 	struct MAA* q; 	// Moving average of tracked angle for integral component of PID
 };
 
@@ -58,22 +58,22 @@ typedef struct PARAMETERS PARAMETERS;
 int getEGO(void);
 int getID(uint8_t);
 PARAMETERS* parameters_init(void);
-void update_values(struct PARAMETERS*, uint32_t, uint32_t, uint32_t, uint32_t,
-		uint32_t, uint32_t);
+void update_values(struct PARAMETERS*, int, int, int, int,
+		int, int);
 void update_value(struct PARAMETERS*, struct MSG*);
 void update_state(struct PARAMETERS* );
-double deg2rad(double);
+int deg2rad(int);
 
 /* Get Methods --------------------------------------------------------*/
-uint32_t get_p(struct PARAMETERS*);
-uint32_t get_p_target(struct PARAMETERS*);
-uint32_t get_p_error(struct PARAMETERS*);
-uint32_t get_T_target(struct PARAMETERS*);
+int get_p(struct PARAMETERS*);
+int get_p_target(struct PARAMETERS*);
+int get_p_error(struct PARAMETERS*);
+int get_T_target(struct PARAMETERS*);
 /* Set Methods --------------------------------------------------------*/
-void set_p(struct PARAMETERS*, uint32_t);
-void set_p_target(struct PARAMETERS*, uint32_t);
-void set_p_error(struct PARAMETERS*, uint32_t);
-void set_T_target(struct PARAMETERS*, uint32_t);
+void set_p(struct PARAMETERS*, int);
+void set_p_target(struct PARAMETERS*, int);
+void set_p_error(struct PARAMETERS*, int);
+void set_T_target(struct PARAMETERS*, int);
 
 #endif /* __deviceParameters_H */
 

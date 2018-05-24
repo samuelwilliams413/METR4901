@@ -72,7 +72,7 @@ PARAMETERS* parameters_init(void) {
 	 */
 	PARAMETERS* par = (struct PARAMETERS*) malloc(
 			sizeof(struct PARAMETERS) * 1);
-	par->p = (uint32_t*) malloc(sizeof(uint32_t) * w * h);
+	par->p = (int*) malloc(sizeof(int) * w * h);
 	memset(par->p, 0, w * h);
 
 	par->w = w;
@@ -101,12 +101,12 @@ PARAMETERS* parameters_init(void) {
 	getPIDparameters(&(par->Kp), &(par->Ki), &(par->Kd));
 	par->q = (MAA*) malloc(sizeof(MAA));
 	par->q->len = 5;
-	par->q->buffer = (uint32_t*) malloc(sizeof(uint32_t) * par->q->len);
+	par->q->buffer = (int*) malloc(sizeof(int) * par->q->len);
 	return par;
 }
 
-void update_values(struct PARAMETERS* par, uint32_t A, uint32_t B, uint32_t C,
-		uint32_t D, uint32_t E, uint32_t F) {
+void update_values(struct PARAMETERS* par, int A, int B, int C,
+		int D, int E, int F) {
 
 	par->p[(getEGO() * par->w) + LA] = A;
 	par->p[(getEGO() * par->w) + LB] = B;
@@ -143,15 +143,15 @@ void update_value(struct PARAMETERS* par, struct MSG* msg) {
 	return;
 }
 
-double deg2rad(double angle) {
-	double val;
+int deg2rad(int angle) {
+	int val;
 	val = 180 / PI;
 	return angle * val;
 }
 
 void update_state(struct PARAMETERS* par) {
 	int average_f, average_r;
-	double dx, angle;
+	int dx, angle;
 
 	/* Get average signal strength in mm  */
 	average_f = (sig2mm(par->p[(getEGO() * par->w) + PC])
@@ -166,42 +166,45 @@ void update_state(struct PARAMETERS* par) {
 	angle = atan(dx / (par->l));
 	angle = deg2rad(angle);
 
+
 	par->p[(getEGO() * par->w) + DA] = angle; // The desired angle is the pilots angle
 
 	return;
 }
 
 /* Get Methods --------------------------------------------------------*/
-uint32_t get_p(struct PARAMETERS* par) {
+int get_p(struct PARAMETERS* par) {
 	return par->p[(getEGO() * par->w) + YA];
 }
 
-uint32_t get_p_target(struct PARAMETERS* par) {
+int get_p_target(struct PARAMETERS* par) {
 	return par->p[(getEGO() * par->w) + DA];
 }
 
-uint32_t get_p_error(struct PARAMETERS* par) {
+int get_p_error(struct PARAMETERS* par) {
 	return par->p[(getEGO() * par->w) + EA];
 }
 
-uint32_t get_T_target(struct PARAMETERS* par) {
+int get_T_target(struct PARAMETERS* par) {
 	return par->p[(getEGO() * par->w) + DT];
 }
 
 /* Set Methods --------------------------------------------------------*/
-void set_p(struct PARAMETERS* par, uint32_t p) {
+void set_p(struct PARAMETERS* par, int p) {
 	par->p[(getEGO() * par->w) + YA] = p;
 }
 
-void set_p_target(struct PARAMETERS* par, uint32_t p) {
+void set_p_target(struct PARAMETERS* par, int p) {
+	p = (p > 4096) ? 4096 : p;
+	p = (p < 0) ? 0 : p;
 	par->p[(getEGO() * par->w) + DA] = p;
 }
 
-void set_p_error(struct PARAMETERS* par, uint32_t p) {
+void set_p_error(struct PARAMETERS* par, int p) {
 	par->p[(getEGO() * par->w) + EA] = p;
 }
 
-void set_T_target(struct PARAMETERS* par, uint32_t p) {
+void set_T_target(struct PARAMETERS* par, int p) {
 	par->p[(getEGO() * par->w) + DT] = p;
 }
 

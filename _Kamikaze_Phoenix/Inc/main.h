@@ -101,9 +101,9 @@
 #define  HX_ENABLE		false
 
 // DELAYS
-#define D_LED		 	25
+#define D_LED		 	500
 #define D_ERROR		 	200
-#define D_INIT		 	1000
+#define D_INIT		 	5000
 
 void transmit(int, char*);
 void msgERROR_init(void);

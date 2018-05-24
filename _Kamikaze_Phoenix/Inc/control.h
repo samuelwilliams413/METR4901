@@ -12,7 +12,7 @@
 #include "main.h"
 /* Exported types ------------------------------------------------------------*/
  struct MAA {
-	uint32_t*  buffer;
+	int*  buffer;
 	int head;
 	int len;
 }; // Moving average array
@@ -35,18 +35,19 @@ struct PARAMETERS;
 #define Ki_S	5885
 #define Kd_S	447
 
-#define Kp_F	1860
-#define Ki_F	3360
-#define Kd_F	258
+#define Kp_F	0
+#define Ki_F	5
+#define Kd_F	0
 
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 void control(void);
-uint32_t get_integral(MAA*);
-void maaPush(MAA*, uint8_t);
-void getPIDparameters(uint32_t*, uint32_t*, uint32_t*);
+int get_integral(MAA*);
+void maaPush(MAA*, int);
+void getPIDparameters(int*, int*, int*);
 void update_control(struct PARAMETERS* par);
+int maaAverage(MAA* q);
 
 #endif /* __msgProcessing_H */
 
