@@ -35,8 +35,8 @@ struct PARAMETERS;
 #define Ki_S	5885
 #define Kd_S	447
 
-#define Kp_F	75
-#define Ki_F	5
+#define Kp_F	100
+#define Ki_F	0
 #define Kd_F	0
 
 
