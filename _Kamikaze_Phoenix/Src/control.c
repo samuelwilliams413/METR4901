@@ -63,12 +63,12 @@ void update_control(struct PARAMETERS* par) {
 
 	Ep = e;
 	Ei = get_integral(par->q);
-	Ei = Ei/10;
+	Ei = Ei;
 	Ed = e - par->e_last;
 
 	par->e_last = e;
 
-	T = (par->Kp * Ep + par->Ki * Ei + par->Kd * Ed);
+	T = (par->Kp * Ep + (par->Ki * Ei)/1000 + par->Kd * Ed);
 	T = T/10000;
 	set_T_target(par, T);
 	return;

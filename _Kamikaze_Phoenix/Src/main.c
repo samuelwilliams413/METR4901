@@ -292,7 +292,7 @@ int main(void) {
 		/* USER CODE BEGIN 3 */
 		/* Update PWM width */
 		Update_ADC_Values();
-		delta = (ADC_D_Value - ADC_C_Value);
+		delta = (-ADC_D_Value + ADC_C_Value);
 		if (delta > 0) {
 			angle = 5;
 		} else {
@@ -312,6 +312,16 @@ int main(void) {
 
 			HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
 			epoch_LED = HAL_GetTick();
+
+			while (isTransmitting(&huart1, &huart2))
+				;
+			memset(TX_B1, 0, B_SIZE);
+			sprintf(TX_B1,
+					"C|%lu|\tD|%lu|\tdir|%lu|\tHI|%lu|\tPW|%lu|\tDC|%d|\tE|%d|\tDEMAND|%d|\n\r",
+					(unsigned long) ADC_C_Value, (unsigned long) ADC_D_Value,
+					DIR, HI_PERIOD, (HI_PERIOD / 2), DC, get_error(), delta);
+			HAL_UART_Transmit_DMA(&huart1, TX_B1, B_SIZE);
+			HAL_UART_Transmit_DMA(&huart2, TX_B1, B_SIZE);
 
 		}
 
@@ -775,8 +785,8 @@ void set_pulse_width(void) {
 	DutyCycle = 4096 - DutyCycle;
 	int max = 2300, min = 700;
 
-	max = 1500 + 400;
-	min = 1500 - 400;
+	//max = 1500 + 400;
+	//min = 1500 - 400;
 	int servoMotor = 1, DCMotor;
 	DCMotor = (servoMotor + 1) % 2;
 
@@ -812,7 +822,7 @@ void set_pulse_width(void) {
 	int zero = 0;
 
 	if (zero) {
-		HI_PERIOD = 2000 * (1.5);
+		HI_PERIOD = 2000 * (2.3);
 	}
 
 	__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, HI_PERIOD);

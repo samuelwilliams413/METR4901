@@ -194,6 +194,9 @@ int main(void) {
 	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig_C) != HAL_OK) {
 		_Error_Handler(__FILE__, __LINE__);
 	}
+	if (HAL_ADC_ConfigChannel(&hadc1, &sConfig_A) != HAL_OK) {
+		_Error_Handler(__FILE__, __LINE__);
+	}
 
 	cbuff = circ_buff_init();
 	par = parameters_init();
@@ -252,108 +255,15 @@ int main(void) {
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */
-		/* Read messages from UART 1 */
-		if (onetwo) {
-			memset(ADC_buffer, 0, B_SIZE);
-			sprintf(ADC_buffer, "22222222222\n\r");
-			//HAL_UART_Transmit_DMA(&huart1, ADC_buffer, B_SIZE);
-			//HAL_UART_Transmit_DMA(&huart2, ADC_buffer, B_SIZE);
-			//while (isTransmitting(&huart1, &huart2))
-				;
-
-			Update_ADC_Values();
-			memset(ADC_buffer, 0, B_SIZE);
-			sprintf(ADC_buffer, "|A|%u|B|%u||C|%u|D|%u||E|%u|F|%u|\n\r", ADC_A_Value, ADC_B_Value, ADC_C_Value, ADC_D_Value, ADC_E_Value, ADC_F_Value);
-						HAL_UART_Transmit_DMA(&huart1, ADC_buffer, B_SIZE);
-						HAL_UART_Transmit_DMA(&huart2, ADC_buffer, B_SIZE);
-						while (isTransmitting(&huart1, &huart2))
-							;
-
-			HAL_UART_Receive_DMA(&huart1, RX_B1, B_SIZE);
-			HAL_UART_Transmit_DMA(&huart1, RX_B1, B_SIZE);
-			HAL_UART_Transmit_DMA(&huart2, RX_B1, B_SIZE);
-			while (isTransmitting(&huart1, &huart2))
-				;
-
-			HAL_UART_Receive_DMA(&huart2, RX_B2, B_SIZE);
-			HAL_UART_Transmit_DMA(&huart1, RX_B2, B_SIZE);
-			HAL_UART_Transmit_DMA(&huart2, RX_B2, B_SIZE);
-			while (isTransmitting(&huart1, &huart2))
-				;
-
-		} else {
-			if (pass_on) {
-				read_HX711();
-				memset(ADC_buffer, 0, B_SIZE);
-				sprintf(ADC_buffer, "|A|%u|B|%u|\n\r", ADC_A_Value,
-						ADC_B_Value);
-				HAL_UART_Transmit_DMA(&huart1, ADC_buffer, len);
-				HAL_UART_Transmit_DMA(&huart2, ADC_buffer, len);
-				while (isTransmitting(&huart1, &huart2))
-					;
-
-			} else {
-				HAL_UART_Receive_DMA(&huart1, RX_B1, len);
-				HAL_UART_Receive_DMA(&huart2, RX_B2, len);
-
-				/* Process messages */
-				for (i = 0; i < B_SIZE; i++) {
-					readMSG(msg, RX_B1, &x, &x0);
-					if (msg->complete) {
-						RX_B1[x - 1] = '@';
-						update_value(par, msg);
-
-						contructMSG((char*) TX_B2, msg, B_SIZE);
-						while (isTransmitting(&huart1, &huart2))
-							;
-
-						HAL_UART_Transmit_DMA(&huart2, TX_B2, B_SIZE);
-					}
-				}
-
-				/* Read messages from UART 2 */
-				HAL_UART_Receive_DMA(&huart2, RX_B2, len);
-
-				/* Process messages */
-				for (i = 0; i < B_SIZE; i++) {
-					readMSG(msg, RX_B2, &x, &x0);
-					if (msg->complete) {
-						RX_B2[x - 1] = '@';
-						update_value(par, msg);
-
-						contructMSG((char*) TX_B1, msg, B_SIZE);
-						while (isTransmitting(&huart1, &huart2))
-							;
-						HAL_UART_Transmit_DMA(&huart1, TX_B1, B_SIZE);
-
-					}
-				}
-
-				/* Update Values */
-				update_values(par, ADC_A_Value, ADC_B_Value, ADC_C_Value,
-						ADC_D_Value, ADC_E_Value, ADC_F_Value);
-				update_state(par);
-				//update_control(par);
-
-				/* Create messages to send off */
-				contruct_X_msg('T', par, msgT, TX_T);
-				contruct_X_msg('A', par, msgA, TX_A);
-
-				/* Give the system a second to get up to speed before having a fit */
-				if (HAL_GetTick() > (epoch_INIT + D_INIT)) {
-					/* Send out messages */
-					while (isTransmitting(&huart1, &huart2))
-						;
-					HAL_UART_Transmit_DMA(&huart1, (uint8_t*) TX_T, B_SIZE);
-					HAL_UART_Transmit_DMA(&huart2, (uint8_t*) TX_T, B_SIZE);
-
-					while (isTransmitting(&huart1, &huart2))
-						;
-					HAL_UART_Transmit_DMA(&huart1, (uint8_t*) TX_A, B_SIZE);
-					HAL_UART_Transmit_DMA(&huart2, (uint8_t*) TX_A, B_SIZE);
-				}
-			}
-		}
+		Update_ADC_Values();
+		memset(ADC_buffer, 0, B_SIZE);
+		sprintf(ADC_buffer, "|A|%u|B|%u||C|%u|D|%u||E|%u|F|%u|\n\r",
+				ADC_A_Value, ADC_B_Value, ADC_C_Value, ADC_D_Value, ADC_E_Value,
+				ADC_F_Value);
+		HAL_UART_Transmit_DMA(&huart1, ADC_buffer, B_SIZE);
+		HAL_UART_Transmit_DMA(&huart2, ADC_buffer, B_SIZE);
+		while (isTransmitting(&huart1, &huart2))
+			;
 		/* Toggle LED */
 		if (HAL_GetTick() > (epoch_LED + D_LED)) {
 			HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
@@ -486,13 +396,23 @@ static void MX_ADC1_Init(void) {
 
 	/**Configure Regular Channel
 	 */
-	sConfig.Channel = ADC_CHANNEL_1;
-	sConfig.Rank = ADC_REGULAR_RANK_1;
-	sConfig.SingleDiff = ADC_SINGLE_ENDED;
-	sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
-	sConfig.OffsetNumber = ADC_OFFSET_NONE;
-	sConfig.Offset = 0;
-	if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK) {
+	sConfig_A.Channel = ADC_CHANNEL_1;
+	sConfig_A.Rank = ADC_REGULAR_RANK_1;
+	sConfig_A.SingleDiff = ADC_SINGLE_ENDED;
+	sConfig_A.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+	sConfig_A.OffsetNumber = ADC_OFFSET_NONE;
+	sConfig_A.Offset = 0;
+	if (HAL_ADC_ConfigChannel(&hadc1, &sConfig_A) != HAL_OK) {
+		_Error_Handler(__FILE__, __LINE__);
+	}
+
+	sConfig_B.Channel = ADC_CHANNEL_2;
+	sConfig_B.Rank = ADC_REGULAR_RANK_1;
+	sConfig_B.SingleDiff = ADC_SINGLE_ENDED;
+	sConfig_B.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+	sConfig_B.OffsetNumber = ADC_OFFSET_NONE;
+	sConfig_B.Offset = 0;
+	if (HAL_ADC_ConfigChannel(&hadc1, &sConfig_B) != HAL_OK) {
 		_Error_Handler(__FILE__, __LINE__);
 	}
 
@@ -657,6 +577,37 @@ static void MX_GPIO_Init(void) {
 
 /* USER CODE BEGIN 4 */
 void Update_ADC_Values(void) {
+	/* Read ADC_A
+	 * ADC A */
+	if (HAL_ADC_ConfigChannel(&hadc1, &sConfig_A) != HAL_OK) {
+		Error_Handler();
+	}
+	if (HAL_ADC_Start(&hadc1) != HAL_OK) {
+		Error_Handler();
+	}
+	if (HAL_ADC_PollForConversion(&hadc1, 50) == HAL_OK) {
+		ADC_B_Value = HAL_ADC_GetValue(&hadc1);
+	}
+	if (HAL_ADC_Stop(&hadc1) != HAL_OK) {
+		Error_Handler();
+	}
+	HAL_Delay(1);
+	/* Read ADC_C
+	 * ADC B */
+	if (HAL_ADC_ConfigChannel(&hadc1, &sConfig_B) != HAL_OK) {
+		Error_Handler();
+	}
+	if (HAL_ADC_Start(&hadc1) != HAL_OK) {
+		Error_Handler();
+	}
+	if (HAL_ADC_PollForConversion(&hadc1, 50) == HAL_OK) {
+		ADC_A_Value = HAL_ADC_GetValue(&hadc1);
+	}
+	if (HAL_ADC_Stop(&hadc1) != HAL_OK) {
+		Error_Handler();
+	}
+	HAL_Delay(1);
+
 	/* Read ADC_C
 	 * ADC C = PA4 = A3 = ADC2 Channel 1 */
 	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig_C) != HAL_OK) {
