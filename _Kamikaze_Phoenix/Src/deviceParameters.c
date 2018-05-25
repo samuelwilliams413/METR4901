@@ -50,7 +50,7 @@ int getEGO(void) {
 }
 
 PARAMETERS* parameters_init(void) {
-	int h, w;
+	int h, w, i;
 	h = 6; // six units to the suit
 	w = 11; // ten types of points stored
 	/*
@@ -100,8 +100,13 @@ PARAMETERS* parameters_init(void) {
 
 	getPIDparameters(&(par->Kp), &(par->Ki), &(par->Kd));
 	par->q = (MAA*) malloc(sizeof(MAA));
-	par->q->len = 5;
+	par->q->head = 0;
+	par->q->len = 100;
 	par->q->buffer = (int*) malloc(sizeof(int) * par->q->len);
+
+	for (i = 0; i < par->q->len; i++) {
+		par->q->buffer[i] = i;
+	}
 	return par;
 }
 

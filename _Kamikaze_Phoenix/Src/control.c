@@ -58,18 +58,18 @@ void update_control(struct PARAMETERS* par) {
 
 	//e = get_p_target(par) - get_p(par);
 	e = get_p(par);
+
 	maaPush(par->q, e);
 
 	Ep = e;
 	Ei = get_integral(par->q);
+	Ei = Ei/10;
 	Ed = e - par->e_last;
 
 	par->e_last = e;
 
 	T = (par->Kp * Ep + par->Ki * Ei + par->Kd * Ed);
-	T = T/100;
-	//T = (T < 0) ? 0 : T;
-
+	T = T/10000;
 	set_T_target(par, T);
 	return;
 }
@@ -87,8 +87,8 @@ int get_integral(MAA* q) {
 void maaPush(MAA* q, int e) {
 	int i = 1 + q->head;
 	i = (i > q->len) ? 0 : i;
-	q->buffer[i] = e;
 	q->head = i;
+	q->buffer[i] = e;
 	return;
 }
 

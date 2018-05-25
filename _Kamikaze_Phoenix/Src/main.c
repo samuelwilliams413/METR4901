@@ -294,14 +294,15 @@ int main(void) {
 		Update_ADC_Values();
 		delta = (ADC_D_Value - ADC_C_Value);
 		if (delta > 0) {
-			angle = 1;
+			angle = 5;
 		} else {
-			angle = -1;
+			angle = -5;
 		}
-
-		DC = DC + angle;
-
-
+		angle = delta / 10;
+		set_p(par, delta);
+		update_control(par);
+		delta = get_T_target(par);
+		DC = DC + delta;
 		set_pulse_width();
 
 		//DEMAND = (DC > 0) ? (DC * 100 / 4096) : (-DC * 100 / 4096);
@@ -311,25 +312,7 @@ int main(void) {
 
 			HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
 			epoch_LED = HAL_GetTick();
-			if (adc_compare) {
-				while (isTransmitting(&huart1, &huart2))
-					;
-				memset(TX_B1, 0, B_SIZE);
-				sprintf(TX_B1,
-						"C|%lu|\tD|%lu|\t\tPW|%lu|\tDC|%d|\tA|%d|\t%d\n\r",
-						(unsigned long) ADC_C_Value,
-						(unsigned long) ADC_D_Value, (HI_PERIOD / 2), DC,
-						angle, delta);
-				HAL_UART_Transmit_DMA(&huart1, TX_B1, B_SIZE);
-				HAL_UART_Transmit_DMA(&huart2, TX_B1, B_SIZE);
-			} else {
-				memset(TX_B1, 0, B_SIZE);
-				sprintf(TX_B1, "C|%lu|\tD|%lu|\tDC|%d|\tPW|%lu|\n\r",
-						(unsigned long) ADC_C_Value,
-						(unsigned long) ADC_D_Value, DC, (HI_PERIOD / 2), DIR);
-				HAL_UART_Transmit_DMA(&huart1, TX_B1, B_SIZE);
-				HAL_UART_Transmit_DMA(&huart2, TX_B1, B_SIZE);
-			}
+
 		}
 
 	}
@@ -698,7 +681,7 @@ void Update_ADC_Values(void) {
 	if (HAL_ADC_Start(&hadc2) != HAL_OK) {
 		Error_Handler();
 	}
-	if (HAL_ADC_PollForConversion(&hadc2, 50) == HAL_OK) {
+	if (HAL_ADC_PollForConversion(&hadc2, 1) == HAL_OK) {
 		ADC_C_Value = HAL_ADC_GetValue(&hadc2);
 	}
 	if (HAL_ADC_Stop(&hadc2) != HAL_OK) {
@@ -714,7 +697,7 @@ void Update_ADC_Values(void) {
 	if (HAL_ADC_Start(&hadc2) != HAL_OK) {
 		Error_Handler();
 	}
-	if (HAL_ADC_PollForConversion(&hadc2, 50) == HAL_OK) {
+	if (HAL_ADC_PollForConversion(&hadc2, 1) == HAL_OK) {
 		ADC_D_Value = HAL_ADC_GetValue(&hadc2);
 	}
 	if (HAL_ADC_Stop(&hadc2) != HAL_OK) {
@@ -730,7 +713,7 @@ void Update_ADC_Values(void) {
 	if (HAL_ADC_Start(&hadc2) != HAL_OK) {
 		Error_Handler();
 	}
-	if (HAL_ADC_PollForConversion(&hadc2, 50) == HAL_OK) {
+	if (HAL_ADC_PollForConversion(&hadc2, 1) == HAL_OK) {
 		ADC_E_Value = HAL_ADC_GetValue(&hadc2);
 	}
 	if (HAL_ADC_Stop(&hadc2) != HAL_OK) {
@@ -746,7 +729,7 @@ void Update_ADC_Values(void) {
 	if (HAL_ADC_Start(&hadc2) != HAL_OK) {
 		Error_Handler();
 	}
-	if (HAL_ADC_PollForConversion(&hadc2, 50) == HAL_OK) {
+	if (HAL_ADC_PollForConversion(&hadc2, 1) == HAL_OK) {
 		ADC_F_Value = HAL_ADC_GetValue(&hadc2);
 	}
 	if (HAL_ADC_Stop(&hadc2) != HAL_OK) {
