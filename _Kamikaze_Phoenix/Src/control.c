@@ -58,7 +58,6 @@ void update_control(struct PARAMETERS* par) {
 
 	//e = get_p_target(par) - get_p(par);
 	e = get_p(par);
-	e = e;
 	maaPush(par->q, e);
 
 	Ep = e;
