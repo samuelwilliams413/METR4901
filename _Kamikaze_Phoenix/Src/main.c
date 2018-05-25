@@ -271,16 +271,19 @@ int main(void) {
 	msgERROR_init();
 	epoch_INIT = HAL_GetTick();
 
-	volatile uint16_t angle = 0;
 	int adc_compare = 1;
 
 	int DEMAND, delta;
 	par = parameters_init();
+	int k = 25;
+	volatile int angle = 0;
 
 	if (HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1) != HAL_OK) {
 		/* PWM Generation Error */
 		Error_Handler();
 	}
+
+	DC = 2048;
 
 	while (1) {
 
@@ -289,22 +292,14 @@ int main(void) {
 		/* USER CODE BEGIN 3 */
 		/* Update PWM width */
 		Update_ADC_Values();
+		delta = (ADC_D_Value - ADC_C_Value);
+		if (delta > 0) {
+			angle = 1;
+		} else {
+			angle = -1;
+		}
 
-		set_p(par, get_error());
-		update_control(par);
-
-		delta = get_T_target(par);
-
-
-		delta = delta - 2048;
-
-		angle = angle + delta;
-
-		DC = DC + delta;
-		DC = get_T_target(par);
-
-		//DC = (ADC_C_Value > 4096) ? 4096 : ADC_C_Value;
-		//DC = (ADC_C_Value + ADC_D_Value)/2;
+		DC = DC + angle;
 
 
 		set_pulse_width();
@@ -313,6 +308,7 @@ int main(void) {
 
 		/* Toggle LED */
 		if (HAL_GetTick() > (epoch_LED + D_LED)) {
+
 			HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
 			epoch_LED = HAL_GetTick();
 			if (adc_compare) {
@@ -320,15 +316,15 @@ int main(void) {
 					;
 				memset(TX_B1, 0, B_SIZE);
 				sprintf(TX_B1,
-						"C|%lu|\tD|%lu|\tdir|%lu|\tHI|%lu|\tPW|%lu|\tDC|%d|\tE|%d|\tDEMAND|%d|\delta|%d|\n\r",
+						"C|%lu|\tD|%lu|\t\tPW|%lu|\tDC|%d|\tA|%d|\t%d\n\r",
 						(unsigned long) ADC_C_Value,
-						(unsigned long) ADC_D_Value, DIR, HI_PERIOD,
-						(HI_PERIOD / 2), DC, get_error(), DEMAND, delta);
+						(unsigned long) ADC_D_Value, (HI_PERIOD / 2), DC,
+						angle, delta);
 				HAL_UART_Transmit_DMA(&huart1, TX_B1, B_SIZE);
 				HAL_UART_Transmit_DMA(&huart2, TX_B1, B_SIZE);
 			} else {
 				memset(TX_B1, 0, B_SIZE);
-				sprintf(TX_B1, "C|%lu|\tD|%lu|\tDC|%d|\tPW|%lu|\tdir|%lu|\n\r",
+				sprintf(TX_B1, "C|%lu|\tD|%lu|\tDC|%d|\tPW|%lu|\n\r",
 						(unsigned long) ADC_C_Value,
 						(unsigned long) ADC_D_Value, DC, (HI_PERIOD / 2), DIR);
 				HAL_UART_Transmit_DMA(&huart1, TX_B1, B_SIZE);
@@ -762,7 +758,7 @@ void Update_ADC_Values(void) {
 }
 
 int get_error(void) {
-	return (ADC_C_Value + ADC_D_Value)/2;
+	return (2048 + ((ADC_C_Value - ADC_D_Value) / 2));
 }
 
 int emptyRX(uint8_t RX_buffer[]) {
@@ -789,9 +785,15 @@ int strip_str(uint8_t RX_buffer[], uint8_t TX_buffer[]) {
 }
 
 void set_pulse_width(void) {
+	DC = (DC > 4096) ? 4096 : DC;
+	DC = (DC < 0) ? 0 : DC;
+
 	int DutyCycle = (DC < 0) ? -DC : DC; // ensure always positive
 	DutyCycle = 4096 - DutyCycle;
-	int max = 2000, min = 1000;
+	int max = 2300, min = 700;
+
+	max = 1500 + 400;
+	min = 1500 - 400;
 	int servoMotor = 1, DCMotor;
 	DCMotor = (servoMotor + 1) % 2;
 
@@ -819,14 +821,14 @@ void set_pulse_width(void) {
 	}
 
 	if (servoMotor) {
-		HI_PERIOD = (((max - min) / 4096.0) * DutyCycle) + min;
+		HI_PERIOD = (((max - min) * DutyCycle / 4096.0)) + min;
 		HI_PERIOD = 2 * HI_PERIOD;
 
 	}
 
 	int zero = 0;
 
-	if(zero) {
+	if (zero) {
 		HI_PERIOD = 2000 * (1.5);
 	}
 
