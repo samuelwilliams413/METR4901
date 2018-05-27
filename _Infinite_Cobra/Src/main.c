@@ -250,16 +250,28 @@ int main(void) {
 	ADC_A_Value = 0;
 	int pass_on = 1;
 	int onetwo = 1;
+	int mA = 0, mB = 0, count = 0;;
+
 	while (1) {
 
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */
 		Update_ADC_Values();
+		//mA = mA + ADC_A_Value;
+		//mB = mB + ADC_B_Value;
+		mA = mA + -1.6614*ADC_A_Value + 5178.8;
+		mB = mB + -17.484*ADC_B_Value + 26220;
+
+		mA = (mA < 0) ? 0 : mA;
+		mB = (mB < 0) ? 0 : mB;
+
+
+		count = count+1;
+
 		memset(ADC_buffer, 0, B_SIZE);
-		sprintf(ADC_buffer, "|A|%u|B|%u||C|%u|D|%u||E|%u|F|%u|\n\r",
-				ADC_A_Value, ADC_B_Value, ADC_C_Value, ADC_D_Value, ADC_E_Value,
-				ADC_F_Value);
+		sprintf(ADC_buffer, "|A|%u|\tB|%u|\t|mA|%u|\tmB|%u|\t\n\r",
+				ADC_A_Value, ADC_B_Value, mA/count, mB/count);
 		HAL_UART_Transmit_DMA(&huart1, ADC_buffer, B_SIZE);
 		HAL_UART_Transmit_DMA(&huart2, ADC_buffer, B_SIZE);
 		while (isTransmitting(&huart1, &huart2))
@@ -586,7 +598,7 @@ void Update_ADC_Values(void) {
 		Error_Handler();
 	}
 	if (HAL_ADC_PollForConversion(&hadc1, 50) == HAL_OK) {
-		ADC_B_Value = HAL_ADC_GetValue(&hadc1);
+		ADC_A_Value = HAL_ADC_GetValue(&hadc1);
 	}
 	if (HAL_ADC_Stop(&hadc1) != HAL_OK) {
 		Error_Handler();
@@ -601,7 +613,7 @@ void Update_ADC_Values(void) {
 		Error_Handler();
 	}
 	if (HAL_ADC_PollForConversion(&hadc1, 50) == HAL_OK) {
-		ADC_A_Value = HAL_ADC_GetValue(&hadc1);
+		ADC_B_Value = HAL_ADC_GetValue(&hadc1);
 	}
 	if (HAL_ADC_Stop(&hadc1) != HAL_OK) {
 		Error_Handler();

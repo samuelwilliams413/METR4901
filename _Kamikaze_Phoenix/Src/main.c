@@ -283,7 +283,7 @@ int main(void) {
 		Error_Handler();
 	}
 
-	DC = 2048;
+	DC = 0;
 
 	while (1) {
 
@@ -783,7 +783,7 @@ void set_pulse_width(void) {
 
 	int DutyCycle = (DC < 0) ? -DC : DC; // ensure always positive
 	DutyCycle = 4096 - DutyCycle;
-	int max = 2300, min = 700;
+	int max = 2500, min = 700;
 
 	//max = 1500 + 400;
 	//min = 1500 - 400;
