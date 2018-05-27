@@ -281,8 +281,8 @@ int main(void) {
 	int mA = 0, mB = 0, count = 0, loadIndex = 0, loadBot, loadTop;
 
 	int DEMAND, delta;
-		par = parameters_init();
-		volatile int angle = 0;
+	par = parameters_init();
+	volatile int angle = 0;
 
 	if (HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1) != HAL_OK) {
 		/* PWM Generation Error */
@@ -296,6 +296,13 @@ int main(void) {
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */
+
+
+
+
+
+
+
 		Update_ADC_Values();
 
 		mA = -1.6614 * ADC_A_Value + 5178.8;
@@ -310,30 +317,41 @@ int main(void) {
 
 		loadBot = 0;
 		for (i = 0; i < loadBufferLen; i++) {
-			loadBot= loadBot + mA_Buff[i];
-			loadTop= loadTop + mB_Buff[i];
+			loadBot = loadBot + mA_Buff[i];
+			loadTop = loadTop + mB_Buff[i];
 		}
 
 		loadBot = loadBot / loadBufferLen;
 		loadTop = loadTop / loadBufferLen;
 
-		delta = (loadTop+500);
-		delta = (loadBot > (loadTop+500)) ? 0 : delta;
-				DC = delta;
-				set_pulse_width();
+		delta = (loadTop + 500);
+		delta = (loadBot > (loadTop + 500)) ? 0 : delta;
+		DC = delta;
+		set_pulse_width();
 
-		memset(ADC_buffer, 0, B_SIZE);
-		sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r",
-				ADC_A_Value, ADC_B_Value, loadBot,
-				loadTop, DC);
-		HAL_UART_Transmit_DMA(&huart1, ADC_buffer, B_SIZE);
-		HAL_UART_Transmit_DMA(&huart2, ADC_buffer, B_SIZE);
+		/* Create messages to send off */
+		set_T_target(par, 1000*delta);
+		contruct_X_msg('T', par, msgT, TX_T);
+
+		/* Send out messages */
 		while (isTransmitting(&huart1, &huart2))
 			;
+		HAL_UART_Transmit_DMA(&huart1, (uint8_t*) TX_T, B_SIZE);
+		HAL_UART_Transmit_DMA(&huart2, (uint8_t*) TX_T, B_SIZE);
+
 		/* Toggle LED */
 		if (HAL_GetTick() > (epoch_LED + D_LED)) {
 			HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
 			epoch_LED = HAL_GetTick();
+
+			while (isTransmitting(&huart1, &huart2))
+							;
+			memset(ADC_buffer, 0, B_SIZE);
+			sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+					ADC_B_Value, loadBot, loadTop, DC);
+			HAL_UART_Transmit_DMA(&huart1, ADC_buffer, B_SIZE);
+			HAL_UART_Transmit_DMA(&huart2, ADC_buffer, B_SIZE);
+
 		}
 
 	}
@@ -859,7 +877,7 @@ void set_pulse_width(void) {
 
 	}
 
-	int littleServoMotor =1;
+	int littleServoMotor = 1;
 
 	if (littleServoMotor) {
 		HI_PERIOD = (((maxL - minL) * DC / 4096.0)) + minL;

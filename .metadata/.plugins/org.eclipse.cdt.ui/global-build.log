@@ -1419,3 +1419,535 @@ Output sent to: _Lucky_Boar.list
 Generate listing file done
 Generate build reports done
 Info: Parallel threads used: 1
+08:50:11 **** Incremental Build of configuration Debug for project _Infinite_Cobra ****
+Info: Internal Builder is used for build
+Info: Parallel threads used: 0
+08:52:35 **** Incremental Build of configuration Debug for project _Lucky_Boar ****
+Info: Internal Builder is used for build
+Info: Parallel threads used: 0
+08:55:53 **** Incremental Build of configuration Debug for project _Lucky_Boar ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:266:10: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  sprintf(TX_B1, "\n\r\n\r/* BOOT COMPLETE -> INITIALISING [%d] */\n\r\n\r",
+          ^~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdlib.h:11:0,
+                 from ../Inc/main.h:47,
+                 from ..\Src\main.c:39:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:326:23: warning: unknown escape sequence: '\D'
+   sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+..\Src\main.c:326:11: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+   sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+           ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdlib.h:11:0,
+                 from ../Inc/main.h:47,
+                 from ..\Src\main.c:39:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:326:26: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+                          ^
+..\Src\main.c:326:31: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+                               ^
+..\Src\main.c:285:15: warning: unused variable 'angle' [-Wunused-variable]
+  volatile int angle = 0;
+               ^~~~~
+..\Src\main.c:283:6: warning: unused variable 'DEMAND' [-Wunused-variable]
+  int DEMAND, delta;
+      ^~~~~~
+..\Src\main.c:281:22: warning: unused variable 'count' [-Wunused-variable]
+  int mA = 0, mB = 0, count = 0, loadIndex = 0, loadBot, loadTop;
+                      ^~~~~
+..\Src\main.c:280:6: warning: unused variable 'onetwo' [-Wunused-variable]
+  int onetwo = 1;
+      ^~~~~~
+..\Src\main.c:279:6: warning: unused variable 'pass_on' [-Wunused-variable]
+  int pass_on = 1;
+      ^~~~~~~
+..\Src\main.c:274:17: warning: unused variable 'x0' [-Wunused-variable]
+  uint8_t x = 0, x0 = x;
+                 ^~
+..\Src\main.c: In function 'MX_ADC1_Init':
+..\Src\main.c:444:25: warning: unused variable 'sConfig' [-Wunused-variable]
+  ADC_ChannelConfTypeDef sConfig;
+                         ^~~~~~~
+..\Src\main.c: In function 'MX_ADC2_Init':
+..\Src\main.c:500:25: warning: unused variable 'sConfig' [-Wunused-variable]
+  ADC_ChannelConfTypeDef sConfig;
+                         ^~~~~~~
+..\Src\main.c: In function 'main':
+..\Src\main.c:314:12: warning: 'loadTop' may be used uninitialized in this function [-Wmaybe-uninitialized]
+    loadTop = loadTop + mB_Buff[i];
+    ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+arm-atollic-eabi-gcc -o _Lucky_Boar.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\circ_buff.o Src\control.o Src\deviceParameters.o Src\main.o Src\msg.o Src\realSpace.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Lucky_Boar.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Lucky_Boar.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  21936	    124	   3584	  25644	   642c	_Lucky_Boar.elf
+Print size information done
+Generate listing file
+Output sent to: _Lucky_Boar.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 1
+08:56:25 **** Incremental Build of configuration Debug for project _Lucky_Boar ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:266:10: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  sprintf(TX_B1, "\n\r\n\r/* BOOT COMPLETE -> INITIALISING [%d] */\n\r\n\r",
+          ^~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdlib.h:11:0,
+                 from ../Inc/main.h:47,
+                 from ..\Src\main.c:39:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:326:23: warning: unknown escape sequence: '\D'
+   sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+..\Src\main.c:326:11: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+   sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+           ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdlib.h:11:0,
+                 from ../Inc/main.h:47,
+                 from ..\Src\main.c:39:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:326:26: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+                          ^
+..\Src\main.c:326:31: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+                               ^
+..\Src\main.c:285:15: warning: unused variable 'angle' [-Wunused-variable]
+  volatile int angle = 0;
+               ^~~~~
+..\Src\main.c:283:6: warning: unused variable 'DEMAND' [-Wunused-variable]
+  int DEMAND, delta;
+      ^~~~~~
+..\Src\main.c:281:22: warning: unused variable 'count' [-Wunused-variable]
+  int mA = 0, mB = 0, count = 0, loadIndex = 0, loadBot, loadTop;
+                      ^~~~~
+..\Src\main.c:280:6: warning: unused variable 'onetwo' [-Wunused-variable]
+  int onetwo = 1;
+      ^~~~~~
+..\Src\main.c:279:6: warning: unused variable 'pass_on' [-Wunused-variable]
+  int pass_on = 1;
+      ^~~~~~~
+..\Src\main.c:274:17: warning: unused variable 'x0' [-Wunused-variable]
+  uint8_t x = 0, x0 = x;
+                 ^~
+..\Src\main.c: In function 'MX_ADC1_Init':
+..\Src\main.c:444:25: warning: unused variable 'sConfig' [-Wunused-variable]
+  ADC_ChannelConfTypeDef sConfig;
+                         ^~~~~~~
+..\Src\main.c: In function 'MX_ADC2_Init':
+..\Src\main.c:500:25: warning: unused variable 'sConfig' [-Wunused-variable]
+  ADC_ChannelConfTypeDef sConfig;
+                         ^~~~~~~
+..\Src\main.c: In function 'main':
+..\Src\main.c:314:12: warning: 'loadTop' may be used uninitialized in this function [-Wmaybe-uninitialized]
+    loadTop = loadTop + mB_Buff[i];
+    ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+arm-atollic-eabi-gcc -o _Lucky_Boar.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\circ_buff.o Src\control.o Src\deviceParameters.o Src\main.o Src\msg.o Src\realSpace.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Lucky_Boar.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Lucky_Boar.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  21912	    124	   3584	  25620	   6414	_Lucky_Boar.elf
+Print size information done
+Generate listing file
+Output sent to: _Lucky_Boar.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 1
+08:56:52 **** Incremental Build of configuration Debug for project _Lucky_Boar ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\msg.o ..\Src\msg.c 
+arm-atollic-eabi-gcc -o _Lucky_Boar.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\circ_buff.o Src\control.o Src\deviceParameters.o Src\main.o Src\msg.o Src\realSpace.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Lucky_Boar.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Lucky_Boar.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  21916	    124	   3584	  25624	   6418	_Lucky_Boar.elf
+Print size information done
+Generate listing file
+Output sent to: _Lucky_Boar.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 1
+08:57:10 **** Incremental Build of configuration Debug for project _Lucky_Boar ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:266:10: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  sprintf(TX_B1, "\n\r\n\r/* BOOT COMPLETE -> INITIALISING [%d] */\n\r\n\r",
+          ^~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdlib.h:11:0,
+                 from ../Inc/main.h:47,
+                 from ..\Src\main.c:39:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:326:23: warning: unknown escape sequence: '\D'
+   sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+..\Src\main.c:326:11: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+   sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+           ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdlib.h:11:0,
+                 from ../Inc/main.h:47,
+                 from ..\Src\main.c:39:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:326:26: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+                          ^
+..\Src\main.c:326:31: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+                               ^
+..\Src\main.c:285:15: warning: unused variable 'angle' [-Wunused-variable]
+  volatile int angle = 0;
+               ^~~~~
+..\Src\main.c:283:6: warning: unused variable 'DEMAND' [-Wunused-variable]
+  int DEMAND, delta;
+      ^~~~~~
+..\Src\main.c:281:22: warning: unused variable 'count' [-Wunused-variable]
+  int mA = 0, mB = 0, count = 0, loadIndex = 0, loadBot, loadTop;
+                      ^~~~~
+..\Src\main.c:280:6: warning: unused variable 'onetwo' [-Wunused-variable]
+  int onetwo = 1;
+      ^~~~~~
+..\Src\main.c:279:6: warning: unused variable 'pass_on' [-Wunused-variable]
+  int pass_on = 1;
+      ^~~~~~~
+..\Src\main.c:274:17: warning: unused variable 'x0' [-Wunused-variable]
+  uint8_t x = 0, x0 = x;
+                 ^~
+..\Src\main.c: In function 'MX_ADC1_Init':
+..\Src\main.c:444:25: warning: unused variable 'sConfig' [-Wunused-variable]
+  ADC_ChannelConfTypeDef sConfig;
+                         ^~~~~~~
+..\Src\main.c: In function 'MX_ADC2_Init':
+..\Src\main.c:500:25: warning: unused variable 'sConfig' [-Wunused-variable]
+  ADC_ChannelConfTypeDef sConfig;
+                         ^~~~~~~
+..\Src\main.c: In function 'main':
+..\Src\main.c:314:12: warning: 'loadTop' may be used uninitialized in this function [-Wmaybe-uninitialized]
+    loadTop = loadTop + mB_Buff[i];
+    ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+arm-atollic-eabi-gcc -o _Lucky_Boar.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\circ_buff.o Src\control.o Src\deviceParameters.o Src\main.o Src\msg.o Src\realSpace.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Lucky_Boar.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Lucky_Boar.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  21940	    124	   3584	  25648	   6430	_Lucky_Boar.elf
+Print size information done
+Generate listing file
+Output sent to: _Lucky_Boar.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 1
+08:57:48 **** Incremental Build of configuration Debug for project _Lucky_Boar ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:266:10: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  sprintf(TX_B1, "\n\r\n\r/* BOOT COMPLETE -> INITIALISING [%d] */\n\r\n\r",
+          ^~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdlib.h:11:0,
+                 from ../Inc/main.h:47,
+                 from ..\Src\main.c:39:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:326:23: warning: unknown escape sequence: '\D'
+   sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+..\Src\main.c:326:11: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+   sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+           ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdlib.h:11:0,
+                 from ../Inc/main.h:47,
+                 from ..\Src\main.c:39:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:326:26: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+                          ^
+..\Src\main.c:326:31: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+   sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+                               ^
+..\Src\main.c:285:15: warning: unused variable 'angle' [-Wunused-variable]
+  volatile int angle = 0;
+               ^~~~~
+..\Src\main.c:283:6: warning: unused variable 'DEMAND' [-Wunused-variable]
+  int DEMAND, delta;
+      ^~~~~~
+..\Src\main.c:281:22: warning: unused variable 'count' [-Wunused-variable]
+  int mA = 0, mB = 0, count = 0, loadIndex = 0, loadBot, loadTop;
+                      ^~~~~
+..\Src\main.c:280:6: warning: unused variable 'onetwo' [-Wunused-variable]
+  int onetwo = 1;
+      ^~~~~~
+..\Src\main.c:279:6: warning: unused variable 'pass_on' [-Wunused-variable]
+  int pass_on = 1;
+      ^~~~~~~
+..\Src\main.c:274:17: warning: unused variable 'x0' [-Wunused-variable]
+  uint8_t x = 0, x0 = x;
+                 ^~
+..\Src\main.c: In function 'MX_ADC1_Init':
+..\Src\main.c:444:25: warning: unused variable 'sConfig' [-Wunused-variable]
+  ADC_ChannelConfTypeDef sConfig;
+                         ^~~~~~~
+..\Src\main.c: In function 'MX_ADC2_Init':
+..\Src\main.c:500:25: warning: unused variable 'sConfig' [-Wunused-variable]
+  ADC_ChannelConfTypeDef sConfig;
+                         ^~~~~~~
+..\Src\main.c: In function 'main':
+..\Src\main.c:314:12: warning: 'loadTop' may be used uninitialized in this function [-Wmaybe-uninitialized]
+    loadTop = loadTop + mB_Buff[i];
+    ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+arm-atollic-eabi-gcc -o _Lucky_Boar.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\circ_buff.o Src\control.o Src\deviceParameters.o Src\main.o Src\msg.o Src\realSpace.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Lucky_Boar.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Lucky_Boar.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  21916	    124	   3584	  25624	   6418	_Lucky_Boar.elf
+Print size information done
+Generate listing file
+Output sent to: _Lucky_Boar.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 1
+08:58:05 **** Incremental Build of configuration Debug for project _Lucky_Boar ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:266:10: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  sprintf(TX_B1, "\n\r\n\r/* BOOT COMPLETE -> INITIALISING [%d] */\n\r\n\r",
+          ^~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdlib.h:11:0,
+                 from ../Inc/main.h:47,
+                 from ..\Src\main.c:39:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:341:24: warning: unknown escape sequence: '\D'
+    sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+..\Src\main.c:341:12: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+    sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+            ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdlib.h:11:0,
+                 from ../Inc/main.h:47,
+                 from ..\Src\main.c:39:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:341:27: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+                           ^
+..\Src\main.c:341:32: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+                                ^
+..\Src\main.c:285:15: warning: unused variable 'angle' [-Wunused-variable]
+  volatile int angle = 0;
+               ^~~~~
+..\Src\main.c:283:6: warning: unused variable 'DEMAND' [-Wunused-variable]
+  int DEMAND, delta;
+      ^~~~~~
+..\Src\main.c:281:22: warning: unused variable 'count' [-Wunused-variable]
+  int mA = 0, mB = 0, count = 0, loadIndex = 0, loadBot, loadTop;
+                      ^~~~~
+..\Src\main.c:280:6: warning: unused variable 'onetwo' [-Wunused-variable]
+  int onetwo = 1;
+      ^~~~~~
+..\Src\main.c:279:6: warning: unused variable 'pass_on' [-Wunused-variable]
+  int pass_on = 1;
+      ^~~~~~~
+..\Src\main.c:274:17: warning: unused variable 'x0' [-Wunused-variable]
+  uint8_t x = 0, x0 = x;
+                 ^~
+..\Src\main.c: In function 'MX_ADC1_Init':
+..\Src\main.c:444:25: warning: unused variable 'sConfig' [-Wunused-variable]
+  ADC_ChannelConfTypeDef sConfig;
+                         ^~~~~~~
+..\Src\main.c: In function 'MX_ADC2_Init':
+..\Src\main.c:500:25: warning: unused variable 'sConfig' [-Wunused-variable]
+  ADC_ChannelConfTypeDef sConfig;
+                         ^~~~~~~
+..\Src\main.c: In function 'main':
+..\Src\main.c:314:12: warning: 'loadTop' may be used uninitialized in this function [-Wmaybe-uninitialized]
+    loadTop = loadTop + mB_Buff[i];
+    ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+arm-atollic-eabi-gcc -o _Lucky_Boar.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\circ_buff.o Src\control.o Src\deviceParameters.o Src\main.o Src\msg.o Src\realSpace.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Lucky_Boar.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Lucky_Boar.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  21868	    124	   3584	  25576	   63e8	_Lucky_Boar.elf
+Print size information done
+Generate listing file
+Output sent to: _Lucky_Boar.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 1
+08:58:29 **** Incremental Build of configuration Debug for project _Lucky_Boar ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:266:10: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  sprintf(TX_B1, "\n\r\n\r/* BOOT COMPLETE -> INITIALISING [%d] */\n\r\n\r",
+          ^~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdlib.h:11:0,
+                 from ../Inc/main.h:47,
+                 from ..\Src\main.c:39:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:344:24: warning: unknown escape sequence: '\D'
+    sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+..\Src\main.c:344:12: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+    sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+            ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdlib.h:11:0,
+                 from ../Inc/main.h:47,
+                 from ..\Src\main.c:39:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:344:27: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+                           ^
+..\Src\main.c:344:32: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+                                ^
+..\Src\main.c:285:15: warning: unused variable 'angle' [-Wunused-variable]
+  volatile int angle = 0;
+               ^~~~~
+..\Src\main.c:283:6: warning: unused variable 'DEMAND' [-Wunused-variable]
+  int DEMAND, delta;
+      ^~~~~~
+..\Src\main.c:281:22: warning: unused variable 'count' [-Wunused-variable]
+  int mA = 0, mB = 0, count = 0, loadIndex = 0, loadBot, loadTop;
+                      ^~~~~
+..\Src\main.c:280:6: warning: unused variable 'onetwo' [-Wunused-variable]
+  int onetwo = 1;
+      ^~~~~~
+..\Src\main.c:279:6: warning: unused variable 'pass_on' [-Wunused-variable]
+  int pass_on = 1;
+      ^~~~~~~
+..\Src\main.c:274:17: warning: unused variable 'x0' [-Wunused-variable]
+  uint8_t x = 0, x0 = x;
+                 ^~
+..\Src\main.c: In function 'MX_ADC1_Init':
+..\Src\main.c:446:25: warning: unused variable 'sConfig' [-Wunused-variable]
+  ADC_ChannelConfTypeDef sConfig;
+                         ^~~~~~~
+..\Src\main.c: In function 'MX_ADC2_Init':
+..\Src\main.c:502:25: warning: unused variable 'sConfig' [-Wunused-variable]
+  ADC_ChannelConfTypeDef sConfig;
+                         ^~~~~~~
+..\Src\main.c: In function 'main':
+..\Src\main.c:314:12: warning: 'loadTop' may be used uninitialized in this function [-Wmaybe-uninitialized]
+    loadTop = loadTop + mB_Buff[i];
+    ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+arm-atollic-eabi-gcc -o _Lucky_Boar.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\circ_buff.o Src\control.o Src\deviceParameters.o Src\main.o Src\msg.o Src\realSpace.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Lucky_Boar.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Lucky_Boar.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  21916	    124	   3584	  25624	   6418	_Lucky_Boar.elf
+Print size information done
+Generate listing file
+Output sent to: _Lucky_Boar.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 1
+08:59:00 **** Incremental Build of configuration Debug for project _Lucky_Boar ****
+Info: Internal Builder is used for build
+arm-atollic-eabi-gcc -c -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu11 -D__weak=__attribute__((weak)) -D__packed=__attribute__((__packed__)) -DUSE_HAL_DRIVER -DSTM32F303x8 -I../Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -g -fstack-usage -Wall -specs=nano.specs -o Src\main.o ..\Src\main.c 
+..\Src\main.c: In function 'main':
+..\Src\main.c:266:10: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+  sprintf(TX_B1, "\n\r\n\r/* BOOT COMPLETE -> INITIALISING [%d] */\n\r\n\r",
+          ^~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdlib.h:11:0,
+                 from ../Inc/main.h:47,
+                 from ..\Src\main.c:39:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:343:24: warning: unknown escape sequence: '\D'
+    sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+..\Src\main.c:343:12: warning: pointer targets in passing argument 1 of 'sprintf' differ in signedness [-Wpointer-sign]
+    sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+            ^~~~~~~~~~
+In file included from d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdlib.h:11:0,
+                 from ../Inc/main.h:47,
+                 from ..\Src\main.c:39:
+d:\program files (x86)\atollic\truestudio for stm32 9.0.0\armtools\arm-atollic-eabi\include\stdio.h:244:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(sprintf, (char *__restrict, const char *__restrict, ...)
+     ^
+..\Src\main.c:343:27: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+                           ^
+..\Src\main.c:343:32: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'uint32_t {aka volatile long unsigned int}' [-Wformat=]
+    sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+                                ^
+..\Src\main.c:285:15: warning: unused variable 'angle' [-Wunused-variable]
+  volatile int angle = 0;
+               ^~~~~
+..\Src\main.c:283:6: warning: unused variable 'DEMAND' [-Wunused-variable]
+  int DEMAND, delta;
+      ^~~~~~
+..\Src\main.c:281:22: warning: unused variable 'count' [-Wunused-variable]
+  int mA = 0, mB = 0, count = 0, loadIndex = 0, loadBot, loadTop;
+                      ^~~~~
+..\Src\main.c:280:6: warning: unused variable 'onetwo' [-Wunused-variable]
+  int onetwo = 1;
+      ^~~~~~
+..\Src\main.c:279:6: warning: unused variable 'pass_on' [-Wunused-variable]
+  int pass_on = 1;
+      ^~~~~~~
+..\Src\main.c:274:17: warning: unused variable 'x0' [-Wunused-variable]
+  uint8_t x = 0, x0 = x;
+                 ^~
+..\Src\main.c: In function 'MX_ADC1_Init':
+..\Src\main.c:445:25: warning: unused variable 'sConfig' [-Wunused-variable]
+  ADC_ChannelConfTypeDef sConfig;
+                         ^~~~~~~
+..\Src\main.c: In function 'MX_ADC2_Init':
+..\Src\main.c:501:25: warning: unused variable 'sConfig' [-Wunused-variable]
+  ADC_ChannelConfTypeDef sConfig;
+                         ^~~~~~~
+..\Src\main.c: In function 'main':
+..\Src\main.c:314:12: warning: 'loadTop' may be used uninitialized in this function [-Wmaybe-uninitialized]
+    loadTop = loadTop + mB_Buff[i];
+    ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+arm-atollic-eabi-gcc -o _Lucky_Boar.elf Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.o Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.o Src\circ_buff.o Src\control.o Src\deviceParameters.o Src\main.o Src\msg.o Src\realSpace.o Src\stm32f3xx_hal_msp.o Src\stm32f3xx_it.o Src\system_stm32f3xx.o startup\startup_stm32f303x8.o -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T../STM32F303K8_FLASH.ld -specs=nosys.specs -static -Wl,-Map=_Lucky_Boar.map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs 
+D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\ide\jre\bin\java -jar D:\Program Files (x86)\Atollic\TrueSTUDIO for STM32 9.0.0\Tools\arm-atollic-reports.jar sizeinfo list _Lucky_Boar.elf 
+Generate build reports...
+Print size information
+   text	   data	    bss	    dec	    hex	filename
+  21924	    124	   3584	  25632	   6420	_Lucky_Boar.elf
+Print size information done
+Generate listing file
+Output sent to: _Lucky_Boar.list
+Generate listing file done
+Generate build reports done
+Info: Parallel threads used: 1
