@@ -2390,3 +2390,50 @@ C Model Exception: C Model Status [Element main.c does not exist.]
 	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
 !SUBENTRY 1 org.eclipse.cdt.core 4 969 2018-05-28 08:53:39.798
 !MESSAGE Element main.c does not exist.
+
+!ENTRY TrueSTUDIO 4 0 2018-05-28 09:09:26.520
+!MESSAGE ST-Link GDB server failed to start (exit code = 2).
+
+!ENTRY org.eclipse.cdt.dsf.gdb 4 5012 2018-05-28 09:09:26.603
+!MESSAGE Error in initializing ST-Link device.
+Reason: (2) ST-Link DLL error.
+
+!ENTRY TrueSTUDIO 4 0 2018-05-28 09:21:39.383
+!MESSAGE ST-Link GDB server failed to start (exit code = 16).
+
+!ENTRY org.eclipse.cdt.dsf.gdb 4 5012 2018-05-28 09:21:39.482
+!MESSAGE Error in initializing ST-Link device.
+Reason: (16) Multiple ST-Links detected.
+Please specify the serial number in the debug configuration.
+
+!ENTRY TrueSTUDIO 4 0 2018-05-28 09:24:01.228
+!MESSAGE ST-Link GDB server failed to start (exit code = 16).
+
+!ENTRY org.eclipse.cdt.dsf.gdb 4 5012 2018-05-28 09:24:01.301
+!MESSAGE Error in initializing ST-Link device.
+Reason: (16) Multiple ST-Links detected.
+Please specify the serial number in the debug configuration.
+
+!ENTRY TrueSTUDIO 4 0 2018-05-28 09:24:57.705
+!MESSAGE ST-Link GDB server failed to start (exit code = 16).
+
+!ENTRY org.eclipse.cdt.dsf.gdb 4 5012 2018-05-28 09:24:57.817
+!MESSAGE Error in initializing ST-Link device.
+Reason: (16) Multiple ST-Links detected.
+Please specify the serial number in the debug configuration.
+
+!ENTRY TrueSTUDIO 4 0 2018-05-28 09:26:28.674
+!MESSAGE ST-Link GDB server failed to start (exit code = 16).
+
+!ENTRY org.eclipse.cdt.dsf.gdb 4 5012 2018-05-28 09:26:28.736
+!MESSAGE Error in initializing ST-Link device.
+Reason: (16) Multiple ST-Links detected.
+Please specify the serial number in the debug configuration.
+
+!ENTRY TrueSTUDIO 4 0 2018-05-28 09:27:15.274
+!MESSAGE ST-Link GDB server failed to start (exit code = 16).
+
+!ENTRY org.eclipse.cdt.dsf.gdb 4 5012 2018-05-28 09:27:15.368
+!MESSAGE Error in initializing ST-Link device.
+Reason: (16) Multiple ST-Links detected.
+Please specify the serial number in the debug configuration.

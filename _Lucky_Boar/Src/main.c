@@ -274,8 +274,12 @@ int main(void) {
 	uint8_t x = 0, x0 = x;
 	msgERROR_init();
 	epoch_INIT = HAL_GetTick();
-	ADC_B_Value = 0;
 	ADC_A_Value = 0;
+	ADC_B_Value = 0;
+	ADC_C_Value = 0;
+	ADC_D_Value = 0;
+	ADC_E_Value = 0;
+	ADC_F_Value = 0;
 	int pass_on = 1;
 	int onetwo = 1;
 	int mA = 0, mB = 0, count = 0, loadIndex = 0, loadBot, loadTop;
@@ -290,67 +294,101 @@ int main(void) {
 	}
 
 	DC = 0;
+	int sender = 0;
 
+	set_T_target(par, 0);
 	while (1) {
 
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */
 
+		if (!sender) {
 
+			/* Read messages from UART 2 */
+			HAL_UART_Receive_DMA(&huart2, RX_B2, len);
 
+			/* Process messages */
+			for (i = 0; i < B_SIZE; i++) {
+				readMSG(msg, RX_B2, &x, &x0);
+				if (msg->complete) {
+					RX_B2[x - 1] = '@';
+					update_value(par, msg);
 
+					contructMSG((char*) TX_B1, msg, B_SIZE);
+					DC = msg->value;
+								set_pulse_width();
+					memset(TX_B1, 0, B_SIZE);
+						sprintf(TX_B1, "DC%u\tT%u\n\r", DC, get_T_target(par));
+						while (isTransmitting(&huart1, &huart2))
+							;
+						HAL_UART_Transmit_DMA(&huart1, TX_B1, B_SIZE);
+						HAL_UART_Transmit_DMA(&huart2, TX_B1, B_SIZE);
 
-
-
-		Update_ADC_Values();
-
-		mA = -1.6614 * ADC_A_Value + 5178.8;
-		mB = -17.484 * ADC_B_Value + 26220;
-
-		mA = (mA < 0) ? 0 : mA;
-		mB = (mB < 0) ? 0 : mB;
-
-		mA_Buff[loadIndex] = mA;
-		mB_Buff[loadIndex] = mB;
-		loadIndex = (loadIndex + 1) % loadBufferLen;
-
-		loadBot = 0;
-		for (i = 0; i < loadBufferLen; i++) {
-			loadBot = loadBot + mA_Buff[i];
-			loadTop = loadTop + mB_Buff[i];
+				}
+			}
 		}
 
-		loadBot = loadBot / loadBufferLen;
-		loadTop = loadTop / loadBufferLen;
+		if (sender) {
+			Update_ADC_Values();
 
-		delta = (loadTop + 500);
-		delta = (loadBot > (loadTop + 500)) ? 0 : delta;
-		DC = delta;
-		set_pulse_width();
+			mA = -1.6614 * ADC_A_Value + 5178.8;
+			mB = -17.484 * ADC_B_Value + 26220;
 
-		/* Create messages to send off */
-		set_T_target(par, 1000*delta);
-		contruct_X_msg('T', par, msgT, TX_T);
+			mA = (mA < 0) ? 0 : mA;
+			mB = (mB < 0) ? 0 : mB;
 
-		/* Send out messages */
-		while (isTransmitting(&huart1, &huart2))
-			;
-		HAL_UART_Transmit_DMA(&huart1, (uint8_t*) TX_T, B_SIZE);
-		HAL_UART_Transmit_DMA(&huart2, (uint8_t*) TX_T, B_SIZE);
+			mA_Buff[loadIndex] = mA;
+			mB_Buff[loadIndex] = mB;
+			loadIndex = (loadIndex + 1) % loadBufferLen;
+
+			loadBot = 0;
+			for (i = 0; i < loadBufferLen; i++) {
+				loadBot = loadBot + mA_Buff[i];
+				loadTop = loadTop + mB_Buff[i];
+			}
+
+			loadBot = loadBot / loadBufferLen;
+			loadTop = loadTop / loadBufferLen;
+
+			delta = (loadTop + 500);
+			delta = (loadBot > (loadTop + 500)) ? 0 : delta;
+			DC = delta;
+			set_pulse_width();
+
+			/* Create messages to send off */
+			set_T_target(par, delta);
+			contruct_X_msg('T', par, msgT, TX_T);
+
+			/* Send out messages */
+			while (isTransmitting(&huart1, &huart2))
+				;
+			HAL_UART_Transmit_DMA(&huart1, (uint8_t*) TX_T, B_SIZE);
+			HAL_UART_Transmit_DMA(&huart2, (uint8_t*) TX_T, B_SIZE);
+
+		} else {
+
+		}
 
 		/* Toggle LED */
 		if (HAL_GetTick() > (epoch_LED + D_LED)) {
 			HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
 			epoch_LED = HAL_GetTick();
 
-			while (isTransmitting(&huart1, &huart2))
-							;
-			memset(ADC_buffer, 0, B_SIZE);
-			sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
-					ADC_B_Value, loadBot, loadTop, DC);
-			HAL_UART_Transmit_DMA(&huart1, ADC_buffer, B_SIZE);
-			HAL_UART_Transmit_DMA(&huart2, ADC_buffer, B_SIZE);
+			//while (isTransmitting(&huart1, &huart2))
+			//;
+			//memset(ADC_buffer, 0, B_SIZE);
+			//sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
+			//		ADC_B_Value, loadBot, loadTop, DC);
+			//HAL_UART_Transmit_DMA(&huart1, ADC_buffer, B_SIZE);
+			//HAL_UART_Transmit_DMA(&huart2, ADC_buffer, B_SIZE);
+
+			//while (isTransmitting(&huart1, &huart2))
+			///				;
+			//			memset(ADC_buffer, 0, B_SIZE);
+			//			sprintf(ADC_buffer, "DC%u\tT%u\n\r", DC, get_T_target(par));
+			//			HAL_UART_Transmit_DMA(&huart1, ADC_buffer, B_SIZE);
+			//			HAL_UART_Transmit_DMA(&huart2, ADC_buffer, B_SIZE);
 
 		}
 
@@ -972,6 +1010,7 @@ void msgERROR(int e, uint8_t c) {
 	switch (e) {
 	case BAD_TYPE:
 		sprintf(errorMsg, "\n\rBAD_TYPE|%c|%d|\n\r", c, c);
+		return;
 		break;
 	case BAD_ID:
 		sprintf(errorMsg, "\n\rBAD_ID|%c|%d|\n\r", c, c);
@@ -1002,7 +1041,7 @@ void msgERROR(int e, uint8_t c) {
 	while (isTransmitting(&huart1, &huart2))
 		;
 	HAL_UART_Transmit_DMA(&huart1, (uint8_t*) errorMsg, errorMsgSize);
-	HAL_UART_Transmit_DMA(&huart2, (uint8_t*) errorMsg, errorMsgSize);
+	//HAL_UART_Transmit_DMA(&huart2, (uint8_t*) errorMsg, errorMsgSize);
 	return;
 }
 

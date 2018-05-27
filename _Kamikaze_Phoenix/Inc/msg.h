@@ -53,7 +53,7 @@ void contructMSG(char*, struct MSG*, int);
 void contruct_X_msg(char, struct PARAMETERS*,struct MSG*, char*);
 void readMSG(struct MSG* , uint8_t* , uint8_t*, uint8_t*);
 
-#define MSG_DEBUG_MODE 	FALSE
+#define MSG_DEBUG_MODE 	TRUE
 
 
 #endif /* __msg_H */
