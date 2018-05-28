@@ -2437,3 +2437,6 @@ Please specify the serial number in the debug configuration.
 !MESSAGE Error in initializing ST-Link device.
 Reason: (16) Multiple ST-Links detected.
 Please specify the serial number in the debug configuration.
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2018-05-28 10:49:59.029
+!MESSAGE Unloading product manager

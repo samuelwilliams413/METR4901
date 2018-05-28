@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="par" key="selection"/>
+		<item value="Update_PWM" key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="/**"/>
+			<item value="Update_PWM"/>
+			<item value="uint8_t"/>
 			<item value="par"/>
 			<item value="parameters_init"/>
 			<item value="angle"/>
-			<item value="uint8_t"/>
 			<item value="double"/>
 			<item value="uint32_t"/>
-			<item value="set_p"/>
-			<item value="diff"/>
 		</list>
 		<list key="replacehistory">
 			<item value="int"/>
