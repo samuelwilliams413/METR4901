@@ -91,7 +91,7 @@
 #define FALSE			0
 #define true			TRUE
 #define false			FALSE
-#define B_SIZE			75
+#define B_SIZE			72
 #define errorMsgSize	128
 
 #define  ADC_ENABLE 	false
