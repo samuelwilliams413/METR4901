@@ -49,6 +49,11 @@ int getEGO(void) {
 	return (int) EGO;
 }
 
+
+/**
+ * @brief  	Handy little function to init all the system parameters,
+ * @note 	we actually have a delay at the start (of the desired code) to ensure these are updated correctly.
+ */
 PARAMETERS* parameters_init(void) {
 	int h, w;
 	h = 6; // six units to the suit

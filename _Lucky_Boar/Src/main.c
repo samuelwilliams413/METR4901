@@ -160,14 +160,11 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
 void Update_ADC_Values(void);
-void read_HX711(void);
 void HAL_Delay_Microseconds(__IO uint32_t);
 int isTransmitting(UART_HandleTypeDef *, UART_HandleTypeDef *);
-int strip_str(uint8_t[], uint8_t[]);
 int channelBusy(UART_HandleTypeDef *);
 void Update_PWM(uint16_t);
 void set_pulse_width(void);
-int get_error(void);
 
 /* USER CODE END PFP */
 
@@ -218,7 +215,7 @@ int main(void) {
 	/* USER CODE BEGIN 2 */
 
 	memset(empty_buffer, 0, len);
-
+	// Start ADCs
 	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig_C) != HAL_OK) {
 		_Error_Handler(__FILE__, __LINE__);
 	}
@@ -226,6 +223,7 @@ int main(void) {
 		_Error_Handler(__FILE__, __LINE__);
 	}
 
+	// Init system paramaters
 	cbuff = circ_buff_init();
 	par = parameters_init();
 	/* USER CODE END 2 */
@@ -234,6 +232,7 @@ int main(void) {
 	/* USER CODE BEGIN WHILE */
 	/* USER CODE BEGIN WHILE */
 
+	// Generic Message Structure (e.g. errors)
 	MSG* msg = 0;
 	msg = (MSG*) malloc(sizeof(MSG));
 	msg->type = 0;
@@ -242,6 +241,7 @@ int main(void) {
 	msg->value = 0;
 	msg->complete = 0;
 
+	// Torque Message Structure
 	MSG* msgT = 0;
 	msgT = (MSG*) malloc(sizeof(MSG));
 	msgT->type = 0;
@@ -250,6 +250,7 @@ int main(void) {
 	msgT->value = 0;
 	msgT->complete = 0;
 
+	// Angle/ Position message structure
 	MSG* msgA = 0;
 	msgA = (MSG*) malloc(sizeof(MSG));
 	msgA->type = 0;
@@ -258,6 +259,7 @@ int main(void) {
 	msgA->value = 0;
 	msgA->complete = 0;
 
+	// Init debugging and transmission buffers
 	memset(TX_buffer2, '&', B_SIZE);
 	TX_buffer2[B_SIZE - 2] = '\n';
 	TX_buffer2[B_SIZE - 1] = '\r';
@@ -270,6 +272,7 @@ int main(void) {
 	HAL_UART_Transmit_DMA(&huart1, TX_B1, B_SIZE);
 	HAL_UART_Transmit_DMA(&huart2, TX_B1, B_SIZE);
 
+	// init more system paramaters
 	int i;
 	uint8_t x = 0, x0 = x;
 	msgERROR_init();
@@ -284,6 +287,7 @@ int main(void) {
 	int mA = 0, mB = 0, loadIndex = 0, loadBot, loadTop, delta;
 	par = parameters_init();
 
+	// start PWM (servo)
 	if (HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1) != HAL_OK) {
 		/* PWM Generation Error */
 		Error_Handler();
@@ -292,28 +296,34 @@ int main(void) {
 	DC = 0;
 	int sender = 0;
 
+	// init motor torque
 	set_T_target(par, 0);
+
 	while (1) {
 
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */
 
-		if (!sender) { // Reciever
+		if (!sender) { // Reciever, this controller would manage the servo speed
 
 			/* Read messages from UART 2 */
 			HAL_UART_Receive_DMA(&huart2, RX_B2, len);
 
 			/* Process messages */
 			for (i = 0; i < B_SIZE; i++) {
-				readMSG(msg, RX_B2, &x, &x0);
-				if (msg->complete) {
-					RX_B2[x - 1] = '@';
-					update_value(par, msg);
+				readMSG(msg, RX_B2, &x, &x0); // Read the message and save the location in the buffer
+				if (msg->complete) { // if a message is complete (valid)
+					RX_B2[x - 1] = '@'; // mark it as read
+					update_value(par, msg); // update system parameters
 
-					contructMSG((char*) TX_B1, msg, B_SIZE);
-					DC = msg->value;
-					set_pulse_width();
+					contructMSG((char*) TX_B1, msg, B_SIZE); // Construct a message to be sent
+
+					// Update the duty cycle of the servo (this was used in the demo, as the
+					// other controller would tell this one the demand)
+					DC = msg->value; set_pulse_width();
+
+					// Tell the world the current DC
 					memset(TX_B1, 0, B_SIZE);
 					sprintf(TX_B1, "DC%u\tT%u\n\r", DC, get_T_target(par));
 					while (isTransmitting(&huart1, &huart2))
@@ -325,30 +335,40 @@ int main(void) {
 			}
 		}
 
-		if (sender) {
+		if (sender) { // Transmitter, this controller would manage the load cell
 			Update_ADC_Values();
 
+			// translate load cell values for mass (unlike the proximity sensors we
+			// can't just make them equal and unscaled, cause the load cells are .... shit)
 			mA = -1.6614 * ADC_A_Value + 5178.8;
 			mB = -17.484 * ADC_B_Value + 26220;
 
+			// No negative loads
 			mA = (mA < 0) ? 0 : mA;
 			mB = (mB < 0) ? 0 : mB;
 
+			// Add the value to the moving average buffer
 			mA_Buff[loadIndex] = mA;
 			mB_Buff[loadIndex] = mB;
 			loadIndex = (loadIndex + 1) % loadBufferLen;
 
+			// We add the most recent "loadBufferLen" number of measurements,
+			// then divide them for a moving average
 			loadBot = 0;
-			for (i = 0; i < loadBufferLen; i++) {
-				loadBot = loadBot + mA_Buff[i];
+			loadTop = 0;
+			for (i = 0; i < loadBufferLen; i++) { loadBot = loadBot + mA_Buff[i];
 				loadTop = loadTop + mB_Buff[i];
 			}
 
+			// this is the dividing
 			loadBot = loadBot / loadBufferLen;
 			loadTop = loadTop / loadBufferLen;
 
+			// We want to bias the top to run when the load is equal (by 500g)
 			delta = (loadTop + 500);
-			delta = (loadBot > (loadTop + 500)) ? 0 : delta;
+
+			// If the bottom is greater than the top, we stop
+			delta = (loadBot > (loadTop + 500)) ? 0 : delta; // Ternary statement :P
 			DC = delta;
 			set_pulse_width();
 
@@ -733,6 +753,12 @@ static void MX_GPIO_Init(void) {
 }
 
 /* USER CODE BEGIN 4 */
+/**
+ * @brief  Update all the ADC sensor readings (global variables)
+ * @note   We stop and start the ADCs here as STM is buggy and its
+ * best not to function as expected. As in all things, if it doesn't work,
+ * turn it on and off again
+ */
 void Update_ADC_Values(void) {
 	/* Read ADC_A
 	 * ADC A */
@@ -832,35 +858,29 @@ void Update_ADC_Values(void) {
 	return;
 }
 
-int get_error(void) {
-	return (2048 + ((ADC_C_Value - ADC_D_Value) / 2));
-}
 
-int emptyRX(uint8_t RX_buffer[]) {
-	int i = 0;
-	for (i = 0; i < (B_SIZE - 2); i++) {
-		if (RX_buffer[i] != 0) {
-			return 1;
-		}
-	}
-	return 0;
-
-}
-
+/**
+ * @brief 	Sets the Duty cycle (pulse width) of the servo motor
+ * @note 	The (max,min) and (maxL,minL) parameters refer to the
+ * two servomotors in use (MG995 and 900-8 respectively)
+ *  @note 	The DC is global varibale, so we have no inputs or outputs
+ */
 void set_pulse_width(void) {
+	// Ensure value is valid
 	DC = (DC > 4096) ? 4096 : DC;
 	DC = (DC < 0) ? 0 : DC;
 
+	// init
 	int DutyCycle = (DC < 0) ? -DC : DC; // ensure always positive
 	DutyCycle = 4096 - DutyCycle;
 	int max = 2500, min = 700;
 	int maxL = 1700, minL = 1500;
-
-	//max = 1500 + 400;
-	//min = 1500 - 400;
 	int servoMotor = 1, DCMotor;
 	DCMotor = (servoMotor + 1) % 2;
 
+	// Initial testing involved an attempt to hook a 12V DC motor up to a
+	// motor driver and use than, didn't work (starting torque was too low)
+	// Just ignore this
 	if (DCMotor) {
 		if (DC < 2048) {
 			DC = DC * 2;
@@ -884,93 +904,47 @@ void set_pulse_width(void) {
 		}
 	}
 
+
+	// For the MG995
 	if (servoMotor) {
 		HI_PERIOD = (((max - min) * DutyCycle / 4096.0)) + min;
 		HI_PERIOD = 2 * HI_PERIOD;
 
 	}
 
+	// For the 900-8
 	int littleServoMotor = 1;
-
 	if (littleServoMotor) {
 		HI_PERIOD = (((maxL - minL) * DC / 4096.0)) + minL;
 		HI_PERIOD = 2 * HI_PERIOD;
 
 	}
 
+	// This was used for debugging and calibration
 	int zero = 0;
-
 	if (zero) {
 		HI_PERIOD = 2000 * (1.3);
 	}
 
+	// Once we have the value, we set the DC
 	__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, HI_PERIOD);
 }
 
-int strip_str(uint8_t RX_buffer[], uint8_t TX_buffer[]) {
-	int i = 0;
-	int index = 0;
-	for (i = 0; i < (B_SIZE); i++) {
-		if (RX_buffer[i] != 0) {
-			TX_buffer[index] = RX_buffer[i];
-			index++;
-		}
-	}
-	return index;
-}
-
+/**
+ * @brief	A safet to ensure we don't access the DMA buffer while transmitting
+ * @param  huart1 : UART 1 Handle
+ * @param  huart2 : UART 2 Handle
+ * @retval !0 = transmitting, 0 == not busy
+ */
 int isTransmitting(UART_HandleTypeDef *huart1, UART_HandleTypeDef *huart2) {
 	return ((huart1->gState != HAL_UART_STATE_READY)
 			|| (huart2->gState != HAL_UART_STATE_READY)) ? 1 : 0;
 }
 
-void read_HX711(void) {
-	/* Adapted from Arduino Script "ShiftIn()" */
-	// Count should always be 24
-	// order is MSB for HX711
-	Count = 0;
-	LED3_ON;
-	while (DAT_B_READ) {
-		;
-	}
-
-	for (uint8_t i = 0; i < 24; i++) {
-		CLK_B_SET;
-		Count = Count << 1;
-		DAT_B_READ ? Count++ : 0; // if High
-		CLK_B_RESET;
-	}
-
-	for (i = 0; i < 3; i++) {
-		CLK_B_SET;
-		CLK_B_RESET;
-	}
-
-	ADC_B_Value = Count ^ 0x800000;
-	CLK_B_RESET;
-	LED3_OFF;
-
-	ADC_B_Value = ADC_A_Value;
-	return;
-}
-
-void transmit(int channel, char* buffer) {
-	UART_HandleTypeDef c;
-
-	if (channel == 1) {
-		c = huart1;
-	} else {
-		c = huart2;
-	}
-	while (isTransmitting(&huart1, &huart2))
-		;
-	HAL_UART_Transmit_DMA(&c, (uint8_t*) buffer, len);
-
-	while (isTransmitting(&huart1, &huart2))
-		;
-	return;
-}
-
+/**
+ * @brief Initialise the error message buffer
+ * @param  errorMsg: (global variable) buffer to be malloced)
+ */
 void msgERROR_init(void) {
 	errorMsg = (char*) malloc(sizeof(char) * errorMsgSize);
 	return;

@@ -9,6 +9,14 @@
 /* External variables --------------------------------------------------------*/
 char acceptedTypes[] = "pPtT";
 
+/**
+ * @brief  Contructs a message for transmission over the comms system
+ * @note   Designated parameters must be used, or will be rejected by the system
+ * @param  x : type designator (must be approved)
+ * @param  par : system paramaters
+ * @param  msg : message paarameters, this is edited via pointers
+ * @param  message : transmission buffer, this is what is eventually sent
+ */
 void contruct_X_msg(char x, struct PARAMETERS* par,struct MSG* msg, char* message) {
 	msg->type = x;
 	msg->value = get_T_target(par);
