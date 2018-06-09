@@ -163,7 +163,6 @@ void Update_ADC_Values(void);
 void read_HX711(void);
 void HAL_Delay_Microseconds(__IO uint32_t);
 int isTransmitting(UART_HandleTypeDef *, UART_HandleTypeDef *);
-int strip_str(uint8_t[], uint8_t[]);
 int channelBusy(UART_HandleTypeDef *);
 void Update_PWM(uint16_t);
 void set_pulse_width(void);
@@ -218,11 +217,12 @@ int main(void) {
 	/* USER CODE BEGIN 2 */
 
 	memset(empty_buffer, 0, len);
-
+	// Init ADCs
 	if (HAL_ADC_ConfigChannel(&hadc2, &sConfig_C) != HAL_OK) {
 		_Error_Handler(__FILE__, __LINE__);
 	}
 
+	// init values
 	cbuff = circ_buff_init();
 
 	/* USER CODE END 2 */
@@ -230,7 +230,7 @@ int main(void) {
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
 	/* USER CODE BEGIN WHILE */
-
+	// Generic Message Structure (e.g. errors)
 	MSG* msg = 0;
 	msg = (MSG*) malloc(sizeof(MSG));
 	msg->type = 0;
@@ -239,6 +239,7 @@ int main(void) {
 	msg->value = 0;
 	msg->complete = 0;
 
+	// Torque Message Structure
 	MSG* msgT = 0;
 	msgT = (MSG*) malloc(sizeof(MSG));
 	msgT->type = 0;
@@ -247,6 +248,7 @@ int main(void) {
 	msgT->value = 0;
 	msgT->complete = 0;
 
+	// Angle/ Position message structure
 	MSG* msgA = 0;
 	msgA = (MSG*) malloc(sizeof(MSG));
 	msgA->type = 0;
@@ -255,6 +257,7 @@ int main(void) {
 	msgA->value = 0;
 	msgA->complete = 0;
 
+	// Init debugging and transmission buffers
 	memset(TX_buffer2, '&', B_SIZE);
 	TX_buffer2[B_SIZE - 2] = '\n';
 	TX_buffer2[B_SIZE - 1] = '\r';
@@ -268,16 +271,13 @@ int main(void) {
 	HAL_UART_Transmit_DMA(&huart1, TX_B1, B_SIZE);
 	HAL_UART_Transmit_DMA(&huart2, TX_B1, B_SIZE);
 
+	// init more system paramaters
 	msgERROR_init();
 	epoch_INIT = HAL_GetTick();
-
-	int adc_compare = 1;
-
-	int DEMAND, delta;
+	int delta;
 	par = parameters_init();
-	int k = 25;
-	volatile int angle = 0;
 
+	// start PWM (servo)
 	if (HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1) != HAL_OK) {
 		/* PWM Generation Error */
 		Error_Handler();
@@ -290,38 +290,25 @@ int main(void) {
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */
-		/* Update PWM width */
 		Update_ADC_Values();
+
+		// Update error (difference between values)
+		// We want both sensors to be the same constant difference
 		delta = (-ADC_D_Value + ADC_C_Value);
-		if (delta > 0) {
-			angle = 5;
-		} else {
-			angle = -5;
-		}
-		angle = delta / 10;
 		set_p(par, delta);
+
+		// Get control value
 		update_control(par);
 		delta = get_T_target(par);
 		DC = DC + delta;
-		set_pulse_width();
 
-		//DEMAND = (DC > 0) ? (DC * 100 / 4096) : (-DC * 100 / 4096);
+		// Update duty cycle
+		set_pulse_width();
 
 		/* Toggle LED */
 		if (HAL_GetTick() > (epoch_LED + D_LED)) {
-
 			HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
 			epoch_LED = HAL_GetTick();
-
-			while (isTransmitting(&huart1, &huart2))
-				;
-			memset(TX_B1, 0, B_SIZE);
-			sprintf(TX_B1,
-					"C|%lu|\tD|%lu|\tdir|%lu|\tHI|%lu|\tPW|%lu|\tDC|%d|\tE|%d|\tDEMAND|%d|\n\r",
-					(unsigned long) ADC_C_Value, (unsigned long) ADC_D_Value,
-					DIR, HI_PERIOD, (HI_PERIOD / 2), DC, get_error(), delta);
-			HAL_UART_Transmit_DMA(&huart1, TX_B1, B_SIZE);
-			HAL_UART_Transmit_DMA(&huart2, TX_B1, B_SIZE);
 
 		}
 
@@ -464,8 +451,6 @@ static void MX_ADC1_Init(void) {
 
 /* ADC2 init function */
 static void MX_ADC2_Init(void) {
-
-	ADC_ChannelConfTypeDef sConfig;
 
 	/**Common config
 	 */
@@ -750,33 +735,20 @@ void Update_ADC_Values(void) {
 	return;
 }
 
+/**
+ * @brief	Get the error (difference between the desired state and the actual state i.e. ADC C and D being identical
+ * @retval	e : error
+ */
 int get_error(void) {
 	return (2048 + ((ADC_C_Value - ADC_D_Value) / 2));
 }
 
-int emptyRX(uint8_t RX_buffer[]) {
-	int i = 0;
-	for (i = 0; i < (B_SIZE - 2); i++) {
-		if (RX_buffer[i] != 0) {
-			return 1;
-		}
-	}
-	return 0;
-
-}
-
-int strip_str(uint8_t RX_buffer[], uint8_t TX_buffer[]) {
-	int i = 0;
-	int index = 0;
-	for (i = 0; i < (B_SIZE); i++) {
-		if (RX_buffer[i] != 0) {
-			TX_buffer[index] = RX_buffer[i];
-			index++;
-		}
-	}
-	return index;
-}
-
+/**
+ * @brief 	Sets the Duty cycle (pulse width) of the servo motor
+ * @note 	The (max,min) and (maxL,minL) parameters refer to the
+ * two servomotors in use (MG995 and 900-8 respectively)
+ *  @note 	The DC is global variable, so we have no inputs or outputs
+ */
 void set_pulse_width(void) {
 	DC = (DC > 4096) ? 4096 : DC;
 	DC = (DC < 0) ? 0 : DC;
@@ -828,56 +800,21 @@ void set_pulse_width(void) {
 	__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, HI_PERIOD);
 }
 
+/**
+ * @brief	A safet to ensure we don't access the DMA buffer while transmitting
+ * @param  huart1 : UART 1 Handle
+ * @param  huart2 : UART 2 Handle
+ * @retval !0 = transmitting, 0 == not busy
+ */
 int isTransmitting(UART_HandleTypeDef *huart1, UART_HandleTypeDef *huart2) {
 	return ((huart1->gState != HAL_UART_STATE_READY)
 			|| (huart2->gState != HAL_UART_STATE_READY)) ? 1 : 0;
 }
 
-void read_HX711(void) {
-	/* Adapted from Arduino Script "ShiftIn()" */
-// Count should always be 24
-// order is MSB for HX711
-	Count = 0;
-	LED3_ON;
-	while (DAT_A_READ) {
-		;
-	}
-
-	for (uint8_t i = 0; i < 24; i++) {
-		CLK_A_SET;
-		Count = Count << 1;
-		DAT_A_READ ? Count++ : 0; // if High
-		CLK_A_RESET;
-	}
-
-	for (i = 0; i < 3; i++) {
-		CLK_A_SET;
-		CLK_A_RESET;
-	}
-
-	ADC_A_Value = Count ^ 0x800000;
-	CLK_A_RESET;
-	LED3_OFF;
-	return;
-}
-
-void transmit(int channel, char* buffer) {
-	UART_HandleTypeDef c;
-
-	if (channel == 1) {
-		c = huart1;
-	} else {
-		c = huart2;
-	}
-	while (isTransmitting(&huart1, &huart2))
-		;
-	HAL_UART_Transmit_DMA(&c, (uint8_t*) buffer, len);
-
-	while (isTransmitting(&huart1, &huart2))
-		;
-	return;
-}
-
+/**
+ * @brief Initialise the error message buffer
+ * @param  errorMsg: (global variable) buffer to be malloced)
+ */
 void msgERROR_init(void) {
 	errorMsg = (char*) malloc(sizeof(char) * errorMsgSize);
 	return;

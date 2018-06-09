@@ -9,6 +9,14 @@
 /* External variables --------------------------------------------------------*/
 char acceptedTypes[] = "pPtT";
 
+/**
+ * @brief  Contructs a message for transmission over the comms system
+ * @note   Designated parameters must be used, or will be rejected by the system
+ * @param  x : type designator (must be approved)
+ * @param  par : system paramaters
+ * @param  msg : message paarameters, this is edited via pointers
+ * @param  message : transmission buffer, this is what is eventually sent
+ */
 void contruct_X_msg(char x, struct PARAMETERS* par,struct MSG* msg, char* message) {
 	msg->type = x;
 	msg->value = get_T_target(par);
@@ -92,7 +100,7 @@ uint8_t numToValue(uint8_t left, uint8_t right) {
  */
 void contructMSG(char* message, struct MSG* msg, int size) {
 	memset(message, 0, size);
-	sprintf(message, "%c%d%c%lu.%lu;", msg->type, msg->ID,
+	sprintf(message, "...%c0%d%c%lu.%lu;\n\r", msg->type, msg->ID,
 			msg->sign, (msg->value / 1000), (msg->value % 1000));
 	return;
 }
@@ -167,7 +175,7 @@ void readMSG(struct MSG* msg, uint8_t* buff, uint8_t* x, uint8_t* x0) {
 	*x = ((*x + 1) % B_SIZE);
 	if (aSign(c)) {
 		sign = c;
-		if (MSG_DEBUG_MODE) {
+		if (0) {
 			memset(m, 0, errorMsgSize);
 			sprintf(m, "\n\r\t\t\t\t Sign: |%c|", sign);
 			free(LHS);
@@ -202,7 +210,7 @@ void readMSG(struct MSG* msg, uint8_t* buff, uint8_t* x, uint8_t* x0) {
 		free(m);
 		return;
 	}
-	if (MSG_DEBUG_MODE) {
+	if (0) {
 		memset(m, 0, errorMsgSize);
 		sprintf(m, "\n\r\t\t\t\t Val: |%d|",  atoi(LHS));
 		transmit(1, m);
@@ -235,7 +243,7 @@ void readMSG(struct MSG* msg, uint8_t* buff, uint8_t* x, uint8_t* x0) {
 		free(m);
 		return;
 	}
-	if (MSG_DEBUG_MODE) {
+	if (0) {
 		memset(m, 0, errorMsgSize);
 		sprintf(m, "\n\r\t\t\t\t Val: |%d|", atoi(RHS));
 		transmit(1, m);
@@ -253,7 +261,7 @@ void readMSG(struct MSG* msg, uint8_t* buff, uint8_t* x, uint8_t* x0) {
 
 	/* BUILD MSG */
 	value = (uint32_t) ((1000 * atoi(LHS)) + atoi(RHS));
-	if (MSG_DEBUG_MODE) {
+	if (0) {
 		memset(m, 0, errorMsgSize);
 		sprintf(m, "\n\r\t\t\t\t Value: |%lu|", value);
 		transmit(1, m);

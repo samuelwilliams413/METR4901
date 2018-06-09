@@ -299,98 +299,100 @@ int main(void) {
 	// init motor torque
 	set_T_target(par, 0);
 
-	while (1) {
+while (1) {
 
-		/* USER CODE END WHILE */
+	/* USER CODE END WHILE */
 
-		/* USER CODE BEGIN 3 */
+	/* USER CODE BEGIN 3 */
 
-		if (!sender) { // Reciever, this controller would manage the servo speed
+	if (!sender) { // Reciever, this controller would manage the servo speed
 
-			/* Read messages from UART 2 */
-			HAL_UART_Receive_DMA(&huart2, RX_B2, len);
+		/* Read messages from UART 2 */
+		HAL_UART_Receive_DMA(&huart2, RX_B2, len);
 
-			/* Process messages */
-			for (i = 0; i < B_SIZE; i++) {
-				readMSG(msg, RX_B2, &x, &x0); // Read the message and save the location in the buffer
-				if (msg->complete) { // if a message is complete (valid)
-					RX_B2[x - 1] = '@'; // mark it as read
-					update_value(par, msg); // update system parameters
+		/* Process messages */
+		for (i = 0; i < B_SIZE; i++) {
+			readMSG(msg, RX_B2, &x, &x0); // Read the message and save the location in the buffer
+			if (msg->complete) { // if a message is complete (valid)
+				RX_B2[x - 1] = '@'; // mark it as read
+				update_value(par, msg); // update system parameters
 
-					contructMSG((char*) TX_B1, msg, B_SIZE); // Construct a message to be sent
+				contructMSG((char*) TX_B1, msg, B_SIZE); // Construct a message to be sent
 
-					// Update the duty cycle of the servo (this was used in the demo, as the
-					// other controller would tell this one the demand)
-					DC = msg->value; set_pulse_width();
+				// Update the duty cycle of the servo (this was used in the demo, as the
+				// other controller would tell this one the demand)
+				DC = msg->value;
+				set_pulse_width();
 
-					// Tell the world the current DC
-					memset(TX_B1, 0, B_SIZE);
-					sprintf(TX_B1, "DC%u\tT%u\n\r", DC, get_T_target(par));
-					while (isTransmitting(&huart1, &huart2))
-						;
-					HAL_UART_Transmit_DMA(&huart1, TX_B1, B_SIZE);
-					HAL_UART_Transmit_DMA(&huart2, TX_B1, B_SIZE);
+				// Tell the world the current DC
+				memset(TX_B1, 0, B_SIZE);
+				sprintf(TX_B1, "DC%u\tT%u\n\r", DC, get_T_target(par));
+				while (isTransmitting(&huart1, &huart2))
+					;
+				HAL_UART_Transmit_DMA(&huart1, TX_B1, B_SIZE);
+				HAL_UART_Transmit_DMA(&huart2, TX_B1, B_SIZE);
 
-				}
 			}
 		}
+	}
 
-		if (sender) { // Transmitter, this controller would manage the load cell
-			Update_ADC_Values();
+	if (sender) { // Transmitter, this controller would manage the load cell
+		Update_ADC_Values();
 
-			// translate load cell values for mass (unlike the proximity sensors we
-			// can't just make them equal and unscaled, cause the load cells are .... shit)
-			mA = -1.6614 * ADC_A_Value + 5178.8;
-			mB = -17.484 * ADC_B_Value + 26220;
+		// translate load cell values for mass (unlike the proximity sensors we
+		// can't just make them equal and unscaled, cause the load cells are .... shit)
+		mA = -1.6614 * ADC_A_Value + 5178.8;
+		mB = -17.484 * ADC_B_Value + 26220;
 
-			// No negative loads
-			mA = (mA < 0) ? 0 : mA;
-			mB = (mB < 0) ? 0 : mB;
+		// No negative loads
+		mA = (mA < 0) ? 0 : mA;
+		mB = (mB < 0) ? 0 : mB;
 
-			// Add the value to the moving average buffer
-			mA_Buff[loadIndex] = mA;
-			mB_Buff[loadIndex] = mB;
-			loadIndex = (loadIndex + 1) % loadBufferLen;
+		// Add the value to the moving average buffer
+		mA_Buff[loadIndex] = mA;
+		mB_Buff[loadIndex] = mB;
+		loadIndex = (loadIndex + 1) % loadBufferLen;
 
-			// We add the most recent "loadBufferLen" number of measurements,
-			// then divide them for a moving average
-			loadBot = 0;
-			loadTop = 0;
-			for (i = 0; i < loadBufferLen; i++) { loadBot = loadBot + mA_Buff[i];
-				loadTop = loadTop + mB_Buff[i];
-			}
-
-			// this is the dividing
-			loadBot = loadBot / loadBufferLen;
-			loadTop = loadTop / loadBufferLen;
-
-			// We want to bias the top to run when the load is equal (by 500g)
-			delta = (loadTop + 500);
-
-			// If the bottom is greater than the top, we stop
-			delta = (loadBot > (loadTop + 500)) ? 0 : delta; // Ternary statement :P
-			DC = delta;
-			set_pulse_width();
-
-			/* Create messages to send off */
-			set_T_target(par, delta);
-			contruct_X_msg('T', par, msgT, TX_T);
-
-			/* Send out messages */
-			while (isTransmitting(&huart1, &huart2))
-				;
-			HAL_UART_Transmit_DMA(&huart1, (uint8_t*) TX_T, B_SIZE);
-			HAL_UART_Transmit_DMA(&huart2, (uint8_t*) TX_T, B_SIZE);
-
+		// We add the most recent "loadBufferLen" number of measurements,
+		// then divide them for a moving average
+		loadBot = 0;
+		loadTop = 0;
+		for (i = 0; i < loadBufferLen; i++) {
+			loadBot = loadBot + mA_Buff[i];
+			loadTop = loadTop + mB_Buff[i];
 		}
 
-		/* Toggle LED */
-		if (HAL_GetTick() > (epoch_LED + D_LED)) {
-			HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-			epoch_LED = HAL_GetTick();
-		}
+		// this is the dividing
+		loadBot = loadBot / loadBufferLen;
+		loadTop = loadTop / loadBufferLen;
+
+		// We want to bias the top to run when the load is equal (by 500g)
+		delta = (loadTop + 500);
+
+		// If the bottom is greater than the top, we stop
+		delta = (loadBot > (loadTop + 500)) ? 0 : delta; // Ternary statement :P
+		DC = delta;
+		set_pulse_width();
+
+		/* Create messages to send off */
+		set_T_target(par, delta);
+		contruct_X_msg('T', par, msgT, TX_T);
+
+		/* Send out messages */
+		while (isTransmitting(&huart1, &huart2))
+			;
+		HAL_UART_Transmit_DMA(&huart1, (uint8_t*) TX_T, B_SIZE);
+		HAL_UART_Transmit_DMA(&huart2, (uint8_t*) TX_T, B_SIZE);
 
 	}
+
+	/* Toggle LED */
+	if (HAL_GetTick() > (epoch_LED + D_LED)) {
+		HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+		epoch_LED = HAL_GetTick();
+	}
+
+}
 
 	free(msg);
 	free(msgT);
@@ -858,12 +860,11 @@ void Update_ADC_Values(void) {
 	return;
 }
 
-
 /**
  * @brief 	Sets the Duty cycle (pulse width) of the servo motor
  * @note 	The (max,min) and (maxL,minL) parameters refer to the
  * two servomotors in use (MG995 and 900-8 respectively)
- *  @note 	The DC is global varibale, so we have no inputs or outputs
+ *  @note 	The DC is global variable, so we have no inputs or outputs
  */
 void set_pulse_width(void) {
 	// Ensure value is valid
@@ -903,7 +904,6 @@ void set_pulse_width(void) {
 			CLK_B_RESET;
 		}
 	}
-
 
 	// For the MG995
 	if (servoMotor) {
@@ -990,7 +990,6 @@ void msgERROR(int e, uint8_t c) {
 	while (isTransmitting(&huart1, &huart2))
 		;
 	HAL_UART_Transmit_DMA(&huart1, (uint8_t*) errorMsg, errorMsgSize);
-	//HAL_UART_Transmit_DMA(&huart2, (uint8_t*) errorMsg, errorMsgSize);
 	return;
 }
 
