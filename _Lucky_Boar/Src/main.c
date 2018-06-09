@@ -280,13 +280,9 @@ int main(void) {
 	ADC_D_Value = 0;
 	ADC_E_Value = 0;
 	ADC_F_Value = 0;
-	int pass_on = 1;
-	int onetwo = 1;
-	int mA = 0, mB = 0, count = 0, loadIndex = 0, loadBot, loadTop;
 
-	int DEMAND, delta;
+	int mA = 0, mB = 0, loadIndex = 0, loadBot, loadTop, delta;
 	par = parameters_init();
-	volatile int angle = 0;
 
 	if (HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1) != HAL_OK) {
 		/* PWM Generation Error */
@@ -303,7 +299,7 @@ int main(void) {
 
 		/* USER CODE BEGIN 3 */
 
-		if (!sender) {
+		if (!sender) { // Reciever
 
 			/* Read messages from UART 2 */
 			HAL_UART_Receive_DMA(&huart2, RX_B2, len);
@@ -317,13 +313,13 @@ int main(void) {
 
 					contructMSG((char*) TX_B1, msg, B_SIZE);
 					DC = msg->value;
-								set_pulse_width();
+					set_pulse_width();
 					memset(TX_B1, 0, B_SIZE);
-						sprintf(TX_B1, "DC%u\tT%u\n\r", DC, get_T_target(par));
-						while (isTransmitting(&huart1, &huart2))
-							;
-						HAL_UART_Transmit_DMA(&huart1, TX_B1, B_SIZE);
-						HAL_UART_Transmit_DMA(&huart2, TX_B1, B_SIZE);
+					sprintf(TX_B1, "DC%u\tT%u\n\r", DC, get_T_target(par));
+					while (isTransmitting(&huart1, &huart2))
+						;
+					HAL_UART_Transmit_DMA(&huart1, TX_B1, B_SIZE);
+					HAL_UART_Transmit_DMA(&huart2, TX_B1, B_SIZE);
 
 				}
 			}
@@ -366,30 +362,12 @@ int main(void) {
 			HAL_UART_Transmit_DMA(&huart1, (uint8_t*) TX_T, B_SIZE);
 			HAL_UART_Transmit_DMA(&huart2, (uint8_t*) TX_T, B_SIZE);
 
-		} else {
-
 		}
 
 		/* Toggle LED */
 		if (HAL_GetTick() > (epoch_LED + D_LED)) {
 			HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
 			epoch_LED = HAL_GetTick();
-
-			//while (isTransmitting(&huart1, &huart2))
-			//;
-			//memset(ADC_buffer, 0, B_SIZE);
-			//sprintf(ADC_buffer, "A%u\tB%u\tB%u\tT%u\t\DC%u\n\r", ADC_A_Value,
-			//		ADC_B_Value, loadBot, loadTop, DC);
-			//HAL_UART_Transmit_DMA(&huart1, ADC_buffer, B_SIZE);
-			//HAL_UART_Transmit_DMA(&huart2, ADC_buffer, B_SIZE);
-
-			//while (isTransmitting(&huart1, &huart2))
-			///				;
-			//			memset(ADC_buffer, 0, B_SIZE);
-			//			sprintf(ADC_buffer, "DC%u\tT%u\n\r", DC, get_T_target(par));
-			//			HAL_UART_Transmit_DMA(&huart1, ADC_buffer, B_SIZE);
-			//			HAL_UART_Transmit_DMA(&huart2, ADC_buffer, B_SIZE);
-
 		}
 
 	}
@@ -487,7 +465,6 @@ static void MX_NVIC_Init(void) {
 static void MX_ADC1_Init(void) {
 
 	ADC_MultiModeTypeDef multimode;
-	ADC_ChannelConfTypeDef sConfig;
 
 	/**Common config
 	 */
@@ -542,8 +519,6 @@ static void MX_ADC1_Init(void) {
 
 /* ADC2 init function */
 static void MX_ADC2_Init(void) {
-
-	ADC_ChannelConfTypeDef sConfig;
 
 	/**Common config
 	 */
