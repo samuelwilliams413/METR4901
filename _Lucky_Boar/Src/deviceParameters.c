@@ -110,6 +110,11 @@ PARAMETERS* parameters_init(void) {
 	return par;
 }
 
+/**
+ * @brief	Allows us to update the system paramaters
+ * @note	Rather than directly updating values, we use a wrapper to allow for overrides
+ * @param	A-F : corresponding ADC values (or overrides)
+ */
 void update_values(struct PARAMETERS* par, uint32_t A, uint32_t B, uint32_t C,
 		uint32_t D, uint32_t E, uint32_t F) {
 
@@ -124,6 +129,12 @@ void update_values(struct PARAMETERS* par, uint32_t A, uint32_t B, uint32_t C,
 	return;
 }
 
+/**
+ * @brief	Update a specific values (used when receiving a message)
+ * @note	Only predefined types will result in a change
+ * @param	par : system parameters
+ * @param	msg : message from which the update is dervied
+ */
 void update_value(struct PARAMETERS* par, struct MSG* msg) {
 	int type = 0, sign;
 	switch (msg->type) {
@@ -148,12 +159,21 @@ void update_value(struct PARAMETERS* par, struct MSG* msg) {
 	return;
 }
 
+/**
+ * @brief	Transform an angle in degrees to radians
+ * @param	angle : Angle to be transformed (degrees)
+ * @retval	angle : Angle in radians
+ */
 double deg2rad(double angle) {
 	double val;
 	val = 180 / PI;
 	return angle * val;
 }
 
+/**
+ * @brief	Updates the system paramaters for the control system based on observations of the system behaviour
+ * @param	par : system parameters
+ */
 void update_state(struct PARAMETERS* par) {
 	int average_f, average_r;
 	double dx, angle;
