@@ -13,9 +13,9 @@ R5 N003 0 {Rb}
 .lib opamp.sub
 * 70kHz Sallenkey Bandpass Filter \n(??? dB/Decade | Cutoff (Low) ???kHz | Cutoff (High) ???kHz)
 ;dc V3 -0.5 0.5 0.01
-.ac dec 1000 7k 700k
+.ac dec 1000 7k 7Meg
 .inc C:\Users\Samuel\Documents\LTspiceXVII\lib\TL072.txt
-.param R1=1.3M
+.param R1=0.318Meg
 .param R2=31.9k
 .param Rf=16.1k
 .param C1=100p
