@@ -1,0 +1,26 @@
+* D:\Users\Samuel\workspace\METR4901\LT Spice Model\SallenKeyBandPassFIlter.asc
+V1 +12V 0 12
+V2 -12V 0 -12
+XU3 N003 N002 +12V -12V V_output TL072
+C1 N001 0 {C1}
+C2 N002 N001 {C2}
+V3 V_sensor 0 1 AC 1.0
+R1 N001 V_sensor {R1}
+R2 0 N002 {R2}
+R3 N001 V_output {Rf}
+R4 NC_01 N003 {Ra}
+R5 N003 0 {Rb}
+.lib opamp.sub
+* 70kHz Sallenkey Bandpass Filter \n(??? dB/Decade | Cutoff (Low) ???kHz | Cutoff (High) ???kHz)
+;dc V3 -0.5 0.5 0.01
+.ac dec 1000 7k 700k
+.inc C:\Users\Samuel\Documents\LTspiceXVII\lib\TL072.txt
+.param R1=1.3M
+.param R2=31.9k
+.param Rf=16.1k
+.param C1=100p
+.param Ra=65k
+.param Rb=65k
+.param C2=100p
+.backanno
+.end
