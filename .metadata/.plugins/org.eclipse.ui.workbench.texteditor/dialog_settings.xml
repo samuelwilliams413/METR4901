@@ -2,30 +2,30 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="transmit" key="selection"/>
+		<item value="" key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
-		<item value="false" key="wholeword"/>
+		<item value="true" key="wholeword"/>
 		<list key="findhistory">
-			<item value="transmit"/>
-			<item value="strip_str"/>
-			<item value="emptyRX"/>
-			<item value="get_error"/>
-			<item value="read_HX711"/>
-			<item value="/**"/>
-			<item value="Update_PWM"/>
-			<item value="uint8_t"/>
+			<item value="demo"/>
+			<item value="analogue_parse"/>
+			<item value="D_VAL"/>
+			<item value="Update_ADC_Values"/>
+			<item value="sConfig_F"/>
+			<item value="sConfig_E"/>
+			<item value="sConfig_D"/>
+			<item value="sConfig_C"/>
 		</list>
 		<list key="replacehistory">
-			<item value="int"/>
-			<item value="double"/>
-			<item value="uint32_t"/>
-			<item value="DC"/>
-			<item value="PWM_PERIOD"/>
-			<item value="TIM3"/>
-			<item value="htim3"/>
-			<item value="ADC_SAMPLETIME_1CYCLE_5*10"/>
+			<item value="A_VAL"/>
+			<item value="sConfig_D"/>
+			<item value="sConfig_C"/>
+			<item value="sConfig_B"/>
+			<item value="sConfig_A"/>
+			<item value="hadc1"/>
+			<item value="sConfig_H"/>
+			<item value="sConfig_G"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
